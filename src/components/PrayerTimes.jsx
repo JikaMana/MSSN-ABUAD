@@ -11,6 +11,7 @@ import noonIcon from "../assets/images/noon.png";
 import afternoonIcon from "../assets/images/afternoon.png";
 import sunsetIcon from "../assets/images/sunset.png";
 import nightIcon from "../assets/images/night.png";
+import jumuahIcon from "../assets/images/jumuah.png";
 
 const PrayerTimes = () => {
   const [prayerTimes, setPrayerTimes] = useState(null);
@@ -22,7 +23,7 @@ const PrayerTimes = () => {
     { name: "Asr", icon: afternoonIcon, adhan: "16 : 15", iqama: "16 : 25" },
     { name: "Maghrib", icon: sunsetIcon, adhan: "18 : 52", iqama: "18 : 57" },
     { name: "Isha", icon: nightIcon, adhan: "19 : 55", iqama: "20 : 05" },
-    { name: "Jumu'ah", icon: noonIcon, adhan: "13 : 00", iqama: "13 : 30" },
+    { name: "Jumu'ah", icon: jumuahIcon, adhan: "13 : 00", iqama: "13 : 30" },
   ];
 
   useEffect(() => {

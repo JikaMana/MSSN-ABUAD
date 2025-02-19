@@ -7,11 +7,18 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: "News", href: "/news" },
     { name: "Forum", href: "/forum" },
     { name: "Events", href: "/events" },
     { name: "Store", href: "/store" },
   ];
 
+  const [activeLink, setActiveLink] = useState("Home");
+
+  const handleActiveNav = (nav) => {
+    setActiveLink(nav);
+  };
   return (
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="container">
@@ -39,7 +46,10 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="text-gray-700 hover:text-primary font-medium"
+                  className={`text-gray-700 text-lg  hover:text-primary font-medium ${
+                    activeLink === link.name ? "text-primary" : ""
+                  }`}
+                  onClick={() => handleActiveNav(link.name)}
                 >
                   {link.name}
                 </Link>
