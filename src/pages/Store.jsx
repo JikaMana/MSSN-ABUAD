@@ -3,8 +3,6 @@ import { ShoppingCart, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Store = () => {
-  const [cart, setCart] = useState([]);
-
   const products = [
     {
       id: 1,
@@ -40,10 +38,6 @@ const Store = () => {
     },
   ];
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
-
   return (
     <div className="pt-32 pb-16">
       <div className="container">
@@ -51,11 +45,6 @@ const Store = () => {
           <h1 className="text-4xl font-bold">MSSN Store</h1>
           <div className="relative">
             <ShoppingCart className="text-primary" size={24} />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                {cart.length}
-              </span>
-            )}
           </div>
         </div>
 
@@ -81,7 +70,6 @@ const Store = () => {
                   </span>
                   <Link
                     to="tel:+2349012345678"
-                    onClick={() => addToCart(product)}
                     className="btn btn-primary py-2"
                   >
                     Contact Seller

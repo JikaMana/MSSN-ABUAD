@@ -9,6 +9,7 @@ import Blog from "./pages/Blog";
 import Events from "./pages/Events";
 import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
+import News from "./pages/News";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/events" element={<Events />} />
           <Route path="/donate" element={<Donate />} />
+          <Route path="/news" element={<News />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>

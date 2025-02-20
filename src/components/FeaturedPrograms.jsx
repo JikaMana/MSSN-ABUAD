@@ -6,42 +6,57 @@ import {
   Fuel as Mosque,
   BookAudio,
   Book,
+  Trophy,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FeaturedPrograms = () => {
   const programs = [
     {
+      title: "Sunday Program",
+      description: "Weekly Islamic lectures and discussions on various topics",
+      icon: Users,
+      time: "Sundays( 10:00/11:00 AM to Dhuhr)",
+    },
+    {
+      title: "Sisters Circle",
+      description: "Learn about matters/issue related to muslim female affairs",
+      icon: Users,
+      time: "Saturdays (Asr to Maghrib)",
+    },
+    {
       title: "Qur'an Teaching",
       description:
         "Learn Qur'an with proper tajweed from qualified instructors",
       icon: BookOpen,
-      time: "Weekdays, 6:00 PM",
-    },
-    {
-      title: "Sunday Program",
-      description: "Weekly Islamic lectures and discussions on various topics",
-      icon: Users,
-      time: "Sundays, 10:00 AM",
-    },
-    {
-      title: "Qur'an Competition",
-      description: "Annual competition to encourage Qur'an memorization",
-      icon: Award,
-      time: "Yearly Event",
+      time: "Weekdays (Maghrib to Isha)",
     },
     {
       title: "Tajweed Classes",
       description: "Learn the proper rules of Qur'anic recitation",
       icon: Book,
-      time: "Saturdays, 2:00 PM",
+      time: "Weekends (Maghrib to Isha)",
     },
     {
       title: "Hadith/Fiqh Reminders",
       description:
         "Learn about some Ahadith and some books of Fiqh(Umdat Al Ahkam)",
       icon: Book,
-      time: "Any day After Subh and Isha",
+      time: "Any day after Subh and Isha",
+    },
+
+    {
+      title: "Qur'an Competition",
+      description: "Annual competition to encourage Qur'an memorization",
+      icon: Award,
+      time: "Yearly/Bi-annual Event",
+    },
+
+    {
+      title: "Sports week",
+      description: "Football Training(Male)",
+      icon: Trophy,
+      time: "Sceduled by MSSN brothers agreement",
     },
   ];
 

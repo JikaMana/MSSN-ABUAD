@@ -21,7 +21,7 @@ const Admin = () => {
   ];
 
   return (
-    <div className="pt-32min-h-screen bg-gray-50">
+    <div className="pt-32 min-h-screen bg-gray-50">
       <div className="container">
         <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
 

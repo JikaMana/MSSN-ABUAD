@@ -87,6 +87,9 @@ const PrayerTimes = () => {
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="lg:flex flex-row-reverse gap-x-8">
           <div className="flex-[0.5]">
+            <h2 className="text-2xl font-medium mb-4 text-center">
+              Time we pray in Mosque
+            </h2>
             <table className="min-w-full bg-white border-separate border-spacing-y-4">
               <thead>
                 <tr>

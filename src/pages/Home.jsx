@@ -5,6 +5,7 @@ import WeeklyReminder from "../components/WeeklyReminder";
 import LocationMap from "../components/LocationMap";
 import FeaturedPrograms from "../components/FeaturedPrograms";
 import RamadanSection from "../components/RamadanSection";
+import Contact from "../components/Contact";
 
 const Home = () => {
   return (
@@ -41,6 +42,10 @@ const Home = () => {
 
       <section className="container">
         <LocationMap />
+      </section>
+
+      <section className="container bg-primary ">
+        <Contact />
       </section>
     </div>
   );
