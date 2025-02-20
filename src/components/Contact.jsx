@@ -35,7 +35,7 @@ const Contact = () => {
           {EXCOS.map((exco, i) => (
             <div
               key={i}
-              className="relative h-48 w-48 bg-primary-light rounded-2xl"
+              className="relative h-48 w-48 bg-primary-light rounded-2xl hover:cursor-move"
             >
               {/* <img
               src="/image.jpeg"

@@ -18,6 +18,26 @@ const FeaturedPrograms = () => {
       icon: Users,
       time: "Sundays( 10:00/11:00 AM to Dhuhr)",
     },
+
+    {
+      title: "Qur'an Teaching",
+      description: "Learn the Holy either by Heart by Recitation",
+      icon: BookOpen,
+      time: "Weekdays (Maghrib to Isha)",
+    },
+    {
+      title: "Tajweed Classes",
+      description:
+        "    Learn Qur'an with proper tajweed from qualified instructors",
+      icon: BookOpen,
+      time: "Weekdays (Maghrib to Isha)",
+    },
+    {
+      title: "Hadith Classes",
+      description: "Learn about some Ahadith",
+      icon: Book,
+      time: "Any day (Subh and Isha)",
+    },
     {
       title: "Sisters Circle",
       description: "Learn about matters/issue related to muslim female affairs",
@@ -25,31 +45,17 @@ const FeaturedPrograms = () => {
       time: "Saturdays (Asr to Maghrib)",
     },
     {
-      title: "Qur'an Teaching",
-      description:
-        "Learn Qur'an with proper tajweed from qualified instructors",
-      icon: BookOpen,
-      time: "Weekdays (Maghrib to Isha)",
-    },
-    {
-      title: "Tajweed Classes",
-      description: "Learn the proper rules of Qur'anic recitation",
+      title: "Fiqh Reminders",
+      description: "Learn about some books of Fiqh(e.g Umdat Al Ahkam)",
       icon: Book,
-      time: "Weekends (Maghrib to Isha)",
-    },
-    {
-      title: "Hadith/Fiqh Reminders",
-      description:
-        "Learn about some Ahadith and some books of Fiqh(Umdat Al Ahkam)",
-      icon: Book,
-      time: "Any day after Subh and Isha",
+      time: "Any day (Subh and Isha)",
     },
 
     {
       title: "Qur'an Competition",
       description: "Annual competition to encourage Qur'an memorization",
       icon: Award,
-      time: "Yearly/Bi-annual Event",
+      time: "Yearly / Bi-annual Event",
     },
 
     {
