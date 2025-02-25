@@ -23,7 +23,10 @@ const Navbar = () => {
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="container">
         <div className="flex justify-between items-center h-20">
-          <Link to="/" className="flex-shrink-0 flex items-center gap-x-4">
+          <Link
+            to="/"
+            className="flex-shrink-0 flex items-center gap-x-0 sm:gap-x-4"
+          >
             <div className="flex items-center">
               <img
                 src="/mssn-logo.jpeg"
@@ -36,7 +39,9 @@ const Navbar = () => {
                 className="w-12 h-12 rounded-full"
               />
             </div>
-            <h1 className="text-2xl font-bold text-primary">MSSN ABUAD</h1>
+            <h1 className="hidden sm:block text-2xl font-bold text-primary">
+              MSSN ABUAD
+            </h1>
           </Link>
 
           {/* Desktop Navigation */}
@@ -73,13 +78,13 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden">
+          <div className="transform transition-all">
             <div className="px-2 pt-2 pb-6 space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer"
+                  className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer transform"
                 >
                   {link.name}
                 </Link>

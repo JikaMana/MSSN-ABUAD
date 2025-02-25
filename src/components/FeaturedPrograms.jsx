@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  BookOpen,
-  Users,
-  Award,
-  Fuel as Mosque,
-  BookAudio,
-  Book,
-  Trophy,
-} from "lucide-react";
+import { BookOpen, Users, Award, Book, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FeaturedPrograms = () => {

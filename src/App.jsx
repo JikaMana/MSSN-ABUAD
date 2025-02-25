@@ -10,6 +10,7 @@ import Events from "./pages/Events";
 import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
 import News from "./pages/News";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           {/* <Route path="/about" element={<About />} /> */}
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

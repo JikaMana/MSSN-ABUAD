@@ -44,7 +44,7 @@ const Home = () => {
         <LocationMap />
       </section>
 
-      <section className=" bg-primary ">
+      <section className="bg-primary">
         <div className="container">
           <Contact />
         </div>

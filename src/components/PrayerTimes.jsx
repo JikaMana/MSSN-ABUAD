@@ -18,12 +18,12 @@ const PrayerTimes = () => {
   const [loading, setLoading] = useState(true);
 
   const salahTime = [
-    { name: "Fajr", icon: dawnIcon, adhan: "5 : 45", iqama: "5 : 55" },
-    { name: "Dhuhr", icon: noonIcon, adhan: "12 : 55", iqama: "13 : 05" },
-    { name: "Asr", icon: afternoonIcon, adhan: "16 : 15", iqama: "16 : 25" },
-    { name: "Maghrib", icon: sunsetIcon, adhan: "18 : 52", iqama: "18 : 57" },
-    { name: "Isha", icon: nightIcon, adhan: "19 : 55", iqama: "20 : 05" },
-    { name: "Jumu'ah", icon: jumuahIcon, adhan: "13 : 00", iqama: "13 : 30" },
+    { name: "Fajr", icon: dawnIcon, adhan: "5:45", iqama: "5:55" },
+    { name: "Dhuhr", icon: noonIcon, adhan: "12:55", iqama: "13:05" },
+    { name: "Asr", icon: afternoonIcon, adhan: "16:15", iqama: "16:25" },
+    { name: "Maghrib", icon: sunsetIcon, adhan: "18:52", iqama: "18:57" },
+    { name: "Isha", icon: nightIcon, adhan: "19:55", iqama: "20:05" },
+    { name: "Jumu'ah", icon: jumuahIcon, adhan: "13:00", iqama: "13:30" },
   ];
 
   useEffect(() => {
@@ -86,12 +86,12 @@ const PrayerTimes = () => {
       </div>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="lg:flex flex-row-reverse gap-x-8">
-          <div className="flex-[0.5]">
-            <h2 className="text-2xl font-medium mb-4 text-center">
+          <div className="flex-[0.45] overflow-x-scroll scrollbar-hidden">
+            <h2 className="text-2xl font-medium mb-4 text-center ">
               Time we pray in Mosque
             </h2>
-            <table className="min-w-full bg-white border-separate border-spacing-y-4">
-              <thead>
+            <table className="min-w-full bg-white border-separate border-spacing-y-4 overflow-x-scroll">
+              <thead className="">
                 <tr>
                   <th className="px-4">
                     <img
@@ -125,7 +125,7 @@ const PrayerTimes = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="">
+              <tbody>
                 {salahTime.map((time, index) => (
                   <tr key={index}>
                     <td className="px-4 py-2 whitespace-nowrap text-lg text-center font-medium border-2 shadow-md rounded-md">
@@ -149,7 +149,7 @@ const PrayerTimes = () => {
               </tbody>
             </table>
           </div>
-          <div className="flex-[0.5]">
+          <div className="flex-[0.55] mt-8 lg:mt-24">
             <div>
               <h3 className="text-2xl font-bold mb-2">
                 Encourage yourselves to pray on time:
