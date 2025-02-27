@@ -7,12 +7,20 @@ import {
   BookOpen,
   Users,
 } from "lucide-react";
+import Dashboard from "../components/admin/Dashboard";
+import Store from "../components/admin/Store";
+import PrayerTimes from "../components/admin/PrayerTimes";
+import QnA from "../components/admin/QnA";
+import Events from "../components/admin/Events";
+import Blog from "../components/admin/Blog";
+import Members from "../components/admin/Members";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   const tabs = [
     { id: "dashboard", name: "Dashboard", icon: Settings },
+    { id: "prayer", name: "Prayer Time", icon: Calendar },
     { id: "store", name: "Store", icon: Package },
     { id: "qanda", name: "Q&A", icon: MessageSquare },
     { id: "events", name: "Events", icon: Calendar },
@@ -46,24 +54,13 @@ const Admin = () => {
           </div>
 
           <div className="p-6">
-            {activeTab === "dashboard" && (
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-primary/5 rounded-lg p-6">
-                  <h3 className="font-semibold mb-2">Total Members</h3>
-                  <p className="text-3xl font-bold">250</p>
-                </div>
-                <div className="bg-primary/5 rounded-lg p-6">
-                  <h3 className="font-semibold mb-2">Pending Questions</h3>
-                  <p className="text-3xl font-bold">12</p>
-                </div>
-                <div className="bg-primary/5 rounded-lg p-6">
-                  <h3 className="font-semibold mb-2">Upcoming Events</h3>
-                  <p className="text-3xl font-bold">3</p>
-                </div>
-              </div>
-            )}
-
-            {/* Add other tab content here */}
+            {activeTab === "dashboard" && <Dashboard />}
+            {activeTab === "prayer" && <PrayerTimes />}
+            {activeTab === "store" && <Store />}
+            {activeTab === "qanda" && <QnA />}
+            {activeTab === "events" && <Events />}
+            {activeTab === "blog" && <Blog />}
+            {activeTab === "members" && <Members />}
           </div>
         </div>
       </div>
