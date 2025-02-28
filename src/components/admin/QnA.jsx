@@ -37,7 +37,7 @@ const QnA = () => {
         <h2 className="text-2xl font-bold text-primary">Q&A Moderation</h2>
         <input
           type="text"
-          placeholder="Search questions..."
+          placeholder="Search questions word..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"

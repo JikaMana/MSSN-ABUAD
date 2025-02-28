@@ -4,9 +4,9 @@ const Members = () => {
   const [adminMembers, setadminMembers] = useState([
     {
       id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      role: "Member",
+      name: "MSSN ADMIN",
+      email: "mssnabuad@gmail.com",
+      role: "Admin",
       status: "Active",
     },
     {
@@ -27,7 +27,7 @@ const Members = () => {
       id: 4,
       name: "Fatima Yusuf",
       email: "fatima@example.com",
-      role: "Admin",
+      role: "EXCO",
       status: "Active",
     },
   ]);
