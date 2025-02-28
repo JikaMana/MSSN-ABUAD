@@ -24,7 +24,7 @@ const QnA = () => {
                 Question
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                Author
+                Mail
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
                 Date
@@ -43,7 +43,7 @@ const QnA = () => {
               <td className="px-4 py-3 text-gray-700">
                 What is the significance of prayer in Islam?
               </td>
-              <td className="px-4 py-3 text-gray-700">Ustadh Ahmed</td>
+              <td className="px-4 py-3 text-gray-700">sample1mail@mail.com</td>
               <td className="px-4 py-3 text-gray-700">2024-04-01</td>
               <td className="px-4 py-3 text-center">
                 <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-semibold">
@@ -63,7 +63,7 @@ const QnA = () => {
               <td className="px-4 py-3 text-gray-700">
                 How do I perform Wudu correctly?
               </td>
-              <td className="px-4 py-3 text-gray-700">Fatima</td>
+              <td className="px-4 py-3 text-gray-700">sample2mail@mail.com</td>
               <td className="px-4 py-3 text-gray-700">2024-04-02</td>
               <td className="px-4 py-3 text-center">
                 <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">

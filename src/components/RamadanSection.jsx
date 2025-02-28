@@ -7,7 +7,7 @@ const RamadanSection = () => {
     { day: "Monday", imam: "Abdullah Muhammad(Ameer)", college: "MHS" },
     {
       day: "Wednesday",
-      imam: "Muslim Rikiji(Na'eebul Ameer (D))",
+      imam: "Muslim Rikiji(Na'eebul Ameer Da'wah)",
       college: "Engineering",
     },
     { day: "Friday", imam: "Alameen Ameen", college: "Pharmacy" },

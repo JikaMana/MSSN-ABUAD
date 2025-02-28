@@ -11,6 +11,8 @@ import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
 import News from "./pages/News";
 import Footer from "./components/Footer";
+import MssnHistory from "./pages/MssnHistory";
+import MssnAbuadHistory from "./pages/MssnAbuadHistory";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/mssn-history" element={<MssnHistory />} />
+          <Route path="/mssn-abuad-history" element={<MssnAbuadHistory />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/store" element={<Store />} />
           <Route path="/forum" element={<QandA />} />
@@ -27,7 +31,6 @@ function App() {
           <Route path="/donate" element={<Donate />} />
           <Route path="/news" element={<News />} />
           <Route path="/admin" element={<Admin />} />
-          {/* <Route path="/about" element={<About />} /> */}
         </Routes>
         <Footer />
       </div>
