@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 const Contact = () => {
   const EXCOS = [
     { name: "Abdullahi Muhammad", position: "Ameer" },
+    { name: "Raphat Atoyebi", position: "Ameerah" },
     { name: "Ameenullah", position: "Na'eebul Ameer" },
     { name: "Muslim Rikiji", position: "Na'eebul Ameer (D)" },
     { position: "Editor in Chief", name: "Abdurraqeeb Shittu" },
-    { name: "Raphat Atoyebi", position: "Ameerah" },
     { name: "Unknown", position: "*******" },
   ];
 

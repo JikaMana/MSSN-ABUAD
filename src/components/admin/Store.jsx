@@ -113,9 +113,9 @@ const Store = () => {
                   {product.description}
                 </td>
                 <td className="px-4 py-3 text-center">
-                  <button className="bg-blue-500 hover:bg-blue-600  text-white text-sm font-medium px-3 py-2 rounded mr-2">
+                  {/* <button className="bg-blue-500 hover:bg-blue-600  text-white text-sm font-medium px-3 py-2 rounded mr-2">
                     <Pencil />
-                  </button>
+                  </button> */}
                   <button
                     className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-2 rounded"
                     onClick={() => deleteProduct(product.id)}

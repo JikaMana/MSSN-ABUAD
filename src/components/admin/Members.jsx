@@ -1,6 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Members = () => {
+  const [adminMembers, setadminMembers] = useState([
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john@example.com",
+      role: "Member",
+      status: "Active",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane@example.com",
+      role: "Moderator",
+      status: "Active",
+    },
+    {
+      id: 3,
+      name: "Ahmed Ali",
+      email: "ahmed@example.com",
+      role: "Member",
+      status: "Inactive",
+    },
+    {
+      id: 4,
+      name: "Fatima Yusuf",
+      email: "fatima@example.com",
+      role: "Admin",
+      status: "Active",
+    },
+  ]);
+
+  const deleteItem = (memberID) => {
+    setadminMembers(adminMembers.filter((members) => members.id !== memberID));
+  };
+  console.log(adminMembers);
+
   return (
     <div className="p-6">
       {/* Header with "Add Member" Button */}
@@ -36,26 +72,35 @@ const Members = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {/* Sample Row */}
-            <tr>
-              <td className="px-4 py-3 text-gray-700">John Doe</td>
-              <td className="px-4 py-3 text-gray-700">john@example.com</td>
-              <td className="px-4 py-3 text-gray-700">Member</td>
-              <td className="px-4 py-3 text-center">
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
-                  Active
-                </span>
-              </td>
-              <td className="px-4 py-3 text-center">
-                <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-1 px-3 rounded mr-2">
-                  Edit
-                </button>
-                <button className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-1 px-3 rounded">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            {/* Repeat additional rows or map your member data */}
+            {adminMembers.map((member) => (
+              <tr key={member.id}>
+                <td className="px-4 py-3 text-gray-700">{member.name}</td>
+                <td className="px-4 py-3 text-gray-700">{member.email}</td>
+                <td className="px-4 py-3 text-gray-700">{member.role}</td>
+                <td className="px-4 py-3 text-center">
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      member.status === "Active"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {member.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-center">
+                  {/* <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-1 px-3 rounded mr-2">
+                    Edit
+                  </button> */}
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-1 px-3 rounded"
+                    onClick={() => deleteItem(member.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
