@@ -11,6 +11,7 @@ import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
 import News from "./pages/News";
 import Footer from "./components/Footer";
+import Login from "./pages/Login";
 
 function App() {
   return (
