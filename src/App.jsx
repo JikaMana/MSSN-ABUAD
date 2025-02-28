@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Programs from "./pages/Programs";
 import Store from "./pages/Store";
@@ -10,16 +9,16 @@ import Events from "./pages/Events";
 import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
 import News from "./pages/News";
-import Footer from "./components/Footer";
 import MssnHistory from "./pages/MssnHistory";
 import MssnAbuadHistory from "./pages/MssnAbuadHistory";
+import Login from "./pages/Login";
+import AppLayout from "./components/AppLayout";
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white">
-        <Navbar />
-        <Routes>
+      <Routes>
+        <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/mssn-history" element={<MssnHistory />} />
           <Route path="/mssn-abuad-history" element={<MssnAbuadHistory />} />
@@ -31,9 +30,9 @@ function App() {
           <Route path="/donate" element={<Donate />} />
           <Route path="/news" element={<News />} />
           <Route path="/admin" element={<Admin />} />
-        </Routes>
-        <Footer />
-      </div>
+        </Route>
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </Router>
   );
 }

@@ -7,8 +7,8 @@ const Contact = () => {
     { name: "Abdullahi Muhammad", position: "Ameer" },
     { name: "Ameenullah", position: "Na'eebul Ameer" },
     { name: "Muslim Rikiji", position: "Na'eebul Ameer (D)" },
-    { name: "Unknown", position: "Ameerah" },
-    { name: "Unknown", position: "*******" },
+    { position: "Editor in Chief", name: "Abdurraqeeb Shittu" },
+    { name: "Raphat Atoyebi", position: "Ameerah" },
     { name: "Unknown", position: "*******" },
   ];
 
