@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -14,6 +14,18 @@ import Footer from "./components/Footer";
 import Login from "./pages/Login";
 
 function App() {
+    const [data, setData] = useState([{}])
+    useEffect(() => {
+        fetch("/members").then(
+            res => res.json()
+            ).then(
+                data => {
+                    setData(data)
+                    console.log(data)
+                    }
+                )
+                },
+            [])
   return (
     <Router>
       <div className="min-h-screen bg-white">
