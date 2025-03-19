@@ -34,14 +34,14 @@ const Hero = () => {
 
             <div className="flex gap-4 flex-col sm:flex-row w-max">
               <Link
-                to="/about"
+                to="/mssn-history"
                 className="btn btn-primary flex items-center gap-2 cursor-pointer whitespace-nowrap"
               >
                 About MSSN
                 <ChevronRight size={20} />
               </Link>
               <Link
-                to="/about"
+                to="/mssn-abuad-history"
                 className="btn btn-outline text-white border-white hover:bg-white hover:text-primary whitespace-nowrap"
               >
                 MSSN ABUAD
