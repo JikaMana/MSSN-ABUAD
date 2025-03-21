@@ -13,13 +13,19 @@ app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 
 # Enable CORS
-CORS(app, origins=["http://localhost:5173"])
+# CORS(app, origins="http://localhost:5173")
+CORS(app,origins="*")
+
+
 
 # Simulated admin users (in-memory storage)
 admins = {
     "admin1": {"password": "password123"},
     "admin2": {"password": "securepass"}
 }
+@app.route('/')
+def home():
+    return "WELCOME TO MSSN ABUAD"
 
 @app.route('/api/login', methods=['POST'])
 def login():
