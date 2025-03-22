@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Clock } from "lucide-react";
 import { format } from "date-fns";
-
 import prayerIcon from "../assets/images/prayer.webp";
 import adhanIcon from "../assets/images/adhan.webp";
 import iqamaIcon from "../assets/images/iqama.webp";
-
 import dawnIcon from "../assets/images/dawn.png";
 import noonIcon from "../assets/images/noon.png";
 import afternoonIcon from "../assets/images/afternoon.png";
