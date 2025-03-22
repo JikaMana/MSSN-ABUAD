@@ -1,39 +1,14 @@
+import React, { useState, useEffect } from "react";
 import { Pencil, Trash } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Store = () => {
-  const [products, setProducts] = useState([
-    {
-      id: 12312345,
-      name: "Prayer Mat",
-      price: 5000,
-      description: "High-quality prayer mat",
-      image: "https://via.placeholder.com/50",
-    },
-    {
-      id: 1234545,
-      name: "Islamic Kettle",
-      price: 800,
-      description: "Stainless steel kettle for wudu",
-      image: "https://via.placeholder.com/50",
-    },
-    {
-      id: 1097894,
-      name: "Cap",
-      price: 1200,
-      description: "Elegant cap with embroidery",
-      image: "https://via.placeholder.com/50",
-    },
-    {
-      id: 1564545,
-      name: "Jalabiya",
-      price: 12500,
-      description: "Comfortable and stylish jalabiya for brothers",
-      image: "https://via.placeholder.com/50",
-    },
-  ]);
-
-  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [inventory, setInventory] = useState(0);
+  const [image_url, setImageUrl] = useState("");
+  const [products, setProducts] = useState([]);
+    const [showModal, setShowModal] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
@@ -41,7 +16,52 @@ const Store = () => {
     image: "",
   });
 
-  const handleChange = (e) => {
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const token = localStorage.getItem("auth_token");
+        const response = await axios.get("http://127.0.0.1:5000/api/products", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // Add product
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("auth_token");
+      await axios.post(
+        "http://127.0.0.1:5000/api/products",
+        { name, price, inventory, image_url },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      alert("Product added successfully!");
+      // Clear form fields
+      setName("");
+      setPrice(0);
+      setInventory(0);
+      setImageUrl("");
+      // Refetch products
+      const response = await axios.get("http://127.0.0.1:5000/api/products", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error adding product:", error);
+      alert("An error occurred");
+    }
+  };
+  
+    const handleChange = (e) => {
     setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
   };
 
@@ -63,18 +83,62 @@ const Store = () => {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-primary">Store Management</h2>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-        >
-          Add New Product
-        </button>
+      {/* Add Product Form */}
+      <div className="mb-8">
+        <h3 className="text-xl font-bold mb-4">Add New Product</h3>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Product Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Inventory"
+            value={inventory}
+            onChange={(e) => setInventory(parseInt(e.target.value))}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={image_url}
+            onChange={(e) => setImageUrl(e.target.value)}
+            className="w-full p-2 border rounded"
+          />
+          <button
+            type="submit"
+            className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+          >
+            Add Product
+          </button>
+        </form>
       </div>
-      <p className="text-gray-600 mb-4">
-        Manage products, orders, and inventory below.
-      </p>
+
+      {/* Product Table */}
+      <h3 className="text-xl font-bold mb-4">Products</h3>
+
+const Store = () => {
+
+
+
+
+
+
+
+
 
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -102,25 +166,25 @@ const Store = () => {
               <tr key={product.id}>
                 <td className="px-4 py-3">
                   <img
-                    src={product.image}
+                    src={product.image_url || "https://via.placeholder.com/50"}
+
                     alt={product.name}
                     className="w-12 h-12 object-cover rounded"
                   />
                 </td>
                 <td className="px-4 py-3 text-gray-700">{product.name}</td>
                 <td className="px-4 py-3 text-gray-700">N{product.price}</td>
-                <td className="px-4 py-3 text-gray-700 max-w-72">
-                  {product.description}
-                </td>
+                <td className="px-4 py-3 text-gray-700">{product.inventory}</td>
                 <td className="px-4 py-3 text-center">
-                  {/* <button className="bg-blue-500 hover:bg-blue-600  text-white text-sm font-medium px-3 py-2 rounded mr-2">
+                   <button className="bg-blue-500 hover:bg-blue-600  text-white text-sm font-medium px-3 py-2 rounded mr-2">
                     <Pencil />
-                  </button> */}
-                  <button
+                  </button>
+                 <button
                     className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-2 rounded"
                     onClick={() => deleteProduct(product.id)}
                   >
                     <Trash />
+
                   </button>
                 </td>
               </tr>

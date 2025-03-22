@@ -1,84 +1,60 @@
-import React, { useState } from "react";
-import { ShoppingCart, Package } from "lucide-react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Store = () => {
-  const products = [
-    {
-      id: 1,
-      name: "MSSN Prayer Mat",
-      price: 2500,
-      image:
-        "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?auto=format&fit=crop&q=80&w=500",
-      description: "High-quality prayer mat with MSSN ABUAD logo",
-    },
-    {
-      id: 2,
-      name: "Islamic Kettle",
-      price: 3000,
-      image:
-        "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?auto=format&fit=crop&q=80&w=500",
-      description: "Stainless steel kettle for wudu",
-    },
-    {
-      id: 3,
-      name: "MSSN Cap",
-      price: 1500,
-      image:
-        "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?auto=format&fit=crop&q=80&w=500",
-      description: "Elegant cap with MSSN embroidery",
-    },
-    {
-      id: 4,
-      name: "Jalabiya",
-      price: 7000,
-      image:
-        "https://images.unsplash.com/photo-1589476993333-f55b84301219?auto=format&fit=crop&q=80&w=500",
-      description: "Comfortable and stylish jalabiya for brothers",
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/api/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
-    <div className="pt-32 pb-16">
-      <div className="container">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">MSSN Store</h1>
-          <div className="relative">
-            <ShoppingCart className="text-primary" size={24} />
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-600 text-base mb-4 h-12">
-                  {product.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-primary font-bold">
-                    ₦{product.price}
-                  </span>
-                  <Link
-                    to="tel:+2349012345678"
-                    className="btn btn-primary py-2"
-                  >
-                    Contact Seller
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-primary mb-6">Store</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+                Image
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+                Product Name
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+                Price
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+                Inventory
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td className="px-4 py-3">
+                  <img
+                    src={product.image_url || "https://via.placeholder.com/50"}
+                    alt={product.name}
+                    className="w-12 h-12 object-cover rounded"
+                  />
+                </td>
+                <td className="px-4 py-3 text-gray-700">{product.name}</td>
+                <td className="px-4 py-3 text-gray-700">${product.price}</td>
+                <td className="px-4 py-3 text-gray-700">{product.inventory}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
