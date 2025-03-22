@@ -23,6 +23,57 @@ const WeeklyReminder = () => {
         "The strong believer is better and more beloved to Allah than the weak believer, while there is good in both.",
       source: "Sahih Muslim",
     },
+    {
+      type: "Verse",
+      content: "And remind, for indeed, the reminder benefits the believers.",
+      source: "Quran 51:55",
+    },
+    {
+      type: "Hadith",
+      content:
+        "Whoever seeks forgiveness for every male and female believer, Allah will record a good deed for him for every male and female believer.",
+      source: "Hadith",
+    },
+    {
+      type: "Verse",
+      content:
+        "Do not falter or grieve, for you will have the upper hand, if you are true believers.",
+      source: "Quran 3:139",
+    },
+    {
+      type: "Hadith",
+      content:
+        "Verily, the five prayers get rid of sins just as water gets rid of dirt.",
+      source: "Sahih Muslim",
+    },
+    {
+      type: "Verse",
+      content: "Call upon Me; I will respond to you.",
+      source: "Quran 40:60",
+    },
+    {
+      type: "Hadith",
+      content:
+        "When the son of Adam dies, his deeds come to an end except for three: ongoing charity, beneficial knowledge, or a righteous child who prays for him.",
+      source: "Sahih Muslim",
+    },
+    {
+      type: "Verse",
+      content:
+        "And whoever puts their trust in Allah, then He will suffice them.",
+      source: "Quran 65:3",
+    },
+    {
+      type: "Hadith",
+      content:
+        "Allah does not look at your appearance or wealth, but He looks at your hearts and actions.",
+      source: "Sahih Muslim",
+    },
+    {
+      type: "Verse",
+      content: "And whoever fears Allah – He will make for him a way out.",
+      source: "Quran 65:2",
+    },
   ];
 
   const settings = {
@@ -39,7 +90,7 @@ const WeeklyReminder = () => {
     <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
       <div className="flex items-center gap-3 mb-6">
         <Book className="text-primary" size={24} />
-        <h2 className="text-2xl font-bold">Weekly Reminders</h2>
+        <h2 className="text-2xl font-bold">Reminders</h2>
       </div>
 
       <Slider {...settings}>

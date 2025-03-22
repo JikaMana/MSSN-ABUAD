@@ -7,7 +7,7 @@ const RamadanSection = () => {
     { day: "Monday", imam: "Abdullah Muhammad(Ameer)", college: "MHS" },
     {
       day: "Wednesday",
-      imam: "Muslim Rikiji(Na'eebul Ameer (D))",
+      imam: "Muslim Rikiji(Na'eebul Ameer Da'wah)",
       college: "Engineering",
     },
     { day: "Friday", imam: "Alameen Ameen", college: "Pharmacy" },
@@ -28,7 +28,7 @@ const RamadanSection = () => {
           </div>
 
           <div className="space-y-4">
-            {schedule.map((item, index) => (
+            {/* {schedule.map((item, index) => (
               <div key={index} className="bg-gray-50 rounded-lg p-4">
                 <div className="font-semibold text-primary text-xl">
                   {item.day}
@@ -36,7 +36,9 @@ const RamadanSection = () => {
                 <div className="text-xl font-medium leading-6">{item.imam}</div>
                 <div className="text-md text-gray-500">{item.college}</div>
               </div>
-            ))}
+            ))} */}
+            {/* put the tarweeh schedue image  */}
+            <img src="" alt="" />
           </div>
           <div className="my-8 flex justify-center">
             <Link
@@ -57,12 +59,16 @@ const RamadanSection = () => {
 
           <div className="bg-gray-50 rounded-lg p-4 space-y-4">
             <p className="text-gray-600">
+              We provide meals for all students who make orders for meal gotten
+              from <strong>Captain Cook</strong>.
+            </p>
+            <p className="text-gray-600">
               Join us for daily Iftar at the MSSN Mosque. We provide meals for
               all students and community members.
             </p>
-            <div className="font-semibold">Iftar Time: Maghrib Prayer</div>
+
             <div className="text-lg mt-12">
-              <strong>Complain:</strong> To make any complain about Iftar
+              <strong>Complain:</strong> To make any complain about Sahur/Iftar
               arrangements or meal, please contact any of the MSSN EXCO.
             </div>
             <div className="my-8 flex justify-center">

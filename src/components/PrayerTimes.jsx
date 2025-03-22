@@ -27,7 +27,7 @@ const PrayerTimes = () => {
   useEffect(() => {
     const fetchPrayerTimes = async () => {
       try {
-        // Replace with actual coordinates for ABUAD
+        // actual coordinates for ABUAD MOSQUE
         const latitude = 7.6057065;
         const longitude = 5.3091123;
 

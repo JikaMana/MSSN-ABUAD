@@ -45,9 +45,7 @@ const Home = () => {
       </section>
 
       <section className="bg-primary">
-        <div className="container">
-          <Contact />
-        </div>
+        <div className="container">{/* <Contact /> */}</div>
       </section>
     </div>
   );
