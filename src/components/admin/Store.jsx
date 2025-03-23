@@ -4,7 +4,7 @@ import axios from "axios";
 const Store = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  const [inventory, setInventory] = useState(0);
+  const [description, setDescription] = useState("");
   const [image_url, setImageUrl] = useState("");
   const [products, setProducts] = useState([]);
 
@@ -31,7 +31,7 @@ const Store = () => {
       const token = localStorage.getItem("auth_token");
       await axios.post(
         "http://127.0.0.1:5000/api/products",
-        { name, price, inventory, image_url },
+        { name, price, description, image_url },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -40,7 +40,7 @@ const Store = () => {
       // Clear form fields
       setName("");
       setPrice(0);
-      setInventory(0);
+      setDescription("");
       setImageUrl("");
       // Refetch products
       const response = await axios.get("http://127.0.0.1:5000/api/products", {
@@ -76,10 +76,10 @@ const Store = () => {
             required
           />
           <input
-            type="number"
-            placeholder="Inventory"
-            value={inventory}
-            onChange={(e) => setInventory(parseInt(e.target.value))}
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="w-full p-2 border rounded"
             required
           />
@@ -115,7 +115,7 @@ const Store = () => {
                 Price
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                Inventory
+                Description
               </th>
               <th className="px-4 py-3 text-center text-sm font-medium text-gray-700">
                 Actions
@@ -134,7 +134,7 @@ const Store = () => {
                 </td>
                 <td className="px-4 py-3 text-gray-700">{product.name}</td>
                 <td className="px-4 py-3 text-gray-700">${product.price}</td>
-                <td className="px-4 py-3 text-gray-700">{product.inventory}</td>
+                <td className="px-4 py-3 text-gray-700">{product.description}</td>
                 <td className="px-4 py-3 text-center">
                   <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-3 py-1 rounded mr-2">
                     Edit

@@ -34,7 +34,7 @@ const Store = () => {
                 Price
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                Inventory
+                Description
               </th>
             </tr>
           </thead>
@@ -50,7 +50,7 @@ const Store = () => {
                 </td>
                 <td className="px-4 py-3 text-gray-700">{product.name}</td>
                 <td className="px-4 py-3 text-gray-700">${product.price}</td>
-                <td className="px-4 py-3 text-gray-700">{product.inventory}</td>
+                <td className="px-4 py-3 text-gray-700">{product.Description}</td>
               </tr>
             ))}
           </tbody>

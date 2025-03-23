@@ -39,7 +39,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    inventory = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(500), nullable=True)
 
     def __repr__(self):
@@ -87,7 +87,7 @@ def get_products():
             'id': product.id,
             'name': product.name,
             'price': product.price,
-            'inventory': product.inventory,
+            'description': product.description,
             'image_url': product.image_url
         })
     return jsonify(product_list)
@@ -101,7 +101,7 @@ def add_product():
     new_product = Product(
         name=data.get('name'),
         price=data.get('price'),
-        inventory=data.get('inventory'),
+        description=data.get('description'),
         image_url=data.get('image_url')
     )
     db.session.add(new_product)
@@ -116,7 +116,7 @@ def update_product(id):
     data = request.json
     product.name = data.get('name', product.name)
     product.price = data.get('price', product.price)
-    product.inventory = data.get('inventory', product.inventory)
+    product.description = data.get('inventory', product.description)
     product.image_url = data.get('image_url', product.image_url)
     db.session.commit()
     return jsonify({"message": "Product updated successfully"})
@@ -138,6 +138,7 @@ def serve_react(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
+
 
 if __name__ == '__main__':
     from waitress import serve
