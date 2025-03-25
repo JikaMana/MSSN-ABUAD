@@ -12,7 +12,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.debug = True
-app.static_folder = "../MSSN-ABUAD/backend/dist"
+app.static_folder = "../MSSN-ABUAD/backend/dist"  # Path to React build
 app.static_url_path = "/"
 
 # Configure SQLite DB
@@ -34,7 +34,8 @@ admins = {
     "admin2": {"password": "securepass"}
 }
 
-# Prayer Times Model (unchanged from your original)
+
+# Prayer Times Model
 class PrayerTimes(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     fajr_adhan = db.Column(db.String(50), nullable=False)
@@ -50,13 +51,16 @@ class PrayerTimes(db.Model):
     jumuah_adhan = db.Column(db.String(50), nullable=True)
     jumuah_iqama = db.Column(db.String(50), nullable=True)
 
+
 # Create the database
 with app.app_context():
     db.create_all()
 
+
 # Time validation helper
 def validate_time_format(time_str):
     return re.match(r'^([01]\d|2[0-3]):[0-5]\d$', time_str) is not None
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -73,6 +77,7 @@ def login():
         "token": access_token
     })
 
+
 @app.route('/api/check-auth', methods=['GET'])
 @jwt_required()
 def check_auth():
@@ -82,13 +87,13 @@ def check_auth():
         "username": current_user
     })
 
+
 @app.route('/api/prayer-times', methods=['GET'])
 def get_prayer_times():
-    # Get the most recent prayer times entry
     prayer_time = PrayerTimes.query.order_by(PrayerTimes.id.desc()).first()
     if not prayer_time:
         return jsonify({"message": "No prayer times found"}), 404
-    
+
     return jsonify({
         "fajr": {"adhan": prayer_time.fajr_adhan, "iqama": prayer_time.fajr_iqama},
         "dhuhr": {"adhan": prayer_time.dhuhr_adhan, "iqama": prayer_time.dhuhr_iqama},
@@ -98,60 +103,46 @@ def get_prayer_times():
         "jumuah": {"adhan": prayer_time.jumuah_adhan, "iqama": prayer_time.jumuah_iqama}
     })
 
+
 @app.route('/api/prayer-times', methods=['POST'])
 @jwt_required()
 def add_prayer_time():
-    try:
-        # First delete all existing prayer times
-        db.session.query(PrayerTimes).delete()
-        db.session.commit()
-        
-        data = request.json
-        print("Received data:", data)  # Debug log
+    data = request.json
 
-        # Validate required fields
-        required_fields = [
-            'fajr_adhan', 'fajr_iqama',
-            'dhuhr_adhan', 'dhuhr_iqama', 
-            'asr_adhan', 'asr_iqama',
-            'maghrib_adhan', 'maghrib_iqama',
-            'isha_adhan', 'isha_iqama'
-        ]
-        
-        for field in required_fields:
-            if field not in data:
-                return jsonify({"error": f"Missing required field: {field}"}), 400
-            if not validate_time_format(data[field]):
-                return jsonify({"error": f"Invalid time format for {field}"}), 400
+    # Validate time formats
+    time_fields = [
+        'fajr_adhan', 'fajr_iqama',
+        'dhuhr_adhan', 'dhuhr_iqama',
+        'asr_adhan', 'asr_iqama',
+        'maghrib_adhan', 'maghrib_iqama',
+        'isha_adhan', 'isha_iqama'
+    ]
 
-        # Create new prayer time
-        new_time = PrayerTimes(
-            fajr_adhan=data['fajr_adhan'],
-            fajr_iqama=data['fajr_iqama'],
-            dhuhr_adhan=data['dhuhr_adhan'],
-            dhuhr_iqama=data['dhuhr_iqama'],
-            asr_adhan=data['asr_adhan'],
-            asr_iqama=data['asr_iqama'],
-            maghrib_adhan=data['maghrib_adhan'],
-            maghrib_iqama=data['maghrib_iqama'],
-            isha_adhan=data['isha_adhan'],
-            isha_iqama=data['isha_iqama'],
-            jumuah_adhan=data.get('jumuah_adhan'),
-            jumuah_iqama=data.get('jumuah_iqama')
-        )
-        
-        db.session.add(new_time)
-        db.session.commit()
+    for field in time_fields:
+        if not validate_time_format(data.get(field, '')):
+            return jsonify({"error": f"Invalid time format for {field}"}), 400
 
-        return jsonify({
-            "message": "Prayer times updated successfully",
-            "id": new_time.id
-        }), 201
+    # Create new prayer time
+    new_time = PrayerTimes(
+        fajr_adhan=data['fajr_adhan'],
+        fajr_iqama=data['fajr_iqama'],
+        dhuhr_adhan=data['dhuhr_adhan'],
+        dhuhr_iqama=data['dhuhr_iqama'],
+        asr_adhan=data['asr_adhan'],
+        asr_iqama=data['asr_iqama'],
+        maghrib_adhan=data['maghrib_adhan'],
+        maghrib_iqama=data['maghrib_iqama'],
+        isha_adhan=data['isha_adhan'],
+        isha_iqama=data['isha_iqama'],
+        jumuah_adhan=data.get('jumuah_adhan'),
+        jumuah_iqama=data.get('jumuah_iqama')
+    )
 
-    except Exception as e:
-        db.session.rollback()
-        print("Error:", str(e))  # Debug log
-        return jsonify({"error": str(e)}), 500
+    db.session.add(new_time)
+    db.session.commit()
+
+    return jsonify({"message": "Prayer times added successfully"}), 201
+
 
 @app.route('/api/prayer-times/<int:id>', methods=['PUT'])
 @jwt_required()
@@ -167,7 +158,7 @@ def update_prayer_time(id):
         'maghrib_adhan', 'maghrib_iqama',
         'isha_adhan', 'isha_iqama'
     ]
-    
+
     for field in time_fields:
         if field in data and not validate_time_format(data[field]):
             return jsonify({"error": f"Invalid time format for {field}"}), 400
@@ -185,10 +176,11 @@ def update_prayer_time(id):
     prayer_time.isha_iqama = data.get('isha_iqama', prayer_time.isha_iqama)
     prayer_time.jumuah_adhan = data.get('jumuah_adhan', prayer_time.jumuah_adhan)
     prayer_time.jumuah_iqama = data.get('jumuah_iqama', prayer_time.jumuah_iqama)
-    
+
     db.session.commit()
 
     return jsonify({"message": "Prayer times updated successfully"})
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -197,6 +189,78 @@ def serve_react(path):
         return send_from_directory(app.static_folder, path)
     return send_from_directory(app.static_folder, 'index.html')
 
+
+# Product Model
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
+
+
+@app.route('/api/products', methods=['GET'])
+def get_products():
+    products = Product.query.all()
+    return jsonify([{
+        'id': p.id,
+        'name': p.name,
+        'price': p.price,
+        'description': p.description,
+        'image_url': p.image_url
+    } for p in products])
+
+
+@app.route('/api/products', methods=['POST'])
+@jwt_required()
+def add_product():
+    data = request.json
+    try:
+        new_product = Product(
+            name=data['name'],
+            price=data['price'],
+            description=data['description'],
+            image_url=data.get('image_url')
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        return jsonify({"message": "Product added successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/products/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_product(id):
+    product = Product.query.get_or_404(id)
+    data = request.json
+    try:
+        product.name = data.get('name', product.name)
+        product.price = data.get('price', product.price)
+        product.description = data.get('description', product.description)
+        product.image_url = data.get('image_url', product.image_url)
+        db.session.commit()
+        return jsonify({"message": "Product updated successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/products/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_product(id):
+    product = Product.query.get_or_404(id)
+    try:
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify({"message": "Product deleted successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == '__main__':
     from waitress import serve
+
     serve(app, host="0.0.0.0", port=5000)
