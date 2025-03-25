@@ -83,23 +83,27 @@ const PrayerTimesAdmin = () => {
         : "http://127.0.0.1:5000/api/prayer-times";
       const method = isExistingDate ? "put" : "post";
 
-      await axios[method](url, {
-        date,
-        fajr_adhan: formData.fajrAdhan,
-        fajr_iqama: formData.fajrIqama,
-        dhuhr_adhan: formData.dhuhrAdhan,
-        dhuhr_iqama: formData.dhuhrIqama,
-        asr_adhan: formData.asrAdhan,
-        asr_iqama: formData.asrIqama,
-        maghrib_adhan: formData.maghribAdhan,
-        maghrib_iqama: formData.maghribIqama,
-        isha_adhan: formData.ishaAdhan,
-        isha_iqama: formData.ishaIqama,
-        jumuah_adhan: formData.jumuahAdhan,
-        jumuah_iqama: formData.jumuahIqama,
-      }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios[method](
+        url,
+        {
+          date,
+          fajr_adhan: formData.fajrAdhan,
+          fajr_iqama: formData.fajrIqama,
+          dhuhr_adhan: formData.dhuhrAdhan,
+          dhuhr_iqama: formData.dhuhrIqama,
+          asr_adhan: formData.asrAdhan,
+          asr_iqama: formData.asrIqama,
+          maghrib_adhan: formData.maghribAdhan,
+          maghrib_iqama: formData.maghribIqama,
+          isha_adhan: formData.ishaAdhan,
+          isha_iqama: formData.ishaIqama,
+          jumuah_adhan: formData.jumuahAdhan,
+          jumuah_iqama: formData.jumuahIqama,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       alert("Prayer times saved successfully!");
     } catch (error) {
@@ -118,14 +122,18 @@ const PrayerTimesAdmin = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6 text-primary">Manage Prayer Times</h2>
+      <h2 className="text-2xl font-bold mb-6 text-primary">
+        Manage Prayer Times
+      </h2>
       <p className="text-gray-600 mb-8">
-        Select date and update prayer times. Changes will reflect immediately on the user side.
+        Select date and update prayer times. Changes will reflect immediately on
+        the user side.
       </p>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-       
-
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         {/* Fajr Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Fajr Adhan</label>
@@ -206,7 +214,9 @@ const PrayerTimesAdmin = () => {
 
         {/* Maghrib Adhan */}
         <div className="flex flex-col">
-          <label className="mb-2 font-medium text-gray-700">Maghrib Adhan</label>
+          <label className="mb-2 font-medium text-gray-700">
+            Maghrib Adhan
+          </label>
           <input
             type="time"
             name="maghribAdhan"
@@ -215,12 +225,13 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
-
         </div>
 
         {/* Maghrib Iqama */}
         <div className="flex flex-col">
-          <label className="mb-2 font-medium text-gray-700">Maghrib Iqama</label>
+          <label className="mb-2 font-medium text-gray-700">
+            Maghrib Iqama
+          </label>
           <input
             type="time"
             name="maghribIqama"
@@ -229,9 +240,6 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
-         
-         
-          </div>
         </div>
 
         {/* Isha Adhan */}
@@ -245,7 +253,6 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
-
         </div>
 
         {/* Isha Iqama */}
@@ -259,12 +266,13 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
-
         </div>
 
         {/* Jumu'ah Adhan (Optional) */}
         <div className="flex flex-col">
-          <label className="mb-2 font-medium text-gray-700">Jumu'ah Adhan (Optional)</label>
+          <label className="mb-2 font-medium text-gray-700">
+            Jumu'ah Adhan (Optional)
+          </label>
           <input
             type="time"
             name="jumuahAdhan"
@@ -272,12 +280,13 @@ const PrayerTimesAdmin = () => {
             onChange={handleInputChange}
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           />
-
         </div>
 
         {/* Jumu'ah Iqama (Optional) */}
         <div className="flex flex-col">
-          <label className="mb-2 font-medium text-gray-700">Jumu'ah Iqama (Optional)</label>
+          <label className="mb-2 font-medium text-gray-700">
+            Jumu'ah Iqama (Optional)
+          </label>
           <input
             type="time"
             name="jumuahIqama"
@@ -285,9 +294,8 @@ const PrayerTimesAdmin = () => {
             onChange={handleInputChange}
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           />
-
         </div>
-         {/* Date Picker */}
+        {/* Date Picker */}
         <div className="flex flex-col md:col-span-2">
           <label className="mb-2 font-medium text-gray-700">Date</label>
           <input
