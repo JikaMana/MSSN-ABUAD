@@ -1,35 +1,31 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const PrayerTimesAdmin = () => {
-  const [date, setDate] = useState("");
-  const [isExistingDate, setIsExistingDate] = useState(false);
   const [formData, setFormData] = useState({
-    fajrAdhan: "",
-    fajrIqama: "",
-    dhuhrAdhan: "",
-    dhuhrIqama: "",
-    asrAdhan: "",
-    asrIqama: "",
-    maghribAdhan: "",
-    maghribIqama: "",
-    ishaAdhan: "",
-    ishaIqama: "",
-    jumuahAdhan: "",
-    jumuahIqama: "",
-  });
+    fajrAdhan: '',
+    fajrIqama: '',
+    dhuhrAdhan: '',
+    dhuhrIqama: '',
+    asrAdhan: '',
+    asrIqama: '',
+    maghribAdhan: '',
+    maghribIqama: '',
+    ishaAdhan: '',
+    ishaIqama: '',
+    jumuahAdhan: '',
+    jumuahIqama: '',
+  })
+  const [currentId, setCurrentId] = useState(null)
 
-  // Fetch prayer times when date changes
   useEffect(() => {
-    const fetchTimes = async () => {
-      if (!date) return;
-
+    const fetchLatestTimes = async () => {
       try {
-        const token = localStorage.getItem("auth_token");
+        const token = localStorage.getItem('auth_token')
         const response = await axios.get(
-          `http://127.0.0.1:5000/api/prayer-times/${date}`,
+          'http://127.0.0.1:5000/api/prayer-times',
           { headers: { Authorization: `Bearer ${token}` } }
-        );
+        )
 
         if (response.data) {
           setFormData({
@@ -43,82 +39,72 @@ const PrayerTimesAdmin = () => {
             maghribIqama: response.data.maghrib.iqama,
             ishaAdhan: response.data.isha.adhan,
             ishaIqama: response.data.isha.iqama,
-            jumuahAdhan: response.data.jumuah?.adhan || "",
-            jumuahIqama: response.data.jumuah?.iqama || "",
-          });
-          setIsExistingDate(true);
+            jumuahAdhan: response.data.jumuah?.adhan || '',
+            jumuahIqama: response.data.jumuah?.iqama || '',
+          })
         }
       } catch (error) {
-        if (error.response?.status === 404) {
-          setFormData({
-            ...formData,
-            fajrAdhan: "",
-            fajrIqama: "",
-            dhuhrAdhan: "",
-            dhuhrIqama: "",
-            asrAdhan: "",
-            asrIqama: "",
-            maghribAdhan: "",
-            maghribIqama: "",
-            ishaAdhan: "",
-            ishaIqama: "",
-            jumuahAdhan: "",
-            jumuahIqama: "",
-          });
-          setIsExistingDate(false);
-        }
+        alert('Failed to fetch prayer times.')
       }
-    };
-
-    fetchTimes();
-  }, [date]);
+    }
+    fetchLatestTimes()
+  }, [])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      const token = localStorage.getItem("auth_token");
-      const url = isExistingDate
-        ? `http://127.0.0.1:5000/api/prayer-times/${date}`
-        : "http://127.0.0.1:5000/api/prayer-times";
-      const method = isExistingDate ? "put" : "post";
+      const token = localStorage.getItem('auth_token')
+      if (!token) {
+        alert('Please login first')
+        return
+      }
 
-      await axios[method](
-        url,
+      // Prepare payload with all required fields
+      const payload = {
+        fajr_adhan: formData.fajrAdhan || '00:00',
+        fajr_iqama: formData.fajrIqama || '00:00',
+        dhuhr_adhan: formData.dhuhrAdhan || '00:00',
+        dhuhr_iqama: formData.dhuhrIqama || '00:00',
+        asr_adhan: formData.asrAdhan || '00:00',
+        asr_iqama: formData.asrIqama || '00:00',
+        maghrib_adhan: formData.maghribAdhan || '00:00',
+        maghrib_iqama: formData.maghribIqama || '00:00',
+        isha_adhan: formData.ishaAdhan || '00:00',
+        isha_iqama: formData.ishaIqama || '00:00',
+        jumuah_adhan: formData.jumuahAdhan || null,
+        jumuah_iqama: formData.jumuahIqama || null,
+      }
+
+      console.log('Submitting:', payload) // Debug log
+
+      const response = await axios.post(
+        'http://127.0.0.1:5000/api/prayer-times',
+        payload,
         {
-          date,
-          fajr_adhan: formData.fajrAdhan,
-          fajr_iqama: formData.fajrIqama,
-          dhuhr_adhan: formData.dhuhrAdhan,
-          dhuhr_iqama: formData.dhuhrIqama,
-          asr_adhan: formData.asrAdhan,
-          asr_iqama: formData.asrIqama,
-          maghrib_adhan: formData.maghribAdhan,
-          maghrib_iqama: formData.maghribIqama,
-          isha_adhan: formData.ishaAdhan,
-          isha_iqama: formData.ishaIqama,
-          jumuah_adhan: formData.jumuahAdhan,
-          jumuah_iqama: formData.jumuahIqama,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         }
-      );
+      )
 
-      alert("Prayer times saved successfully!");
+      alert('Prayer times updated successfully!')
+      window.location.reload() // Force refresh to show changes
     } catch (error) {
-      console.error("Error saving prayer times:", error);
-      alert("An error occurred while saving");
+      console.error('Full error:', error)
+      console.error('Error response:', error.response?.data)
+      alert(`Error: ${error.response?.data?.error || error.message}`)
     }
-  };
+  }
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
   return (
     <div className="p-6">
@@ -126,14 +112,12 @@ const PrayerTimesAdmin = () => {
         Manage Prayer Times
       </h2>
       <p className="text-gray-600 mb-8">
-        Select date and update prayer times. Changes will reflect immediately on
-        the user side.
+        Update prayer times. Changes will reflect immediately on the user side.
       </p>
 
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-      >
+        className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Fajr Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Fajr Adhan</label>
@@ -146,7 +130,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Fajr Iqama */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Fajr Iqama</label>
@@ -159,7 +142,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Dhuhr Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Dhuhr Adhan</label>
@@ -172,7 +154,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Dhuhr Iqama */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Dhuhr Iqama</label>
@@ -185,7 +166,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Asr Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Asr Adhan</label>
@@ -198,7 +178,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Asr Iqama */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Asr Iqama</label>
@@ -211,7 +190,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Maghrib Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">
@@ -226,7 +204,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Maghrib Iqama */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">
@@ -241,7 +218,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Isha Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Isha Adhan</label>
@@ -254,7 +230,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Isha Iqama */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Isha Iqama</label>
@@ -267,7 +242,6 @@ const PrayerTimesAdmin = () => {
             required
           />
         </div>
-
         {/* Jumu'ah Adhan (Optional) */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">
@@ -281,7 +255,6 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
-
         {/* Jumu'ah Iqama (Optional) */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">
@@ -295,30 +268,17 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
-        {/* Date Picker */}
-        <div className="flex flex-col md:col-span-2">
-          <label className="mb-2 font-medium text-gray-700">Date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            required
-          />
-        </div>
-
         {/* Submit Button */}
         <div className="md:col-span-2">
           <button
             type="submit"
-            className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
-          >
-            {isExistingDate ? "Update Prayer Times" : "Create Prayer Times"}
+            className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors">
+            Save Prayer Times
           </button>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default PrayerTimesAdmin;
+export default PrayerTimesAdmin

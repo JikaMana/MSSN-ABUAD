@@ -1,118 +1,114 @@
-import React, { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
-import { format } from "date-fns";
-import prayerIcon from "../assets/images/prayer.webp";
-import adhanIcon from "../assets/images/adhan.webp";
-import iqamaIcon from "../assets/images/iqama.webp";
-import dawnIcon from "../assets/images/dawn.png";
-import noonIcon from "../assets/images/noon.png";
-import afternoonIcon from "../assets/images/afternoon.png";
-import sunsetIcon from "../assets/images/sunset.png";
-import nightIcon from "../assets/images/night.png";
-import jumuahIcon from "../assets/images/jumuah.png";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import { Clock, RefreshCw } from 'lucide-react'
+import { format } from 'date-fns'
+import prayerIcon from '../assets/images/prayer.webp'
+import adhanIcon from '../assets/images/adhan.webp'
+import iqamaIcon from '../assets/images/iqama.webp'
+import dawnIcon from '../assets/images/dawn.png'
+import noonIcon from '../assets/images/noon.png'
+import afternoonIcon from '../assets/images/afternoon.png'
+import sunsetIcon from '../assets/images/sunset.png'
+import nightIcon from '../assets/images/night.png'
+import jumuahIcon from '../assets/images/jumuah.png'
+import axios from 'axios'
 
 const PrayerTimes = () => {
-  const [prayerData, setPrayerData] = useState(null);
-  const [timeWePray, setTimewePray] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [prayerData, setPrayerData] = useState(null)
+  const [mosqueTimes, setMosqueTimes] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   // Fetch prayer times from API using coordinate
-
   useEffect(() => {
     const fetchPrayerTimes = async () => {
       try {
-        // actual coordinates for ABUAD MOSQUE
-        const latitude = 7.6057065;
-        const longitude = 5.3091123;
+        const latitude = 7.6057065
+        const longitude = 5.3091123
 
         const response = await fetch(
           `https://api.aladhan.com/v1/timings/${
             Date.now() / 1000
           }?latitude=${latitude}&longitude=${longitude}&method=1`
-        );
-        const data = await response.json();
-        setPrayerData(data.data.timings);
+        )
+        const data = await response.json()
+        setPrayerData(data.data.timings)
       } catch (error) {
-        console.error("Error fetching prayer times:", error);
+        console.error('Error fetching prayer times:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchPrayerTimes();
-
-    // Poll every 5 minutes
-    const interval = setInterval(fetchPrayerTimes, 300000);
-    return () => clearInterval(interval);
-  }, []);
+    fetchPrayerTimes()
+    const interval = setInterval(fetchPrayerTimes, 300000)
+    return () => clearInterval(interval)
+  }, [])
 
   // Fetch prayer times from your backend
-
   useEffect(() => {
-    const fetchPrayerTime = async () => {
+    const fetchMosqueTimes = async () => {
       try {
-        const token = localStorage.getItem("auth_token");
+        // Add timestamp to URL to prevent caching
         const response = await axios.get(
-          "http://127.0.0.1:5000/api/prayer-times/latest",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setTimewePray(response.data);
+          `http://127.0.0.1:5000/api/prayer-times?t=${Date.now()}`
+        )
+        setMosqueTimes(response.data)
       } catch (error) {
-        console.error("Error getting prayer time:", error);
+        console.error('Error getting mosque prayer times:', error)
       }
-    };
-    fetchPrayerTime();
-  }, []);
-  console.log(prayerData);
+    }
+    fetchMosqueTimes()
+  }, []) // Keep empty dependency array for initial load
+
+  // Add manual refresh function
+  const handleRefresh = () => {
+    window.location.reload() // Full page reload to ensure fresh data
+  }
 
   // Format time display
   const formatTime = (timeStr) => {
-    if (!timeStr) return "-";
-    return format(new Date(`2024-01-01T${timeStr}`), "HH:mm");
-  };
+    if (!timeStr) return '-'
+    return format(new Date(`2024-01-01T${timeStr}`), 'HH:mm')
+  }
 
   // Create prayer time cards
   const prayerCards = [
     {
-      name: "Fajr",
+      name: 'Fajr',
       icon: dawnIcon,
-      adhan: timeWePray?.fajr?.adhan,
-      iqama: timeWePray?.fajr?.iqama,
+      adhan: mosqueTimes?.fajr?.adhan,
+      iqama: mosqueTimes?.fajr?.iqama,
     },
     {
-      name: "Dhuhr",
+      name: 'Dhuhr',
       icon: noonIcon,
-      adhan: timeWePray?.dhuhr?.adhan,
-      iqama: timeWePray?.dhuhr?.iqama,
+      adhan: mosqueTimes?.dhuhr?.adhan,
+      iqama: mosqueTimes?.dhuhr?.iqama,
     },
     {
-      name: "Asr",
+      name: 'Asr',
       icon: afternoonIcon,
-      adhan: timeWePray?.asr?.adhan,
-      iqama: timeWePray?.asr?.iqama,
+      adhan: mosqueTimes?.asr?.adhan,
+      iqama: mosqueTimes?.asr?.iqama,
     },
     {
-      name: "Maghrib",
+      name: 'Maghrib',
       icon: sunsetIcon,
-      adhan: timeWePray?.maghrib?.adhan,
-      iqama: timeWePray?.maghrib?.iqama,
+      adhan: mosqueTimes?.maghrib?.adhan,
+      iqama: mosqueTimes?.maghrib?.iqama,
     },
     {
-      name: "Isha",
+      name: 'Isha',
       icon: nightIcon,
-      adhan: timeWePray?.isha?.adhan,
-      iqama: timeWePray?.isha?.iqama,
+      adhan: mosqueTimes?.isha?.adhan,
+      iqama: mosqueTimes?.isha?.iqama,
     },
     {
       name: "Jumu'ah",
       icon: jumuahIcon,
-      adhan: timeWePray?.jumuah?.adhan,
-      iqama: timeWePray?.jumuah?.iqama,
+      adhan: mosqueTimes?.jumuah?.adhan,
+      iqama: mosqueTimes?.jumuah?.iqama,
     },
-  ];
+  ]
 
   return (
     <section>
@@ -120,6 +116,12 @@ const PrayerTimes = () => {
         <Clock className="text-primary" size={24} />
         <h2 className="text-2xl md:text-3xl font-bold">Prayer Times</h2>
       </div>
+      <button
+        onClick={handleRefresh}
+        className="ml-auto flex items-center gap-2 text-primary hover:text-primary-dark">
+        <RefreshCw size={20} />
+        <span>Refresh</span>
+      </button>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
         <h2 className="text-xl font-medium mb-4 text-center">
           Prayer Time by Coordinates
@@ -128,13 +130,12 @@ const PrayerTimes = () => {
           {prayerData &&
             Object.entries(prayerData)
               .filter(([name]) =>
-                ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].includes(name)
+                ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'].includes(name)
               )
               .map(([name, time]) => (
                 <div
                   key={name}
-                  className="bg-gray-50 rounded-lg p-4 text-center"
-                >
+                  className="bg-gray-50 rounded-lg p-4 text-center">
                   <h3 className="font-arabic text-lg mb-2">{name}</h3>
                   {loading ? (
                     <div className="text-center py-8">
@@ -142,7 +143,7 @@ const PrayerTimes = () => {
                     </div>
                   ) : (
                     <p className="text-xl font-semibold text-primary">
-                      {format(new Date(`2024-01-01 ${time}`), "HH:mm")}
+                      {format(new Date(`2024-01-01 ${time}`), 'HH:mm')}
                     </p>
                   )}
                 </div>
@@ -228,7 +229,7 @@ const PrayerTimes = () => {
               </h3>
               <article className="text-lg">
                 Abu Hurairah (May Allah be pleased with him) reported: The
-                Messenger of Allah ﷺ said, “A man’s Salat in congregation is
+                Messenger of Allah ﷺ said, "A man's Salat in congregation is
                 twenty-five times more rewarding than his Salat at home or in
                 his shop..."
                 <br />
@@ -239,7 +240,7 @@ const PrayerTimes = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default PrayerTimes;
+export default PrayerTimes
