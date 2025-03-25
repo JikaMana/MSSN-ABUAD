@@ -19,7 +19,6 @@ const PrayerTimes = () => {
   useEffect(() => {
     const fetchPrayerTimes = async () => {
       try {
-
         // actual coordinates for ABUAD MOSQUE
         const latitude = 7.6057065;
         const longitude = 5.3091123;
@@ -57,37 +56,37 @@ const PrayerTimes = () => {
       name: "Fajr",
       icon: dawnIcon,
       adhan: prayerData?.fajr?.adhan,
-      iqama: prayerData?.fajr?.iqama
+      iqama: prayerData?.fajr?.iqama,
     },
     {
       name: "Dhuhr",
       icon: noonIcon,
       adhan: prayerData?.dhuhr?.adhan,
-      iqama: prayerData?.dhuhr?.iqama
+      iqama: prayerData?.dhuhr?.iqama,
     },
     {
       name: "Asr",
       icon: afternoonIcon,
       adhan: prayerData?.asr?.adhan,
-      iqama: prayerData?.asr?.iqama
+      iqama: prayerData?.asr?.iqama,
     },
     {
       name: "Maghrib",
       icon: sunsetIcon,
       adhan: prayerData?.maghrib?.adhan,
-      iqama: prayerData?.maghrib?.iqama
+      iqama: prayerData?.maghrib?.iqama,
     },
     {
       name: "Isha",
       icon: nightIcon,
       adhan: prayerData?.isha?.adhan,
-      iqama: prayerData?.isha?.iqama
+      iqama: prayerData?.isha?.iqama,
     },
     {
       name: "Jumu'ah",
       icon: jumuahIcon,
       adhan: prayerData?.jumuah?.adhan,
-      iqama: prayerData?.jumuah?.iqama
+      iqama: prayerData?.jumuah?.iqama,
     },
   ];
 
@@ -97,37 +96,34 @@ const PrayerTimes = () => {
         <Clock className="text-primary" size={24} />
         <h2 className="text-2xl md:text-3xl font-bold">Prayer Times</h2>
       </div>
-
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
         <h2 className="text-xl font-medium mb-4 text-center">
-          Prayer Times for {prayerData?.date || "Loading..."}
+          Prayer Time by Coordinates
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {prayerCards.map((prayer, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-4 text-center">
-              <img
-                src={prayer.icon}
-                alt={`${prayer.name} icon`}
-                className="w-12 mx-auto mb-2"
-              />
-              <h3 className="font-arabic text-lg mb-2">{prayer.name}</h3>
-              {loading ? (
-                <div className="animate-spin w-6 h-6 border-2 border-primary border-t-transparent rounded-full mx-auto"></div>
-              ) : (
-                <>
-                  <p className="text-sm text-gray-600">Adhan</p>
-                  <p className="text-xl font-semibold text-primary mb-2">
-                    {formatTime(prayer.adhan)}
-                  </p>
-                  <p className="text-sm text-gray-600">Iqama</p>
-                  <p className="text-xl font-semibold text-primary">
-                    {formatTime(prayer.iqama)}
-                  </p>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {prayerData &&
+            Object.entries(prayerData)
+              .filter(([name]) =>
+                ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].includes(name)
+              )
+              .map(([name, time]) => (
+                <div
+                  key={name}
+                  className="bg-gray-50 rounded-lg p-4 text-center"
+                >
+                  <h3 className="font-arabic text-lg mb-2">{name}</h3>
+                  {loading ? (
+                    <div className="text-center py-8">
+                      <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div>
+                    </div>
+                  ) : (
+                    <p className="text-xl font-semibold text-primary">
+                      {format(new Date(`2024-01-01 ${time}`), "HH:mm")}
+                    </p>
+                  )}
+                </div>
+              ))}
+        </div> */}
       </div>
 
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
@@ -211,7 +207,8 @@ const PrayerTimes = () => {
                 Messenger of Allah ﷺ said, “A man’s Salat in congregation is
                 twenty-five times more rewarding than his Salat at home or in
                 his shop..."
-                <br />[Al-Bukhari and Muslim].
+                <br />
+                [Al-Bukhari and Muslim].
               </article>
             </div>
           </div>

@@ -118,7 +118,7 @@ const Store = () => {
                   />
                 </td>
                 <td className="px-4 py-3 text-gray-700">{product.name}</td>
-                <td className="px-4 py-3 text-gray-700">${product.price}</td>
+                <td className="px-4 py-3 text-gray-700">N{product.price}</td>
                 <td className="px-4 py-3 text-gray-700">
                   {product.description}
                 </td>

@@ -28,9 +28,9 @@ jwt = JWTManager(app)
 
 
 # Enable CORS with environment-aware configuration
-cors_origins = os.getenv('CORS_ORIGINS', 'http://localhost:5173').split(',')
-CORS(app, origins=cors_origins)
-
+# cors_origins = os.getenv('CORS_ORIGINS', 'http://localhost:5173').split(',')
+# CORS(app, origins=cors_origins)
+CORS(app, origins=["*"])
 
 # Simulated admin users (in-memory storage)
 admins = {
