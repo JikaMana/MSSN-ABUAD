@@ -31,7 +31,7 @@ const Admin = () => {
   return (
     <div className="pt-32 min-h-screen bg-gray-50">
       <div className="container">
-        <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
+        <h1 className="text-4xl font-bold mb-8 ml-6">Admin Dashboard</h1>
 
         <div className="bg-white rounded-xl shadow-lg">
           <div className="border-b">

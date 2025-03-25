@@ -68,8 +68,6 @@ const Events = () => {
                       Open to all members
                     </div>
                   </div>
-
-                  <button className="btn btn-primary mt-6">Register Now</button>
                 </div>
               </div>
             </div>

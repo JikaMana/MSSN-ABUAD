@@ -1,24 +1,38 @@
 import React from "react";
-import { CreditCard, Copy, Heart } from "lucide-react";
+import { CreditCard, Copy, Heart, Coins } from "lucide-react";
 
 const Donate = () => {
   const accounts = [
     {
-      bank: "First Bank",
-      number: "3141592653",
-      name: "MSSN ABUAD",
+      bank: "Wema Bank",
+      number: "0229896752",
+      name: "MSSN ABUAD CHAPTER",
+    },
+  ];
+
+  const individuals = [
+    {
+      name: "Hiqmah",
+      number: "07069976630",
     },
     {
-      bank: "GTBank",
-      number: "2718281828",
-      name: "MSSN ABUAD",
+      name: "Ibrahum Mulero",
+      number: "08108660433",
+    },
+    {
+      name: "Ibrahim Abubakar",
+      number: "08060131363",
+    },
+    {
+      name: "Azeezat",
+      number: "07089455909",
     },
   ];
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     // You could add a toast notification here
-    alert("Copied Account Number");
+    alert("Copied Number");
   };
 
   return (
@@ -51,6 +65,36 @@ const Donate = () => {
                   </div>
                   <button
                     onClick={() => copyToClipboard(account.number)}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <Copy size={20} className="text-gray-500" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <Coins className="text-primary" size={24} />
+
+            <h2 className="text-2xl font-bold">Cash Donation / Dues Payment</h2>
+          </div>
+
+          <div className="space-y-6">
+            {individuals.map((individual, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-gray-600 font-medium text-xl">
+                      {individual.name}
+                    </p>
+                    <p className="text-xl font-mono mt-2">
+                      {individual.number}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(individual.number)}
                     className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                   >
                     <Copy size={20} className="text-gray-500" />

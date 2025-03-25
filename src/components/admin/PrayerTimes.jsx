@@ -124,17 +124,7 @@ const PrayerTimesAdmin = () => {
       </p>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Date Picker */}
-        <div className="flex flex-col md:col-span-2">
-          <label className="mb-2 font-medium text-gray-700">Date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            required
-          />
-        </div>
+       
 
         {/* Fajr Adhan */}
         <div className="flex flex-col">
@@ -225,6 +215,7 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
+
         </div>
 
         {/* Maghrib Iqama */}
@@ -238,6 +229,9 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
+         
+         
+          </div>
         </div>
 
         {/* Isha Adhan */}
@@ -251,6 +245,7 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
+
         </div>
 
         {/* Isha Iqama */}
@@ -264,6 +259,7 @@ const PrayerTimesAdmin = () => {
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
+
         </div>
 
         {/* Jumu'ah Adhan (Optional) */}
@@ -276,6 +272,7 @@ const PrayerTimesAdmin = () => {
             onChange={handleInputChange}
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           />
+
         </div>
 
         {/* Jumu'ah Iqama (Optional) */}
@@ -287,6 +284,18 @@ const PrayerTimesAdmin = () => {
             value={formData.jumuahIqama}
             onChange={handleInputChange}
             className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+        </div>
+         {/* Date Picker */}
+        <div className="flex flex-col md:col-span-2">
+          <label className="mb-2 font-medium text-gray-700">Date</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            required
           />
         </div>
 

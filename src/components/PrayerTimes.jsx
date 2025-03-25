@@ -19,7 +19,16 @@ const PrayerTimes = () => {
   useEffect(() => {
     const fetchPrayerTimes = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/prayer-times/latest");
+
+        // actual coordinates for ABUAD MOSQUE
+        const latitude = 7.6057065;
+        const longitude = 5.3091123;
+
+        const response = await fetch(
+          `https://api.aladhan.com/v1/timings/${
+            Date.now() / 1000
+          }?latitude=${latitude}&longitude=${longitude}&method=1`
+        );
         const data = await response.json();
         setPrayerData(data);
       } catch (error) {

@@ -25,9 +25,21 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 
+
 # Enable CORS with environment-aware configuration
 cors_origins = os.getenv('CORS_ORIGINS', 'http://localhost:5173').split(',')
 CORS(app, origins=cors_origins)
+
+
+# Simulated admin users (in-memory storage)
+admins = {
+    "admin1": {"password": "password123"},
+    "admin2": {"password": "securepass"}
+}
+@app.route('/')
+def home():
+    return "WELCOME TO MSSN ABUAD"
+
 
 
 # Product Model
