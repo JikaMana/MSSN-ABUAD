@@ -5,7 +5,8 @@ import axios from "axios";
 const Store = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  const [inventory, setInventory] = useState(0); // change this inventory to setDescription
+  const [description, setDescription] = useState("");
+
   const [image_url, setImageUrl] = useState("");
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -33,28 +34,24 @@ const Store = () => {
       const token = localStorage.getItem("auth_token");
       await axios.post(
         "http://127.0.0.1:5000/api/products",
-        { name, price, inventory, image_url },
+        { name, price, description, image_url },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      if ((!name == "", !price == 0, !image_url == "")) {
+  if ((!name == "", !price == 0, !image_url == "")) {
         alert("Product added successfully!");
-
-        // Clear form fields
-        setName("");
-        setPrice(0);
-        setInventory(0);
-        setImageUrl("");
-
-        // Refetch products
-        const response = await axios.get("http://127.0.0.1:5000/api/products", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        setProducts(response.data);
-        setShowModal(false);
+      // Clear form fields
+      setName("");
+      setPrice(0);
+      setDescription("");
+      setImageUrl("");
+      // Refetch products
+      const response = await axios.get("http://127.0.0.1:5000/api/products", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProducts(response.data);
+              setShowModal(false);
       }
     } catch (error) {
       console.error("Error adding product:", error);
@@ -79,14 +76,47 @@ const Store = () => {
     <div className="p-6">
       <div className="mb-8 flex justify-between">
         <h3 className="text-xl font-bold mb-4">Add New Product</h3>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Product Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full p-2 border rounded"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={image_url}
+            onChange={(e) => setImageUrl(e.target.value)}
+            className="w-full p-2 border rounded"
+          />
+          <button
+            type="submit"
+            className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+onClick={() => setShowModal(true)}
+          >
+            Add New Product
+          </button>
+        </form>
 
-        <button
-          type="submit"
-          className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-          onClick={() => setShowModal(true)}
-        >
-          Add New Product
-        </button>
       </div>
 
       <h3 className="text-xl font-bold mb-4">Products</h3>
@@ -123,8 +153,9 @@ const Store = () => {
                   />
                 </td>
                 <td className="px-4 py-3 text-gray-700">{product.name}</td>
-                <td className="px-4 py-3 text-gray-700">N{product.price}</td>
-                <td className="px-4 py-3 text-gray-700">{product.inventory}</td>
+                <td className="px-4 py-3 text-gray-700">${product.price}</td>
+                <td className="px-4 py-3 text-gray-700">{product.description}</td>
+
                 <td className="px-4 py-3 text-center">
                   <button
                     className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-2 rounded"

@@ -20,6 +20,7 @@ const Store = () => {
   }, [products]);
 
   return (
+
     <div className="pt-32 pb-16">
       <div className="container">
         <div className="flex justify-between items-center mb-8">
@@ -43,7 +44,6 @@ const Store = () => {
                 <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
                 <p className="text-gray-600 text-base mb-4 h-12">
                   {product.description}
-                  {/* {product.inventory} */}
                 </p>
                 <div className="flex justify-between items-center">
                   <span className="text-primary font-bold">
