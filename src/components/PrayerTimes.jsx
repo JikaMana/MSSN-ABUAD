@@ -10,12 +10,15 @@ import afternoonIcon from "../assets/images/afternoon.png";
 import sunsetIcon from "../assets/images/sunset.png";
 import nightIcon from "../assets/images/night.png";
 import jumuahIcon from "../assets/images/jumuah.png";
+import axios from "axios";
 
 const PrayerTimes = () => {
   const [prayerData, setPrayerData] = useState(null);
+  const [timeWePray, setTimewePray] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch prayer times from your backend
+  // Fetch prayer times from API using coordinate
+
   useEffect(() => {
     const fetchPrayerTimes = async () => {
       try {
@@ -44,6 +47,27 @@ const PrayerTimes = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Fetch prayer times from your backend
+
+  useEffect(() => {
+    const fetchPrayerTime = async () => {
+      try {
+        const token = localStorage.getItem("auth_token");
+        const response = await axios.get(
+          "http://127.0.0.1:5000/api/prayer-times/latest",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setTimewePray(response.data);
+      } catch (error) {
+        console.error("Error getting prayer time:", error);
+      }
+    };
+    fetchPrayerTime();
+  }, []);
+  console.log(timeWePray);
+
   // Format time display
   const formatTime = (timeStr) => {
     if (!timeStr) return "-";
@@ -55,38 +79,38 @@ const PrayerTimes = () => {
     {
       name: "Fajr",
       icon: dawnIcon,
-      adhan: prayerData?.fajr?.adhan,
-      iqama: prayerData?.fajr?.iqama,
+      adhan: timeWePray?.fajr?.adhan,
+      iqama: timeWePray?.fajr?.iqama,
     },
     {
       name: "Dhuhr",
       icon: noonIcon,
-      adhan: prayerData?.dhuhr?.adhan,
-      iqama: prayerData?.dhuhr?.iqama,
+      adhan: timeWePray?.dhuhr?.adhan,
+      iqama: timeWePray?.dhuhr?.iqama,
     },
     {
       name: "Asr",
       icon: afternoonIcon,
-      adhan: prayerData?.asr?.adhan,
-      iqama: prayerData?.asr?.iqama,
+      adhan: timeWePray?.asr?.adhan,
+      iqama: timeWePray?.asr?.iqama,
     },
     {
       name: "Maghrib",
       icon: sunsetIcon,
-      adhan: prayerData?.maghrib?.adhan,
-      iqama: prayerData?.maghrib?.iqama,
+      adhan: timeWePray?.maghrib?.adhan,
+      iqama: timeWePray?.maghrib?.iqama,
     },
     {
       name: "Isha",
       icon: nightIcon,
-      adhan: prayerData?.isha?.adhan,
-      iqama: prayerData?.isha?.iqama,
+      adhan: timeWePray?.isha?.adhan,
+      iqama: timeWePray?.isha?.iqama,
     },
     {
       name: "Jumu'ah",
       icon: jumuahIcon,
-      adhan: prayerData?.jumuah?.adhan,
-      iqama: prayerData?.jumuah?.iqama,
+      adhan: timeWePray?.jumuah?.adhan,
+      iqama: timeWePray?.jumuah?.iqama,
     },
   ];
 
