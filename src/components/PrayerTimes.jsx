@@ -32,7 +32,7 @@ const PrayerTimes = () => {
           }?latitude=${latitude}&longitude=${longitude}&method=1`
         );
         const data = await response.json();
-        setPrayerData(data);
+        setPrayerData(data.data.timings);
       } catch (error) {
         console.error("Error fetching prayer times:", error);
       } finally {
@@ -66,7 +66,7 @@ const PrayerTimes = () => {
     };
     fetchPrayerTime();
   }, []);
-  console.log(timeWePray);
+  console.log(prayerData);
 
   // Format time display
   const formatTime = (timeStr) => {
@@ -124,7 +124,7 @@ const PrayerTimes = () => {
         <h2 className="text-xl font-medium mb-4 text-center">
           Prayer Time by Coordinates
         </h2>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {prayerData &&
             Object.entries(prayerData)
               .filter(([name]) =>
@@ -147,7 +147,7 @@ const PrayerTimes = () => {
                   )}
                 </div>
               ))}
-        </div> */}
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
