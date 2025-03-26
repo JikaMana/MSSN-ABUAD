@@ -259,6 +259,13 @@ def delete_product(id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+class Blog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
+
 
 if __name__ == '__main__':
     from waitress import serve
