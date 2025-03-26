@@ -65,7 +65,7 @@ const Events = () => {
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
                       <Users size={20} className="text-primary" />
-                      Open to all members
+                      Open to {"all members"}
                     </div>
                   </div>
                 </div>
