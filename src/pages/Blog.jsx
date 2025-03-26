@@ -1,37 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, User, Clock } from "lucide-react";
+import axios from "axios";
 
 const Blog = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "The Importance of Seeking Knowledge in Islam",
-      excerpt:
-        "Prophet Muhammad (peace be upon him) said, 'Seeking knowledge is obligatory upon every Muslim.' Let's explore what this means for us today.",
-      author: "Ustadh Abdullah",
-      date: "2024-03-10",
-      readTime: "5 min read",
-      image:
-        "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=500",
-    },
-    {
-      id: 2,
-      title: "Preparing for Ramadan: A Comprehensive Guide",
-      excerpt:
-        "As we approach the blessed month of Ramadan, here are some practical tips to help you prepare spiritually and physically.",
-      author: "Ustadh Ibrahim",
-      date: "2024-03-08",
-      readTime: "7 min read",
-      image:
-        "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=500",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/api/blogs");
+        setPosts(response.data);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading blog posts...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-32 pb-16">
       <div className="container">
         <h1 className="text-4xl font-bold mb-4">Blog</h1>
-        <p className="text-lg text-gray-600 mb-4">
+        <p className="text-lg text-gray-600 mb-8">
           We welcome your contributions! You can upload your blog post, subject
           to approval by the MSSN EXCO team. Please ensure that any quotations
           from hadith or the Qur'an include clear references to their sources.
@@ -59,14 +61,16 @@ const Blog = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden"
             >
               <img
-                src={post.image}
+                src={
+                  post.image_url ||
+                  "https://via.placeholder.com/500x300?text=Blog+Image"
+                }
                 alt={post.title}
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
                 <h2 className="text-xl font-semibold mb-3">{post.title}</h2>
-                <p className="text-gray-600 mb-4">{post.excerpt}</p>
-
+                <p className="text-gray-600 mb-4">{post.summary}</p>
                 <div className="flex items-center gap-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
                     <User size={16} />
@@ -74,19 +78,28 @@ const Blog = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar size={16} />
-                    {new Date(post.date).toLocaleDateString()}
+                    {new Date().toLocaleDateString()}
                   </div>
                   <div className="flex items-center gap-1">
                     <Clock size={16} />
-                    {post.readTime}
+                    {/* {post.readTime} */}5 min read
                   </div>
                 </div>
-
-                <button className="btn btn-primary mt-4">Read More</button>
+                <button className="text-primary hover:text-primary-dark font-medium mt-2">
+                  Read More
+                </button>
               </div>
             </div>
           ))}
         </div>
+
+        {posts.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-lg text-gray-600">
+              No blog posts available yet.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

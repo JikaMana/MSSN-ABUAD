@@ -27,7 +27,6 @@ app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 
 CORS(app, origins=["*"])
-
 # Simulated admin users
 admins = {
     "admin1": {"password": "password123"},
@@ -50,11 +49,6 @@ class PrayerTimes(db.Model):
     isha_iqama = db.Column(db.String(50), nullable=False)
     jumuah_adhan = db.Column(db.String(50), nullable=True)
     jumuah_iqama = db.Column(db.String(50), nullable=True)
-
-
-# Create the database
-with app.app_context():
-    db.create_all()
 
 
 # Time validation helper
@@ -259,13 +253,90 @@ def delete_product(id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+
+# Blog Model (simplified)
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    description = db.Column(db.String(500), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    blog = db.Column(db.Text, nullable=False)  # Changed to Text for longer content
+    summary = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(500), nullable=True)
 
+
+# Blog Endpoints
+@app.route('/api/blogs', methods=['GET'])
+def get_blogs():
+    blogs = Blog.query.order_by(Blog.id.desc()).all()  # Newest first
+    return jsonify([{
+        'id': b.id,
+        'title': b.title,
+        'author': b.author,
+        'blog': b.blog,
+        'summary': b.summary,
+        'image_url': b.image_url
+    } for b in blogs])
+
+
+@app.route('/api/blogs', methods=['POST'])
+@jwt_required()
+def add_blog():
+    data = request.json
+    try:
+        new_blog = Blog(
+            title=data['title'],
+            author=data['author'],
+            blog=data['blog'],
+            summary=data['summary'],
+            image_url=data.get('image_url')
+        )
+        db.session.add(new_blog)
+        db.session.commit()
+        return jsonify({"message": "Blog added successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/blogs/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_blog(id):
+    blog = Blog.query.get_or_404(id)
+    data = request.json
+    try:
+        blog.title = data.get('title', blog.title)
+        blog.author = data.get('author', blog.author)
+        blog.blog = data.get('blog', blog.blog)
+        blog.summary = data.get('summary', blog.summary)
+        blog.image_url = data.get('image_url', blog.image_url)
+        db.session.commit()
+        return jsonify({"message": "Blog updated successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/blogs/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_blog(id):
+    blog = Blog.query.get_or_404(id)
+    try:
+        db.session.delete(blog)
+        db.session.commit()
+        return jsonify({"message": "Blog deleted successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+
+# Create the database tables
+with app.app_context():
+    try:
+        db.create_all()
+        print("Database tables created successfully!")
+    except Exception as e:
+        print(f"Error creating database tables: {e}")
 
 if __name__ == '__main__':
     from waitress import serve

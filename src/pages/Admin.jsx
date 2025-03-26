@@ -6,6 +6,7 @@ import {
   Calendar,
   BookOpen,
   Users,
+  Newspaper,
 } from "lucide-react";
 import Dashboard from "../components/admin/Dashboard";
 import Store from "../components/admin/Store";
@@ -14,6 +15,7 @@ import QnA from "../components/admin/QnA";
 import Events from "../components/admin/Events";
 import Blog from "../components/admin/Blog";
 import Members from "../components/admin/Members";
+import News from "../components/admin/News";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -24,6 +26,7 @@ const Admin = () => {
     { id: "store", name: "Store", icon: Package },
     { id: "qanda", name: "Q&A", icon: MessageSquare },
     { id: "events", name: "Events", icon: Calendar },
+    { id: "news", name: "News", icon: Newspaper },
     { id: "blog", name: "Blog", icon: BookOpen },
     { id: "members", name: "Members", icon: Users },
   ];
@@ -60,6 +63,7 @@ const Admin = () => {
             {activeTab === "qanda" && <QnA />}
             {activeTab === "events" && <Events />}
             {activeTab === "blog" && <Blog />}
+            {activeTab === "news" && <News />}
             {activeTab === "members" && <Members />}
           </div>
         </div>
