@@ -34,6 +34,14 @@ admins = {
 }
 
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_react(path):
+    if path and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
+
+
 # Prayer Times Model
 class PrayerTimes(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -174,14 +182,6 @@ def update_prayer_time(id):
     db.session.commit()
 
     return jsonify({"message": "Prayer times updated successfully"})
-
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve_react(path):
-    if path and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    return send_from_directory(app.static_folder, 'index.html')
 
 
 # Product Model
@@ -329,6 +329,181 @@ def delete_blog(id):
         return jsonify({"error": str(e)}), 500
 
 
+# Event Model
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    summary = db.Column(db.String(500), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    date = db.Column(db.String(10), nullable=False)  # YYYY-MM-DD format
+    time = db.Column(db.String(5), nullable=False)  # HH:MM format
+    availability = db.Column(db.String(100), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
+
+
+# Event Endpoints
+@app.route('/api/events', methods=['GET'])
+def get_events():
+    events = Event.query.order_by(Event.id.desc()).all()
+    return jsonify([{
+        'id': e.id,
+        'title': e.title,
+        'summary': e.summary,
+        'content': e.content,
+        'date': e.date,
+        'time': e.time,
+        'availability': e.availability,
+        'image_url': e.image_url
+    } for e in events])
+
+
+@app.route('/api/events', methods=['POST'])
+@jwt_required()
+def add_event():
+    data = request.json
+    try:
+        # Validate required fields
+        required_fields = ['title', 'summary', 'content', 'date', 'time', 'availability']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error": f"Missing required field: {field}"}), 400
+
+        # Validate date/time formats
+        if not re.match(r'^\d{4}-\d{2}-\d{2}$', data['date']):
+            return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
+
+        if not re.match(r'^([01]\d|2[0-3]):[0-5]\d$', data['time']):
+            return jsonify({"error": "Invalid time format. Use HH:MM"}), 400
+
+        new_event = Event(
+            title=data['title'],
+            summary=data['summary'],
+            content=data['content'],
+            date=data['date'],
+            time=data['time'],
+            availability=data['availability'],
+            image_url=data.get('image_url')
+        )
+
+        db.session.add(new_event)
+        db.session.commit()
+        return jsonify({"message": "Event created successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/events/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_event(id):
+    event = Event.query.get_or_404(id)
+    data = request.json
+
+    try:
+        # Update fields
+        if 'title' in data: event.title = data['title']
+        if 'summary' in data: event.summary = data['summary']
+        if 'content' in data: event.content = data['content']
+        if 'date' in data:
+            if not re.match(r'^\d{4}-\d{2}-\d{2}$', data['date']):
+                return jsonify({"error": "Invalid date format"}), 400
+            event.date = data['date']
+        if 'time' in data:
+            if not re.match(r'^([01]\d|2[0-3]):[0-5]\d$', data['time']):
+                return jsonify({"error": "Invalid time format"}), 400
+            event.time = data['time']
+        if 'availability' in data: event.availability = data['availability']
+        if 'image_url' in data: event.image_url = data['image_url']
+
+        db.session.commit()
+        return jsonify({"message": "Event updated successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/events/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_event(id):
+    event = Event.query.get_or_404(id)
+    try:
+        db.session.delete(event)
+        db.session.commit()
+        return jsonify({"message": "Event deleted successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+# News Model
+class News(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    summary = db.Column(db.String(500), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
+
+# News Endpoints
+@app.route('/api/news', methods=['GET'])
+def get_news():
+    news = News.query.order_by(News.id.desc()).all()
+    return jsonify([{
+        'id': n.id,
+        'title': n.title,
+        'author': n.author,
+        'content': n.content,
+        'summary': n.summary,
+        'image_url': n.image_url
+    } for n in news])
+
+@app.route('/api/news', methods=['POST'])
+@jwt_required()
+def add_news():
+    data = request.json
+    try:
+        new_news = News(
+            title=data['title'],
+            author=data['author'],
+            content=data['blog'],  # Matches the React form field name
+            summary=data['summary'],
+            image_url=data.get('image_url')
+        )
+        db.session.add(new_news)
+        db.session.commit()
+        return jsonify({"message": "News added successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/news/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_news(id):
+    news_item = News.query.get_or_404(id)
+    data = request.json
+    try:
+        news_item.title = data.get('title', news_item.title)
+        news_item.author = data.get('author', news_item.author)
+        news_item.content = data.get('blog', news_item.content)
+        news_item.summary = data.get('summary', news_item.summary)
+        news_item.image_url = data.get('image_url', news_item.image_url)
+        db.session.commit()
+        return jsonify({"message": "News updated successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/news/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_news(id):
+    news_item = News.query.get_or_404(id)
+    try:
+        db.session.delete(news_item)
+        db.session.commit()
+        return jsonify({"message": "News deleted successfully"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 # Create the database tables
 with app.app_context():
@@ -337,6 +512,7 @@ with app.app_context():
         print("Database tables created successfully!")
     except Exception as e:
         print(f"Error creating database tables: {e}")
+
 
 if __name__ == '__main__':
     from waitress import serve
