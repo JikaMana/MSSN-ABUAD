@@ -115,7 +115,7 @@ const BlogAdmin = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4">
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4 mt-20">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <h3 className="text-xl font-semibold mb-4">Add Latest News</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
