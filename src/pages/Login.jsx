@@ -41,6 +41,8 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex">
+      <ToastContainer />
+
       <div className="hidden md:block w-1/2 bg-green-800 p-12 text-white">
         <div className="flex flex-col justify-center items-center h-full">
           <div className="max-w-32 mb-12">
@@ -101,7 +103,6 @@ const Login = () => {
           </button>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Donate = () => {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied Number");
+    toast.success("Number Copied");
   };
 
   return (
