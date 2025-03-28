@@ -28,7 +28,7 @@ const BlogAdmin = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    Ustad;
+
     setFormData({
       ...formData,
       [name]: value,
@@ -39,7 +39,7 @@ const BlogAdmin = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.blog("http://127.0.0.1:5000/api/blogs", formData, {
+      await axios.post("http://127.0.0.1:5000/api/blogs", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Refresh blogs list
@@ -130,100 +130,105 @@ const BlogAdmin = () => {
 
       {showModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4 mt-20">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h3 className="text-xl font-semibold mb-4">Add New Blog Post</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-gray-700 mb-1">Title*</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4 mt-20">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+              <h3 className="text-xl font-semibold mb-4">Add New Blog Post</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 mb-1">Title*</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-gray-700 mb-1">Author*</label>
-                <input
-                  type="text"
-                  name="author"
-                  value={formData.author}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
+                <div>
+                  <label className="block text-gray-700 mb-1">Author*</label>
+                  <input
+                    type="text"
+                    name="author"
+                    value={formData.author}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-gray-700 mb-1">
-                  Summary (max 500 chars)*
-                </label>
-                <textarea
-                  name="summary"
-                  value={formData.summary}
-                  onChange={handleInputChange}
-                  maxLength={500}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
+                <div>
+                  <label className="block text-gray-700 mb-1">
+                    Summary (max 500 chars)*
+                  </label>
+                  <textarea
+                    name="summary"
+                    value={formData.summary}
+                    onChange={handleInputChange}
+                    maxLength={500}
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-gray-700 mb-1">
-                  Blog Content*
-                </label>
-                <textarea
-                  name="blog"
-                  value={formData.blog}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded min-h-[200px]"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 mb-1">
-                  Approx read time*
-                </label>
-                <input
-                  type="number"
-                  name="read-time"
-                  // value={formData.author}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 mb-1">Image URL</label>
-                <input
-                  type="text"
-                  name="image_url"
-                  value={formData.image_url}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  placeholder="https://example.com/image.jpg"
-                />
-              </div>
+                <div>
+                  <label className="block text-gray-700 mb-1">
+                    Blog Content*
+                  </label>
+                  <textarea
+                    name="blog"
+                    value={formData.blog}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded min-h-[200px]"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 mb-1">
+                    Approx read time*
+                  </label>
+                  <label className="block text-gray-700 mb-1">
+                    Approx read time*
+                  </label>
+                  <input
+                    type="number"
+                    name="read-time"
+                    // value={formData.author}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 mb-1">Image URL</label>
+                  <input
+                    type="text"
+                    name="image_url"
+                    value={formData.image_url}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
 
-              <div className="flex justify-between mt-6">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
-                >
-                  Add Blog Post
-                </button>
-              </div>
-            </form>
+                <div className="flex justify-between mt-6">
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                    className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
+                  >
+                    Add Blog Post
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       )}

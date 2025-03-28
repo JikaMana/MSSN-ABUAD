@@ -11,23 +11,9 @@ const Members = () => {
     },
     {
       id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      role: "Moderator",
-      status: "Active",
-    },
-    {
-      id: 3,
-      name: "Ahmed Ali",
-      email: "ahmed@example.com",
-      role: "Member",
-      status: "Inactive",
-    },
-    {
-      id: 4,
-      name: "Fatima Yusuf",
-      email: "fatima@example.com",
-      role: "EXCO",
+      name: "Ameer Abuad",
+      email: "ameer@example.com",
+      role: "Ameer",
       status: "Active",
     },
   ]);
