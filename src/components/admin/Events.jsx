@@ -1,78 +1,79 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Events = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [events, setEvents] = useState([])
+  const [showModal, setShowModal] = useState(false);
+  const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
-    title: '',
-    summary: '',
-    content: '',
-    date: '',
-    time: '',
-    availability: 'All members',
-    image_url: ''
-  })
+    title: "",
+    summary: "",
+    content: "",
+    date: "",
+    time: "",
+    summary: "",
+    availability: "All members",
+    image_url: "",
+  });
 
   // Fetch events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/events')
-        setEvents(response.data)
+        const response = await axios.get("http://127.0.0.1:5000/api/events");
+        setEvents(response.data);
       } catch (error) {
-        console.error('Error fetching events:', error)
+        console.error("Error fetching events:", error);
       }
-    }
-    fetchEvents()
-  }, [])
+    };
+    fetchEvents();
+  }, [events]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.post('http://127.0.0.1:5000/api/events', formData, {
+      const token = localStorage.getItem("auth_token");
+      await axios.post("http://127.0.0.1:5000/api/events", formData, {
         headers: { Authorization: `Bearer ${token}` },
-      })
+      });
       // Refresh events list
-      const response = await axios.get('http://127.0.0.1:5000/api/events')
-      setEvents(response.data)
-      setShowModal(false)
+      const response = await axios.get("http://127.0.0.1:5000/api/events");
+      setEvents(response.data);
+      setShowModal(false);
       setFormData({
-        title: '',
-        summary: '',
-        content: '',
-        date: '',
-        time: '',
-        availability: 'All members',
-        image_url: ''
-      })
+        title: "",
+        summary: "",
+        content: "",
+        date: "",
+        time: "",
+        availability: "All members",
+        image_url: "",
+      });
     } catch (error) {
-      console.error('Error adding event:', error)
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error adding event:", error);
+      alert(`Error: ${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   const deleteEvent = async (id) => {
     try {
-      const token = localStorage.getItem('auth_token')
+      const token = localStorage.getItem("auth_token");
       await axios.delete(`http://127.0.0.1:5000/api/events/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setEvents(events.filter((event) => event.id !== id))
+      });
+      setEvents(events.filter((event) => event.id !== id));
     } catch (error) {
-      console.error('Error deleting event:', error)
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error deleting event:", error);
+      alert(`Error: ${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   return (
     <div className="p-6">
@@ -80,7 +81,8 @@ const Events = () => {
         <h2 className="text-2xl font-bold text-primary">Events Management</h2>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors">
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+        >
           Add New Event
         </button>
       </div>
@@ -98,16 +100,17 @@ const Events = () => {
               />
             )}
             <h3 className="text-xl font-semibold mt-4">{event.title}</h3>
-            <p className="text-gray-600 mt-2">{event.summary}</p>
-            <div className="mt-2 text-sm text-gray-500">
+            <div className="mt-2 text-sm text-gray-500 flex justify-between items-center">
               <p>Date: {event.date}</p>
               <p>Time: {event.time}</p>
-              <p>Open to: {event.availability}</p>
             </div>
+            <p className="text-gray-600 mt-3"> Location: {event.summary}</p>
+            <p className="text-right">Open to: {event.availability}</p>
             <div className="mt-4 flex justify-end gap-2">
               <button
                 className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
-                onClick={() => deleteEvent(event.id)}>
+                onClick={() => deleteEvent(event.id)}
+              >
                 Delete
               </button>
             </div>
@@ -133,20 +136,6 @@ const Events = () => {
 
               <div>
                 <label className="block text-gray-700 mb-1">
-                  Summary (max 500 chars)*
-                </label>
-                <textarea
-                  name="summary"
-                  value={formData.summary}
-                  onChange={handleInputChange}
-                  maxLength={500}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">
                   Event Content*
                 </label>
                 <textarea
@@ -160,7 +149,9 @@ const Events = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-gray-700 mb-1">Event Date*</label>
+                  <label className="block text-gray-700 mb-1">
+                    Event Date*
+                  </label>
                   <input
                     type="date"
                     name="date"
@@ -172,7 +163,9 @@ const Events = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 mb-1">Event Time*</label>
+                  <label className="block text-gray-700 mb-1">
+                    Event Time*
+                  </label>
                   <input
                     type="time"
                     name="time"
@@ -183,7 +176,19 @@ const Events = () => {
                   />
                 </div>
               </div>
-
+              <div>
+                <label className="block text-gray-700 mb-1">
+                  Event Location*
+                </label>
+                <input
+                  type="text"
+                  name="summary"
+                  value={formData.summary}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border rounded"
+                  required
+                />
+              </div>
               <div>
                 <label className="block text-gray-700 mb-1">
                   Availability*
@@ -197,7 +202,9 @@ const Events = () => {
                 >
                   <option value="All members">All members</option>
                   <option value="Male members only">Male members only</option>
-                  <option value="Female members only">Female members only</option>
+                  <option value="Female members only">
+                    Female members only
+                  </option>
                   <option value="Executives only">Executives only</option>
                 </select>
               </div>
@@ -218,12 +225,14 @@ const Events = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg">
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
+                >
                   Add Event
                 </button>
               </div>
@@ -232,7 +241,7 @@ const Events = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Events
+export default Events;

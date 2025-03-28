@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, MapPin, Clock, Users } from "lucide-react";
-import axios from 'axios';
+import { Calendar, Clock, Users, MapPinIcon } from "lucide-react";
+import axios from "axios";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -8,14 +8,15 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/events');
+        const response = await axios.get("http://127.0.0.1:5000/api/events");
         setEvents(response.data);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
       }
     };
     fetchEvents();
   }, []);
+  console.log(events);
 
   return (
     <div className="pt-32 pb-16">
@@ -40,15 +41,15 @@ const Events = () => {
                 )}
                 <div className="p-6 md:w-2/3">
                   <h2 className="text-2xl font-semibold mb-4">{event.title}</h2>
-                  <p className="text-gray-600 mb-6">{event.summary}</p>
+                  <p className="text-gray-600 mb-6">{event.content}</p>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2 text-gray-600">
                       <Calendar size={20} className="text-primary" />
-                      {new Date(event.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
+                      {new Date(event.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
@@ -56,14 +57,13 @@ const Events = () => {
                       {event.time}
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
+                      <MapPinIcon size={20} className="text-primary" />
+                      {event.summary}
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-600">
                       <Users size={20} className="text-primary" />
                       {event.availability}
                     </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <h3 className="font-semibold mb-2">Event Details:</h3>
-                    <p className="text-gray-600">{event.content}</p>
                   </div>
                 </div>
               </div>
