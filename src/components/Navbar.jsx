@@ -12,6 +12,7 @@ const Navbar = () => {
     { name: "Forum", href: "/forum" },
     { name: "Events", href: "/events" },
     { name: "Store", href: "/store" },
+    { name: "Admin", href: "/admin" },
   ];
 
   const [activeLink, setActiveLink] = useState("Home");
@@ -21,14 +22,6 @@ const Navbar = () => {
   };
   return (
     <div>
-      <nav className="absolute top-0 right-2 z-[100] ">
-        <Link
-          to="/admin"
-          className="bg-green-700 py-1 px-2 text-white rounded-sm"
-        >
-          Admin
-        </Link>
-      </nav>
       <nav className="bg-white shadow-md fixed w-full z-50">
         <div className="container">
           <div className="flex justify-between items-center h-20">

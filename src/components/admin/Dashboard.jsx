@@ -20,9 +20,7 @@ const Dashboard = () => {
       }
     };
     fetchEvents();
-  }, []);
-
-  console.log(numberOfEvents);
+  }, [events]);
 
   return (
     <div className="grid md:grid-cols-3 gap-6">

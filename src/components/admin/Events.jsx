@@ -98,11 +98,11 @@ const Events = () => {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center  justify-between  gap-y-4 mb-6">
         <h2 className="text-2xl font-bold text-primary">Events Management</h2>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors w-max"
         >
           Add New Event
         </button>
@@ -157,13 +157,13 @@ const Events = () => {
 
               <div>
                 <label className="block text-gray-700 mb-1">
-                  Summary (max 500 chars)*
+                  Summary (max 100 chars)*
                 </label>
                 <textarea
                   name="summary"
                   value={formData.summary}
                   onChange={handleInputChange}
-                  maxLength={500}
+                  maxLength={100}
                   className="w-full p-2 border rounded"
                   required
                 />

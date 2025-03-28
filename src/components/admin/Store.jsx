@@ -33,6 +33,7 @@ const Store = () => {
     };
     fetchProducts();
   }, [products]);
+  // console.log(products);
 
   // Add product
   const handleAddProduct = async (e) => {
@@ -179,20 +180,10 @@ const Store = () => {
                 className="w-full p-2 border rounded"
                 required
               />
-              {/* remove Inventory field
-               <input
-                type="number"
-                placeholder="Inventory"
-                value={inventory}
-                onChange={(e) => setInventory(parseInt(e.target.value))}
-                className="w-full p-2 border rounded"
-                required
-              /> */}
-
               <textarea
                 name="description"
-                // value={description}
-                // onChange={(e) => setDescription(e.target.value)}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 maxLength={100}
                 placeholder="Description max of 100 characters"
                 className="w-full p-2 border rounded mb-2"

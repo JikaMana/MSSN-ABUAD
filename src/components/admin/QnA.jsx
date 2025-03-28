@@ -33,7 +33,7 @@ const QnA = () => {
 
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-y-4">
         <h2 className="text-2xl font-bold text-primary">Q&A Moderation</h2>
         <input
           type="text"

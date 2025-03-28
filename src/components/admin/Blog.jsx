@@ -99,7 +99,7 @@ const BlogAdmin = () => {
           onClick={() => setShowModal(true)}
           className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
         >
-          Add New Blog Post
+          Add Blog Post
         </button>
       </div>
 
@@ -179,13 +179,13 @@ const BlogAdmin = () => {
 
                 <div>
                   <label className="block text-gray-700 mb-1">
-                    Summary (max 500 chars)*
+                    Summary (max 100 chars)*
                   </label>
                   <textarea
                     name="summary"
                     value={formData.summary}
                     onChange={handleInputChange}
-                    maxLength={500}
+                    maxLength={100}
                     className="w-full p-2 border rounded"
                     required
                   />
@@ -207,9 +207,7 @@ const BlogAdmin = () => {
                   <label className="block text-gray-700 mb-1">
                     Approx read time*
                   </label>
-                  <label className="block text-gray-700 mb-1">
-                    Approx read time*
-                  </label>
+
                   <input
                     type="number"
                     name="read-time"

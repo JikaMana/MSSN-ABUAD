@@ -9,7 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post(
         "https://mssn-abuad.onrender.com/api/login",
@@ -17,12 +18,11 @@ const Login = () => {
       );
 
       // Assuming the server responds with a status code in the 2xx range for successful logins
-      if (response.status >= 200 && response.status < 300) {
-        const { message, token } = response.data;
-        toast.success(message); // Displays "Login successful"
-        localStorage.setItem("auth_token", token);
-        navigate("/admin");
-      }
+
+      const { message, token } = response.data;
+      toast.success(message); // Displays "Login successful"
+      localStorage.setItem("auth_token", token);
+      navigate("/admin");
     } catch (error) {
       // Handling errors
       if (error.response) {
@@ -59,7 +59,7 @@ const Login = () => {
       </div>
 
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <form id="loginForm" className="w-full max-w-md">
+        <form id="loginForm" className="w-full max-w-md" onSubmit={handleLogin}>
           <h2 className="text-3xl font-bold text-green-800 mb-8">
             Welcome Admin
           </h2>
@@ -69,7 +69,8 @@ const Login = () => {
               Email
             </label>
             <input
-              type="email"
+              // type="email"
+              type="text"
               placeholder="Email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -94,7 +95,6 @@ const Login = () => {
 
           <button
             type="submit"
-            onClick={handleLogin}
             className="w-full bg-green-700 text-white p-3 rounded-lg hover:bg-green-800 transition duration-300"
           >
             Login

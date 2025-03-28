@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, User, Clock } from "lucide-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -21,6 +22,7 @@ const Blog = () => {
     };
     fetchBlogs();
   }, []);
+  console.log(posts);
 
   if (loading) {
     return (
@@ -80,16 +82,23 @@ const Blog = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar size={16} />
-                    {new Date().toLocaleDateString()}
+                    {new Date(post.createdAt).toLocaleDateString()}
                   </div>
                   <div className="flex items-center gap-1">
                     <Clock size={16} />
-                    {/* {post.readTime} */}5 min read
+                    {post.readTime || "5 min"} read
                   </div>
                 </div>
-                <button className="text-primary hover:text-primary-dark font-medium mt-2">
-                  Read More
-                </button>
+
+                <div>
+                  <Link
+                    to={`/blog/${post.id}`}
+                    className="text-primary hover:text-primary-dark font-medium mt-2"
+                  >
+                    Read Now
+                    <span className="text-xl">&rarr;</span>
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
