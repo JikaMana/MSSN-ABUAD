@@ -10,7 +10,9 @@ const Store = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/products");
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/products"
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -20,7 +22,6 @@ const Store = () => {
   }, [products]);
 
   return (
-
     <div className="pt-32 pb-16">
       <div className="container">
         <div className="flex justify-between items-center mb-8">

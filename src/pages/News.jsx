@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -9,14 +9,16 @@ const News = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/news');
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/news"
+        );
         if (response.data.length > 0) {
           setNews(response.data);
           // Set first news item as featured
           setFeaturedNews(response.data[0]);
         }
       } catch (error) {
-        console.error('Error fetching news:', error);
+        console.error("Error fetching news:", error);
       }
     };
     fetchNews();
@@ -29,7 +31,8 @@ const News = () => {
         <header className="mb-10 text-center">
           <h1 className="text-4xl font-bold">Latest News</h1>
           <p className="text-lg text-gray-600 mt-2">
-            Stay updated with the latest happenings at MSSN and around the school.
+            Stay updated with the latest happenings at MSSN and around the
+            school.
           </p>
         </header>
 
@@ -48,7 +51,9 @@ const News = () => {
                 {featuredNews.title}
               </h2>
               <p className="text-gray-700 mb-4">{featuredNews.summary}</p>
-              <p className="text-gray-600 text-sm mb-2">By {featuredNews.author}</p>
+              <p className="text-gray-600 text-sm mb-2">
+                By {featuredNews.author}
+              </p>
               <button className="inline-block text-primary font-semibold hover:underline">
                 Read More &rarr;
               </button>
@@ -59,7 +64,10 @@ const News = () => {
         {/* News Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {news.slice(1).map((newsItem) => (
-            <article key={newsItem.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <article
+              key={newsItem.id}
+              className="bg-white shadow-lg rounded-lg overflow-hidden"
+            >
               {newsItem.image_url && (
                 <img
                   src={newsItem.image_url}
@@ -70,7 +78,9 @@ const News = () => {
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{newsItem.title}</h3>
                 <p className="text-gray-600 text-sm mb-2">{newsItem.summary}</p>
-                <p className="text-gray-500 text-xs mb-2">By {newsItem.author}</p>
+                <p className="text-gray-500 text-xs mb-2">
+                  By {newsItem.author}
+                </p>
                 <button className="text-primary font-medium hover:underline">
                   Read More
                 </button>

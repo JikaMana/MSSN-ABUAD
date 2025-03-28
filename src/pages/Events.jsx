@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, MapPin, Clock, Users } from "lucide-react";
-import axios from 'axios';
+import axios from "axios";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -8,10 +8,12 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/events');
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/events"
+        );
         setEvents(response.data);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
       }
     };
     fetchEvents();
@@ -45,10 +47,10 @@ const Events = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2 text-gray-600">
                       <Calendar size={20} className="text-primary" />
-                      {new Date(event.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
+                      {new Date(event.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">

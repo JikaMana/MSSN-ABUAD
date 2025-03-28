@@ -1,75 +1,79 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const BlogAdmin = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [news, setNews] = useState([])
+  const [showModal, setShowModal] = useState(false);
+  const [news, setNews] = useState([]);
   const [formData, setFormData] = useState({
-    title: '',
-    author: '',
-    news: '',
-    summary: '',
-    image_url: '',
-  })
+    title: "",
+    author: "",
+    news: "",
+    summary: "",
+    image_url: "",
+  });
 
   // Fetch news from backend
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/news')
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/news"
+        );
 
-        setNews(response.data)
+        setNews(response.data);
       } catch (error) {
-        console.error('Error fetching news:', error)
+        console.error("Error fetching news:", error);
       }
-    }
-    fetchNews()
-  }, [])
+    };
+    fetchNews();
+  }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.post('http://127.0.0.1:5000/api/news', formData, {
+      const token = localStorage.getItem("auth_token");
+      await axios.post("https://mssn-abuad.onrender.com/api/news", formData, {
         headers: { Authorization: `Bearer ${token}` },
-      })
+      });
       // Refresh news list
-      const response = await axios.get('http://127.0.0.1:5000/api/news')
-      setNews(response.data)
-      setShowModal(false)
+      const response = await axios.get(
+        "https://mssn-abuad.onrender.com/api/news"
+      );
+      setNews(response.data);
+      setShowModal(false);
       setFormData({
-        title: '',
-        author: '',
-        blog: '',
-        summary: '',
-        image_url: '',
-      })
+        title: "",
+        author: "",
+        blog: "",
+        summary: "",
+        image_url: "",
+      });
     } catch (error) {
-      console.error('Error adding blog:', error)
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error adding blog:", error);
+      alert(`Error: ${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   const deleteBlog = async (id) => {
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.delete(`http://127.0.0.1:5000/api/news/${id}`, {
+      const token = localStorage.getItem("auth_token");
+      await axios.delete(`https://mssn-abuad.onrender.com/api/news/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setNews(news.filter((blog) => blog.id !== id))
+      });
+      setNews(news.filter((blog) => blog.id !== id));
     } catch (error) {
-      console.error('Error deleting blog:', error)
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error deleting blog:", error);
+      alert(`Error: ${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   return (
     <div className="p-6">
@@ -77,7 +81,8 @@ const BlogAdmin = () => {
         <h2 className="text-2xl font-bold text-primary">News Update</h2>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors">
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+        >
           Add Latest News
         </button>
       </div>
@@ -86,11 +91,12 @@ const BlogAdmin = () => {
         {news.map((blog) => (
           <div
             key={blog.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden">
+            className="bg-white rounded-xl shadow-lg overflow-hidden"
+          >
             <img
               src={
                 blog.image_url ||
-                'https://via.placeholder.com/500x300?text=Blog+Image'
+                "https://via.placeholder.com/500x300?text=Blog+Image"
               }
               alt={blog.title}
               className="w-full h-40 object-cover"
@@ -102,7 +108,8 @@ const BlogAdmin = () => {
               <div className="mt-4 flex justify-end">
                 <button
                   className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
-                  onClick={() => deleteBlog(blog.id)}>
+                  onClick={() => deleteBlog(blog.id)}
+                >
                   Delete
                 </button>
               </div>
@@ -183,12 +190,14 @@ const BlogAdmin = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg">
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
+                >
                   Add News
                 </button>
               </div>
@@ -197,7 +206,7 @@ const BlogAdmin = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BlogAdmin
+export default BlogAdmin;

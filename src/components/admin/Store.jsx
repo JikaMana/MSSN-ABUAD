@@ -16,9 +16,12 @@ const Store = () => {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem("auth_token");
-        const response = await axios.get("http://127.0.0.1:5000/api/products", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/products",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -33,7 +36,7 @@ const Store = () => {
     try {
       const token = localStorage.getItem("auth_token");
       await axios.post(
-        "http://127.0.0.1:5000/api/products",
+        "https://mssn-abuad.onrender.com/api/products",
         { name, price, description, image_url },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -47,9 +50,12 @@ const Store = () => {
         setDescription("");
         setImageUrl("");
         // Refetch products
-        const response = await axios.get("http://127.0.0.1:5000/api/products", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/products",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setProducts(response.data);
         setShowModal(false);
       }
@@ -62,7 +68,7 @@ const Store = () => {
   const handleDeleteProduct = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`http://127.0.0.1:5000/api/products/${id}`, {
+      await axios.delete(`https://mssn-abuad.onrender.com/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Product deleted successfully!");
