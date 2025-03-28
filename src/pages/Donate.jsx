@@ -1,5 +1,7 @@
 import React from "react";
 import { CreditCard, Copy, Heart, Coins } from "lucide-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Donate = () => {
   const accounts = [
@@ -31,8 +33,7 @@ const Donate = () => {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
-    // You could add a toast notification here
-    alert("Copied Number");
+    toast.success("Copied Number");
   };
 
   return (

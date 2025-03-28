@@ -30,7 +30,7 @@ CORS(app, origins=["*"])
 # Simulated admin users
 admins = {
     "admin1": {"password": "password123"},
-    "admin2": {"password": "securepass"}
+    "mssnabuad@gmail.com": {"password": "mssnlogin"}
 }
 
 

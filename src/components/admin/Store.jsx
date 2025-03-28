@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Pencil, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Store = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
-
   const [image_url, setImageUrl] = useState("");
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch products on component mount
   useEffect(() => {
@@ -25,6 +27,8 @@ const Store = () => {
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -43,7 +47,7 @@ const Store = () => {
         }
       );
       if ((!name == "", !price == 0, !image_url == "")) {
-        alert("Product added successfully!");
+        toast.success("Product added successfully!");
         // Clear form fields
         setName("");
         setPrice(0);
@@ -61,7 +65,7 @@ const Store = () => {
       }
     } catch (error) {
       console.error("Error adding product:", error);
-      alert("An error occurred");
+      toast.error("An error occurred");
     }
   };
 
@@ -71,12 +75,21 @@ const Store = () => {
       await axios.delete(`https://mssn-abuad.onrender.com/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert("Product deleted successfully!");
+      toast.success("Product deleted successfully!");
     } catch (error) {
       console.error("Error deleting product:", error);
-      alert("An error occurred while deleting the product");
+      toast.success("An error occurred while deleting the product");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading store products...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">
@@ -131,10 +144,10 @@ const Store = () => {
 
                 <td className="px-4 py-3 text-center">
                   <button
-                    className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-2 rounded"
+                    className="text-white text-sm font-medium px-3 py-2 rounded"
                     onClick={() => handleDeleteProduct(product.id)}
                   >
-                    <Trash />
+                    <Trash color=" #dc2626" />
                   </button>
                 </td>
               </tr>

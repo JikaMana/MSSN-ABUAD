@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     title: "",
     summary: "",
@@ -24,6 +28,8 @@ const Events = () => {
         setEvents(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchEvents();
@@ -59,8 +65,11 @@ const Events = () => {
         availability: "All members",
         image_url: "",
       });
+      toast.success("Events added successfully!");
     } catch (error) {
       console.error("Error adding event:", error);
+      toast.error("Error adding event");
+
       alert(`Error: ${error.response?.data?.error || error.message}`);
     }
   };
@@ -74,9 +83,18 @@ const Events = () => {
       setEvents(events.filter((event) => event.id !== id));
     } catch (error) {
       console.error("Error deleting event:", error);
-      alert(`Error: ${error.response?.data?.error || error.message}`);
+      toast.error(`${error.response?.data?.error || error.message}`);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading Events...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">

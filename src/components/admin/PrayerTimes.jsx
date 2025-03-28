@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PrayerTimesAdmin = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +18,6 @@ const PrayerTimesAdmin = () => {
     jumuahAdhan: "",
     jumuahIqama: "",
   });
-  const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
     const fetchLatestTimes = async () => {
@@ -44,7 +45,7 @@ const PrayerTimesAdmin = () => {
           });
         }
       } catch (error) {
-        alert("Failed to fetch prayer times.");
+        toast.error("Failed to fetch prayer times.");
       }
     };
     fetchLatestTimes();
@@ -56,7 +57,7 @@ const PrayerTimesAdmin = () => {
     try {
       const token = localStorage.getItem("auth_token");
       if (!token) {
-        alert("Please login first");
+        toast.warn("Please login first");
         return;
       }
 
@@ -89,7 +90,7 @@ const PrayerTimesAdmin = () => {
         }
       );
 
-      alert("Prayer times updated successfully!");
+      toast.success("Prayer times updated successfully!");
       window.location.reload(); // Force refresh to show changes
     } catch (error) {
       console.error("Full error:", error);

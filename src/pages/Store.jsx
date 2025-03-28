@@ -23,6 +23,7 @@ const Store = () => {
     };
     fetchProducts();
   }, [products]);
+
   if (loading) {
     return (
       <div className="pt-32 pb-16 container text-center">

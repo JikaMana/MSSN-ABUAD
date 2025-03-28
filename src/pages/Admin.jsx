@@ -23,11 +23,11 @@ const Admin = () => {
   const tabs = [
     { id: "dashboard", name: "Dashboard", icon: Settings },
     { id: "prayer", name: "Prayer Time", icon: Calendar },
-    { id: "store", name: "Store", icon: Package },
     { id: "qanda", name: "Q&A", icon: MessageSquare },
-    { id: "events", name: "Events", icon: Calendar },
     { id: "news", name: "News", icon: Newspaper },
+    { id: "events", name: "Events", icon: Calendar },
     { id: "blog", name: "Blog", icon: BookOpen },
+    { id: "store", name: "Store", icon: Package },
     { id: "members", name: "Members", icon: Users },
   ];
 

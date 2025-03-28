@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,24 +11,31 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      console.log("Sending login request:", { username, password });
       const response = await axios.post(
         "https://mssn-abuad.onrender.com/api/login",
-        {
-          username,
-          password,
-        }
+        { username, password }
       );
 
-      // Store the token in local storage
-      const token = response.data.token;
-      localStorage.setItem("auth_token", token);
-      console.log("Login response:", response.data);
-      alert(response.data.message);
-      navigate("/admin");
+      // Assuming the server responds with a status code in the 2xx range for successful logins
+      if (response.status >= 200 && response.status < 300) {
+        const { message, token } = response.data;
+        toast.success(message); // Displays "Login successful"
+        localStorage.setItem("auth_token", token);
+        navigate("/admin");
+      }
     } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "An error occurred");
+      // Handling errors
+      if (error.response) {
+        // The request was made, and the server responded with a status code outside the 2xx range
+        toast.error(error.response.data.message || "An error occurred");
+      } else if (error.request) {
+        // The request was made, but no response was received
+        toast.error("No response from server. Please try again later.");
+      } else {
+        // Something else happened while setting up the request
+        toast.error("An unexpected error occurred.");
+      }
+      console.error("Login error:", error);
     }
   };
 
@@ -92,6 +101,7 @@ const Login = () => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

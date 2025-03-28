@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BlogAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -23,6 +27,8 @@ const BlogAdmin = () => {
         setNews(response.data);
       } catch (error) {
         console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchNews();
@@ -56,9 +62,10 @@ const BlogAdmin = () => {
         summary: "",
         image_url: "",
       });
+      toast.success("News added successfully!");
     } catch (error) {
       console.error("Error adding blog:", error);
-      alert(`Error: ${error.response?.data?.error || error.message}`);
+      toast.error(`Error: ${error.response?.data?.error || error.message}`);
     }
   };
 
@@ -74,6 +81,15 @@ const BlogAdmin = () => {
       alert(`Error: ${error.response?.data?.error || error.message}`);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading News...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">
