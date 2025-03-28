@@ -4,6 +4,7 @@ import axios from "axios";
 const News = () => {
   const [news, setNews] = useState([]);
   const [featuredNews, setFeaturedNews] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch news from backend
   useEffect(() => {
@@ -19,10 +20,20 @@ const News = () => {
         }
       } catch (error) {
         console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchNews();
   }, []);
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading News...</p>
+      </div>
+    );
+  }
 
   return (
     <section className="pt-32 pb-16 bg-gray-100">

@@ -5,6 +5,7 @@ import axios from "axios";
 
 const Store = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch products on component mount
   useEffect(() => {
@@ -16,10 +17,20 @@ const Store = () => {
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
   }, [products]);
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading store products...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-32 pb-16">

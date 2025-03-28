@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -14,10 +15,21 @@ const Events = () => {
         setEvents(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchEvents();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading Events...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-32 pb-16">
