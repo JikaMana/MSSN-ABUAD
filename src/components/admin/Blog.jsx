@@ -76,9 +76,10 @@ const BlogAdmin = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBlogs(blogs.filter((blog) => blog.id !== id));
+      toast.success("Deleted successfully");
     } catch (error) {
       console.error("Error deleting blog:", error);
-      alert(`Error: ${error.response?.data?.error || error.message}`);
+      toast.error(`${error.response?.data?.error || error.message}`);
     }
   };
 
@@ -179,13 +180,13 @@ const BlogAdmin = () => {
 
                 <div>
                   <label className="block text-gray-700 mb-1">
-                    Summary (max 100 chars)*
+                    Summary (max 250 chars)*
                   </label>
                   <textarea
                     name="summary"
                     value={formData.summary}
                     onChange={handleInputChange}
-                    maxLength={100}
+                    maxLength={250}
                     className="w-full p-2 border rounded"
                     required
                   />

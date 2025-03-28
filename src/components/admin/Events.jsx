@@ -81,6 +81,7 @@ const Events = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEvents(events.filter((event) => event.id !== id));
+      toast.success("Deleted successfully");
     } catch (error) {
       console.error("Error deleting event:", error);
       toast.error(`${error.response?.data?.error || error.message}`);
@@ -107,9 +108,39 @@ const Events = () => {
           Add New Event
         </button>
       </div>
-      <p className="text-gray-600 mb-4">
-        This section allows you to create, update, or delete events.
-      </p>
+      {events.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events.map((event) => (
+            <div key={event.id} className="bg-white rounded-xl shadow-lg p-4">
+              {event.image_url && (
+                <img
+                  src={event.image_url}
+                  alt={event.title}
+                  className="w-full h-40 object-cover rounded"
+                />
+              )}
+              <h3 className="text-xl font-semibold mt-4">{event.title}</h3>
+              <p className="text-gray-600 mt-2">{event.summary}</p>
+              <div className="mt-2 text-sm text-gray-500">
+                <p>Date: {event.date}</p>
+                <p>Time: {event.time}</p>
+                <p>Open to: {event.availability}</p>
+              </div>
+              <div className="mt-4 flex justify-end gap-2">
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
+                  onClick={() => deleteEvent(event.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-600 mb-4"> No Upcoming event</p>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.map((event) => (
           <div key={event.id} className="bg-white rounded-xl shadow-lg p-4">
@@ -157,13 +188,13 @@ const Events = () => {
 
               <div>
                 <label className="block text-gray-700 mb-1">
-                  Summary (max 100 chars)*
+                  Summary (max 250 chars)*
                 </label>
                 <textarea
                   name="summary"
                   value={formData.summary}
                   onChange={handleInputChange}
-                  maxLength={100}
+                  maxLength={250}
                   className="w-full p-2 border rounded"
                   required
                 />

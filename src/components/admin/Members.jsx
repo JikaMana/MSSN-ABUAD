@@ -21,7 +21,6 @@ const Members = () => {
   const deleteItem = (memberID) => {
     setadminMembers(adminMembers.filter((members) => members.id !== memberID));
   };
-  console.log(adminMembers);
 
   return (
     <div className="p-6">

@@ -123,7 +123,7 @@ const PrayerTimes = () => {
         <RefreshCw size={20} />
         <span>Refresh</span>
       </button>
-      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
+      <div className="hidden md:block bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
         <h2 className="text-xl font-medium mb-4 text-center">
           Prayer Time by Coordinates
         </h2>

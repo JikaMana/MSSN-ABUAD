@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ShoppingCart, Package } from "lucide-react";
+import { ShoppingCart, Package, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -36,15 +36,6 @@ const Store = () => {
     fetchProducts();
   }, [products]);
 
-  // if (loading) {
-  //   return (
-  //     <div className="pt-32 pb-16 container text-center">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
-  //       <p className="mt-4">Loading store products...</p>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="pt-32 pb-16">
       <div className="container">
@@ -75,12 +66,19 @@ const Store = () => {
                     <span className="text-primary font-bold">
                       ₦{product.price}
                     </span>
-                    <Link
-                      to="tel:+2349012345678"
-                      className="btn btn-primary py-2"
-                    >
-                      Contact Seller
-                    </Link>
+
+                    <div>
+                      <Link
+                        to="https://wa.me/2349012345678"
+                        className="btn btn-primary py-2"
+                      ></Link>
+                      <Link
+                        to="tel:+2349012345678"
+                        className="btn btn-primary py-2"
+                      >
+                        <Phone />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -92,6 +90,7 @@ const Store = () => {
             <p className="mt-4">Loading store products...</p>
           </div>
         )}
+        {products.length == 0 && <p className="mt-4">No available product</p>}
         <div className="pt-16">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
             Things We Sell

@@ -10,7 +10,6 @@ const QandA = () => {
       question: "What are the requirements for joining MSSN ABUAD?",
       answer:
         "Any Muslim student at ABUAD can join MSSN. Simply attend our meetings and register with the membership committee.",
-      author: "Ahmad",
       date: "2024-03-10",
     },
     {
@@ -18,7 +17,6 @@ const QandA = () => {
       question: "How can I participate in the Qur'an competition?",
       answer:
         "Register through our website or contact the program coordinator. Competitions are held annually with different categories.",
-      author: "Fatima",
       date: "2024-03-08",
     },
   ];
@@ -47,13 +45,15 @@ const QandA = () => {
         >
           <h2 className="text-xl font-semibold mb-4">Ask a Question</h2>
           <div className="space-y-4">
-            <div className="flex gap-x-4 items-center">
-              <label htmlFor="email">Enter your Email</label>
+            <div className="flex flex-col sm:flex-row gap-y-1 gap-x-4 sm:items-center">
+              <label htmlFor="email" className="w-full">
+                Enter your email
+              </label>
               <input
                 name="email"
                 type="email"
                 placeholder="Type your email to receive answer"
-                className="w-max h-12 p-4 rounded-lg border-2 border-primary"
+                className="w-full  h-12 p-4 rounded-lg border-2 border-primary"
               />
             </div>
             <textarea
@@ -84,8 +84,7 @@ const QandA = () => {
                   <h3 className="text-lg font-semibold mb-2">{q.question}</h3>
                   <p className="text-gray-600 mb-4">{q.answer}</p>
                   <div className="text-sm text-gray-500">
-                    Asked by {q.author} on{" "}
-                    {new Date(q.date).toLocaleDateString()}
+                    Asked on {new Date(q.date).toLocaleDateString()}
                   </div>
                 </div>
               </div>

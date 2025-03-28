@@ -22,7 +22,6 @@ const Blog = () => {
     };
     fetchBlogs();
   }, []);
-  console.log(posts);
 
   if (loading) {
     return (

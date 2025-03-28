@@ -184,7 +184,7 @@ const Store = () => {
                 name="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                maxLength={100}
+                maxLength={120}
                 placeholder="Description max of 100 characters"
                 className="w-full p-2 border rounded mb-2"
               />

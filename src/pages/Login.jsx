@@ -17,12 +17,12 @@ const Login = () => {
         { username, password }
       );
 
-      // Assuming the server responds with a status code in the 2xx range for successful logins
-
-      const { message, token } = response.data;
-      toast.success(message); // Displays "Login successful"
-      localStorage.setItem("auth_token", token);
-      navigate("/admin");
+      if (response.status >= 200 && response.status < 300) {
+        const { token } = response.data;
+        toast.success("Access granted");
+        localStorage.setItem("auth_token", token);
+        navigate("/admin");
+      }
     } catch (error) {
       // Handling errors
       if (error.response) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -15,11 +15,14 @@ const Navbar = () => {
     { name: "Admin", href: "/admin" },
   ];
 
-  const [activeLink, setActiveLink] = useState("Home");
+  const [activeLink, setActiveLink] = useState("");
 
   const handleActiveNav = (nav) => {
     setActiveLink(nav);
   };
+
+  useEffect(() => {}, [activeLink]);
+
   return (
     <div>
       <nav className="bg-white shadow-md fixed w-full z-50">

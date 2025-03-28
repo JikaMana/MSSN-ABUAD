@@ -8,10 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 const AppLayout = () => {
   return (
     <>
-      <div className="min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white">
         <Navbar />
         <ToastContainer />
-        <Outlet />
+        <main className="flex-grow">
+          <Outlet />
+        </main>
         <Footer />
       </div>
     </>
