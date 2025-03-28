@@ -17,7 +17,9 @@ const BlogAdmin = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/blogs");
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/blogs"
+        );
         setBlogs(response.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -39,11 +41,13 @@ const BlogAdmin = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.post("http://127.0.0.1:5000/api/blogs", formData, {
+      await axios.post("https://mssn-abuad.onrender.com/api/blogs", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Refresh blogs list
-      const response = await axios.get("http://127.0.0.1:5000/api/blogs");
+      const response = await axios.get(
+        "https://mssn-abuad.onrender.com/api/blogs"
+      );
       setBlogs(response.data);
       setShowModal(false);
       setFormData({
@@ -62,7 +66,7 @@ const BlogAdmin = () => {
   const deleteBlog = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`http://127.0.0.1:5000/api/blogs/${id}`, {
+      await axios.delete(`https://mssn-abuad.onrender.com/api/blogs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBlogs(blogs.filter((blog) => blog.id !== id));

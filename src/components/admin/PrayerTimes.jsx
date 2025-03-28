@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const PrayerTimesAdmin = () => {
   const [formData, setFormData] = useState({
-    fajrAdhan: '',
-    fajrIqama: '',
-    dhuhrAdhan: '',
-    dhuhrIqama: '',
-    asrAdhan: '',
-    asrIqama: '',
-    maghribAdhan: '',
-    maghribIqama: '',
-    ishaAdhan: '',
-    ishaIqama: '',
-    jumuahAdhan: '',
-    jumuahIqama: '',
-  })
-  const [currentId, setCurrentId] = useState(null)
+    fajrAdhan: "",
+    fajrIqama: "",
+    dhuhrAdhan: "",
+    dhuhrIqama: "",
+    asrAdhan: "",
+    asrIqama: "",
+    maghribAdhan: "",
+    maghribIqama: "",
+    ishaAdhan: "",
+    ishaIqama: "",
+    jumuahAdhan: "",
+    jumuahIqama: "",
+  });
+  const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
     const fetchLatestTimes = async () => {
       try {
-        const token = localStorage.getItem('auth_token')
+        const token = localStorage.getItem("auth_token");
         const response = await axios.get(
-          'http://127.0.0.1:5000/api/prayer-times',
+          "https://mssn-abuad.onrender.com/api/prayer-times",
           { headers: { Authorization: `Bearer ${token}` } }
-        )
+        );
 
         if (response.data) {
           setFormData({
@@ -39,72 +39,72 @@ const PrayerTimesAdmin = () => {
             maghribIqama: response.data.maghrib.iqama,
             ishaAdhan: response.data.isha.adhan,
             ishaIqama: response.data.isha.iqama,
-            jumuahAdhan: response.data.jumuah?.adhan || '',
-            jumuahIqama: response.data.jumuah?.iqama || '',
-          })
+            jumuahAdhan: response.data.jumuah?.adhan || "",
+            jumuahIqama: response.data.jumuah?.iqama || "",
+          });
         }
       } catch (error) {
-        alert('Failed to fetch prayer times.')
+        alert("Failed to fetch prayer times.");
       }
-    }
-    fetchLatestTimes()
-  }, [])
+    };
+    fetchLatestTimes();
+  }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const token = localStorage.getItem('auth_token')
+      const token = localStorage.getItem("auth_token");
       if (!token) {
-        alert('Please login first')
-        return
+        alert("Please login first");
+        return;
       }
 
       // Prepare payload with all required fields
       const payload = {
-        fajr_adhan: formData.fajrAdhan || '00:00',
-        fajr_iqama: formData.fajrIqama || '00:00',
-        dhuhr_adhan: formData.dhuhrAdhan || '00:00',
-        dhuhr_iqama: formData.dhuhrIqama || '00:00',
-        asr_adhan: formData.asrAdhan || '00:00',
-        asr_iqama: formData.asrIqama || '00:00',
-        maghrib_adhan: formData.maghribAdhan || '00:00',
-        maghrib_iqama: formData.maghribIqama || '00:00',
-        isha_adhan: formData.ishaAdhan || '00:00',
-        isha_iqama: formData.ishaIqama || '00:00',
+        fajr_adhan: formData.fajrAdhan || "00:00",
+        fajr_iqama: formData.fajrIqama || "00:00",
+        dhuhr_adhan: formData.dhuhrAdhan || "00:00",
+        dhuhr_iqama: formData.dhuhrIqama || "00:00",
+        asr_adhan: formData.asrAdhan || "00:00",
+        asr_iqama: formData.asrIqama || "00:00",
+        maghrib_adhan: formData.maghribAdhan || "00:00",
+        maghrib_iqama: formData.maghribIqama || "00:00",
+        isha_adhan: formData.ishaAdhan || "00:00",
+        isha_iqama: formData.ishaIqama || "00:00",
         jumuah_adhan: formData.jumuahAdhan || null,
         jumuah_iqama: formData.jumuahIqama || null,
-      }
+      };
 
-      console.log('Submitting:', payload) // Debug log
+      console.log("Submitting:", payload); // Debug log
 
       const response = await axios.post(
-        'http://127.0.0.1:5000/api/prayer-times',
+        "https://mssn-abuad.onrender.com/api/prayer-times",
         payload,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
-      )
+      );
 
-      alert('Prayer times updated successfully!')
-      window.location.reload() // Force refresh to show changes
+      alert("Prayer times updated successfully!");
+      window.location.reload(); // Force refresh to show changes
     } catch (error) {
-      console.error('Full error:', error)
-      console.error('Error response:', error.response?.data)
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Full error:", error);
+      console.error("Error response:", error.response?.data);
+      alert(`Error: ${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   return (
     <div className="p-6">
@@ -117,7 +117,8 @@ const PrayerTimesAdmin = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         {/* Fajr Adhan */}
         <div className="flex flex-col">
           <label className="mb-2 font-medium text-gray-700">Fajr Adhan</label>
@@ -272,13 +273,14 @@ const PrayerTimesAdmin = () => {
         <div className="md:col-span-2">
           <button
             type="submit"
-            className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors">
+            className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+          >
             Save Prayer Times
           </button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default PrayerTimesAdmin
+export default PrayerTimesAdmin;

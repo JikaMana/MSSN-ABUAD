@@ -9,7 +9,9 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/blogs");
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/blogs"
+        );
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);

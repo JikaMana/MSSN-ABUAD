@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
+import { Clock, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
 import prayerIcon from "../assets/images/prayer.webp";
 import adhanIcon from "../assets/images/adhan.webp";
@@ -49,7 +49,7 @@ const PrayerTimes = () => {
       try {
         // Add timestamp to URL to prevent caching
         const response = await axios.get(
-          `http://127.0.0.1:5000/api/prayer-times?t=${Date.now()}`
+          `https://mssn-abuad.onrender.com/api/prayer-times?t=${Date.now()}`
         );
         setMosqueTimes(response.data);
       } catch (error) {
@@ -58,6 +58,11 @@ const PrayerTimes = () => {
     };
     fetchMosqueTimes();
   }, []); // Keep empty dependency array for initial load
+
+  // Add manual refresh function
+  const handleRefresh = () => {
+    window.location.reload(); // Full page reload to ensure fresh data
+  };
 
   // Format time display
   const formatTime = (timeStr) => {
@@ -111,12 +116,18 @@ const PrayerTimes = () => {
         <Clock className="text-primary" size={24} />
         <h2 className="text-2xl md:text-3xl font-bold">Prayer Times</h2>
       </div>
-
+      <button
+        onClick={handleRefresh}
+        className="ml-auto flex items-center gap-2 text-primary hover:text-primary-dark"
+      >
+        <RefreshCw size={20} />
+        <span>Refresh</span>
+      </button>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
         <h2 className="text-xl font-medium mb-4 text-center">
           Prayer Time by Coordinates
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {prayerData &&
             Object.entries(prayerData)
               .filter(([name]) =>

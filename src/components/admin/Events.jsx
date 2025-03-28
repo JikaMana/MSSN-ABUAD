@@ -10,7 +10,6 @@ const Events = () => {
     content: "",
     date: "",
     time: "",
-    summary: "",
     availability: "All members",
     image_url: "",
   });
@@ -19,14 +18,16 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/events");
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/events"
+        );
         setEvents(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     };
     fetchEvents();
-  }, [events]);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,11 +41,13 @@ const Events = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.post("http://127.0.0.1:5000/api/events", formData, {
+      await axios.post("https://mssn-abuad.onrender.com/api/events", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Refresh events list
-      const response = await axios.get("http://127.0.0.1:5000/api/events");
+      const response = await axios.get(
+        "https://mssn-abuad.onrender.com/api/events"
+      );
       setEvents(response.data);
       setShowModal(false);
       setFormData({
@@ -65,7 +68,7 @@ const Events = () => {
   const deleteEvent = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`http://127.0.0.1:5000/api/events/${id}`, {
+      await axios.delete(`https://mssn-abuad.onrender.com/api/events/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEvents(events.filter((event) => event.id !== id));
@@ -100,12 +103,12 @@ const Events = () => {
               />
             )}
             <h3 className="text-xl font-semibold mt-4">{event.title}</h3>
-            <div className="mt-2 text-sm text-gray-500 flex justify-between items-center">
+            <p className="text-gray-600 mt-2">{event.summary}</p>
+            <div className="mt-2 text-sm text-gray-500">
               <p>Date: {event.date}</p>
               <p>Time: {event.time}</p>
+              <p>Open to: {event.availability}</p>
             </div>
-            <p className="text-gray-600 mt-3"> Location: {event.summary}</p>
-            <p className="text-right">Open to: {event.availability}</p>
             <div className="mt-4 flex justify-end gap-2">
               <button
                 className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
@@ -129,6 +132,20 @@ const Events = () => {
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
+                  className="w-full p-2 border rounded"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 mb-1">
+                  Summary (max 500 chars)*
+                </label>
+                <textarea
+                  name="summary"
+                  value={formData.summary}
+                  onChange={handleInputChange}
+                  maxLength={500}
                   className="w-full p-2 border rounded"
                   required
                 />
@@ -176,19 +193,7 @@ const Events = () => {
                   />
                 </div>
               </div>
-              <div>
-                <label className="block text-gray-700 mb-1">
-                  Event Location*
-                </label>
-                <input
-                  type="text"
-                  name="summary"
-                  value={formData.summary}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
+
               <div>
                 <label className="block text-gray-700 mb-1">
                   Availability*

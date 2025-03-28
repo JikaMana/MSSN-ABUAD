@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, Clock, Users, MapPinIcon } from "lucide-react";
+import { Calendar, MapPin, Clock, Users } from "lucide-react";
 import axios from "axios";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/events");
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/events"
+        );
         setEvents(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchEvents();
   }, []);
-  console.log(events);
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-16 container text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4">Loading Events...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-32 pb-16">
@@ -41,7 +54,7 @@ const Events = () => {
                 )}
                 <div className="p-6 md:w-2/3">
                   <h2 className="text-2xl font-semibold mb-4">{event.title}</h2>
-                  <p className="text-gray-600 mb-6">{event.content}</p>
+                  <p className="text-gray-600 mb-6">{event.summary}</p>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2 text-gray-600">
@@ -57,13 +70,14 @@ const Events = () => {
                       {event.time}
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
-                      <MapPinIcon size={20} className="text-primary" />
-                      {event.summary}
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-600">
                       <Users size={20} className="text-primary" />
                       {event.availability}
                     </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <h3 className="font-semibold mb-2">Event Details:</h3>
+                    <p className="text-gray-600">{event.content}</p>
                   </div>
                 </div>
               </div>
