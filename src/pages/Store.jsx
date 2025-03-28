@@ -90,7 +90,11 @@ const Store = () => {
             <p className="mt-4">Loading store products...</p>
           </div>
         )}
-        {products.length == 0 && <p className="mt-4">No available product</p>}
+        {products == [] && loading === false ? (
+          <p className="mt-4">No available product</p>
+        ) : (
+          ""
+        )}
         <div className="pt-16">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
             Things We Sell

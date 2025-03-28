@@ -125,7 +125,7 @@ const PrayerTimes = () => {
       </button>
       <div className="hidden md:block bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
         <h2 className="text-xl font-medium mb-4 text-center">
-          Prayer Time by Coordinates
+          Prayer Time by Coordinates of ABUAD mosque
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {prayerData &&
