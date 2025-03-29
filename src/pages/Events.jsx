@@ -44,7 +44,7 @@ const Events = () => {
             >
               <div className="md:flex">
                 {event.image_url && (
-                  <div className="md:w-1/3">
+                  <div className="md:w-1/3 max-h-72">
                     <img
                       src={event.image_url}
                       alt={event.title}
@@ -70,19 +70,31 @@ const Events = () => {
                       {event.time}
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
+                      <MapPin size={20} className="text-primary" />
+                      {event.content}
+                    </div>
+
+                    <div className="flex items-center gap-2 text-gray-600">
                       <Users size={20} className="text-primary" />
                       {event.availability}
                     </div>
                   </div>
 
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
                     <h3 className="font-semibold mb-2">Event Details:</h3>
                     <p className="text-gray-600">{event.content}</p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           ))}
+          {events.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-lg text-gray-600">
+                No blog posts available yet.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

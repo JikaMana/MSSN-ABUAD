@@ -157,18 +157,6 @@ const BlogAdmin = () => {
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-1">Author*</label>
-                <input
-                  type="text"
-                  name="author"
-                  value={formData.author}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
-
-              <div>
                 <label className="block text-gray-700 mb-1">
                   Summary (max 250 chars)*
                 </label>
@@ -192,6 +180,19 @@ const BlogAdmin = () => {
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded min-h-[200px]"
                   required
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 mb-1">
+                  Source (not compulsory)
+                </label>
+                <input
+                  type="text"
+                  name="author"
+                  value={formData.author}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border rounded"
                 />
               </div>
 

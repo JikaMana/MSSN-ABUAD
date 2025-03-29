@@ -1,18 +1,10 @@
 import React from "react";
 import { Moon, Calendar, Users } from "lucide-react";
-import { Link } from "react-router-dom";
+import mealSchedule from "../assets/images/meal-schedule.png";
+import taraweehImamSchedule from "../assets/images/taraweeh-imam.png";
+import taraweehImamScheduleImage from "../assets/images/taraweeh-image.png";
 
 const RamadanSection = () => {
-  const schedule = [
-    { day: "Monday", imam: "Abdullah Muhammad(Ameer)", college: "MHS" },
-    {
-      day: "Wednesday",
-      imam: "Muslim Rikiji(Na'eebul Ameer Da'wah)",
-      college: "Engineering",
-    },
-    { day: "Friday", imam: "Alameen Ameen", college: "Pharmacy" },
-  ];
-
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
       <div className="flex items-center gap-3 mb-8">
@@ -28,26 +20,16 @@ const RamadanSection = () => {
           </div>
 
           <div className="space-y-4">
-            {/* {schedule.map((item, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-4">
-                <div className="font-semibold text-primary text-xl">
-                  {item.day}
-                </div>
-                <div className="text-xl font-medium leading-6">{item.imam}</div>
-                <div className="text-md text-gray-500">{item.college}</div>
-              </div>
-            ))} */}
-            {/* put the tarweeh schedue image  */}
-            <img src="" alt="" />
+            <img src={taraweehImamScheduleImage} alt="Failed to load" />
           </div>
           <div className="my-8 flex justify-center">
-            <Link
-              href="/files/document.pdf"
+            <a
+              href={taraweehImamSchedule}
               className="bg-primary px-4 py-3 text-white font-medium text-lg rounded-md"
               download
             >
-              <button>Download Schedule</button>
-            </Link>
+              Download Schedule
+            </a>
           </div>
         </div>
 
@@ -72,13 +54,13 @@ const RamadanSection = () => {
               arrangements or meal, please contact any of the MSSN EXCO.
             </div>
             <div className="my-8 flex justify-center">
-              <Link
-                href="/files/document.pdf"
+              <a
+                href={mealSchedule}
                 className="bg-primary px-4 py-2 text-white font-medium text-lg rounded-md"
                 download
               >
-                <button>Meals Schedule</button>
-              </Link>
+                Download Meal Schedule
+              </a>
             </div>
           </div>
         </div>

@@ -108,7 +108,7 @@ const BlogAdmin = () => {
         {blogs.map((blog) => (
           <div
             key={blog.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden"
+            className="bg-white rounded-xl shadow-lg overflow-hidden max-h-[450px]"
           >
             <img
               src={
