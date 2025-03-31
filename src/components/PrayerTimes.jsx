@@ -57,11 +57,11 @@ const PrayerTimes = () => {
       }
     };
     fetchMosqueTimes();
-  }, []); // Keep empty dependency array for initial load
+  }, [mosqueTimes]); // Keep empty dependency array for initial load
 
   // Add manual refresh function
   const handleRefresh = () => {
-    window.location.reload(); // Full page reload to ensure fresh data
+    window.location.reload();
   };
 
   // Format time display
