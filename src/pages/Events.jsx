@@ -90,9 +90,7 @@ const Events = () => {
           ))}
           {events.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-lg text-gray-600">
-                No blog posts available yet.
-              </p>
+              <p className="text-lg text-gray-600">No Event available.</p>
             </div>
           )}
         </div>

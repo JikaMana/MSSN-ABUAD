@@ -33,15 +33,15 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/news" element={<News />} />
-          <Route
-            path="/admin"
-            element={
-              <PrivateRoute>
-                <Admin />
-              </PrivateRoute>
-            }
-          />
         </Route>
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute>
+              <Admin />
+            </PrivateRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -47,7 +47,7 @@ const Blog = () => {
           <strong>Note: </strong> Should be written on paper and submitted to
           the appropriate EXCO
         </p>
-        {loading ? (
+        {!loading ? (
           <div className="grid md:grid-cols-2 gap-8">
             {posts.map((post) => (
               <div
