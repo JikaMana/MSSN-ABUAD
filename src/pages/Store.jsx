@@ -7,16 +7,14 @@ const Store = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const thingsWeSell = [
-    "Qur'an (Mushaf)",
-    "Islamic Books",
-    "Prayer Mats",
-    "Tasbih (Prayer Beads)",
-    "Hijabs & Islamic Clothing",
-    "Attar (Non-Alcoholic Perfumes)",
-    "Zamzam Water",
-    "Islamic Wall Art",
-    "Caps & Kufis",
-    "Halal Snacks & Dates",
+    "Caps",
+    "Socks",
+    "Jilbabs (Premium, Regular)",
+    "Prayer Mat(Soft, Regular)",
+    "Kettles",
+    "Dates",
+    "Qur'an",
+    "Tasbeeh, Counters",
   ];
 
   // Fetch products on component mount
@@ -45,7 +43,7 @@ const Store = () => {
             <ShoppingCart className="text-primary" size={24} />
           </div>
         </div>
-        {loading ? (
+        {!loading ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.map((product) => (
               <div
@@ -62,19 +60,22 @@ const Store = () => {
                   <p className="text-gray-600 text-base mb-4 h-12">
                     {product.description}
                   </p>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center mt-8">
                     <span className="text-primary font-bold">
                       ₦{product.price}
                     </span>
 
-                    <div>
+                    <div className="flex gap-x-2">
                       <Link
-                        to="https://wa.me/2349012345678"
-                        className="btn btn-primary py-2"
-                      ></Link>
+                        to="https://wa.me/2348108660433?text=Assalamu%20Alaikum,%20I%20would%20like%20to%20inquire%20about%20a%20product."
+                        className="btn btn-primary p-2"
+                      >
+                        WhatsApp
+                      </Link>
+
                       <Link
-                        to="tel:+2349012345678"
-                        className="btn btn-primary py-2"
+                        to="tel:+2348108660433"
+                        className="btn btn-primary p-2"
                       >
                         <Phone />
                       </Link>

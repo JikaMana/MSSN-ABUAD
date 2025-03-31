@@ -61,8 +61,9 @@ const Store = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setProducts(response.data);
         setShowModal(false);
+
+        setProducts(response.data);
       }
     } catch (error) {
       console.error("Error adding product:", error);
@@ -176,7 +177,7 @@ const Store = () => {
                 type="number"
                 placeholder="Price"
                 value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value))}
+                onChange={(e) => setPrice(e.target.value)}
                 className="w-full p-2 border rounded"
                 required
               />
