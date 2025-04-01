@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  let mobileRef = useRef();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -23,6 +24,19 @@ const Navbar = () => {
 
   useEffect(() => {}, [activeLink]);
 
+  useEffect(() => {
+    let handler = (e) => {
+      if (!mobileRef.current.contains(e.target)) {
+        setIsOpen(false);
+        console.log(mobileRef.current);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, []);
   return (
     <div>
       <nav className="bg-white shadow-md fixed w-full z-50">
@@ -82,21 +96,23 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Navigation */}
-          {isOpen && (
-            <div className="transform transition-all">
-              <div className="px-2 pt-2 pb-6 space-y-1">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer transform"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+          <div ref={mobileRef}>
+            {isOpen && (
+              <div className="transform transition-all">
+                <div className="px-2 pt-2 pb-6 space-y-1">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      to={link.href}
+                      className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer transform"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </nav>
     </div>

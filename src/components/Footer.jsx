@@ -49,7 +49,7 @@ const Footer = () => {
         <div className="mb-6">
           <p className="text-lg">Contact us:</p>
           <a
-            href="mailto:example@email.com"
+            href="mailto:mssnabuad21@gmail.com"
             className="text-white text-lg hover:underline flex justify-center items-center space-x-2"
           >
             <Mail size={28} />
