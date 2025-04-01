@@ -22,21 +22,30 @@ const Navbar = () => {
     setActiveLink(nav);
   };
 
-  useEffect(() => {}, [activeLink]);
-
   useEffect(() => {
     let handler = (e) => {
-      if (!mobileRef.current.contains(e.target)) {
-        setIsOpen(false);
-        console.log(mobileRef.current);
-      }
+      if (!mobileRef.current.contains(e.target)) setIsOpen(false);
     };
 
     document.addEventListener("mousedown", handler);
     return () => {
       document.removeEventListener("mousedown", handler);
     };
+  }, [activeLink, window.innerWidth]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
   return (
     <div>
       <nav className="bg-white shadow-md fixed w-full z-50">
