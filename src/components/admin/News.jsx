@@ -1,76 +1,79 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BlogAdmin = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [news, setNews] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false);
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
-    title: '',
-    author: '',
-    news: '',
-    summary: '',
-    image_url: '',
-  })
+    title: "",
+    author: "",
+    news: "",
+    summary: "",
+    image_url: "",
+  });
 
   // Fetch news from backend
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/news')
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/news"
+        );
 
-        setNews(response.data)
+        setNews(response.data);
       } catch (error) {
-        console.error('Error fetching news:', error)
+        console.error("Error fetching news:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchNews()
-  }, [])
+    };
+    fetchNews();
+  }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.post('http://localhost:5000/api/news', formData, {
+      const token = localStorage.getItem("auth_token");
+      await axios.post("https://mssn-abuad.onrender.com/api/news", formData, {
         headers: { Authorization: `Bearer ${token}` },
-      })
+      });
       // Refresh news list
-      const response = await axios.get('http://localhost:5000/api/news')
-      setNews(response.data)
-      setShowModal(false)
+      const response = await axios.get(
+        "https://mssn-abuad.onrender.com/api/news"
+      );
+      setNews(response.data);
+      setShowModal(false);
       setFormData({
-        title: '',
-        author: '',
-        blog: '',
-        summary: '',
-        image_url: '',
-      })
-      toast.success('News added successfully!')
+        title: "",
+        author: "",
+        blog: "",
+        summary: "",
+        image_url: "",
+      });
+      toast.success("News added successfully!");
     } catch (error) {
-      console.error('Error adding blog:', error)
-      toast.error(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error adding blog:", error);
+      toast.error(`Error: ${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   const deleteBlog = async (id) => {
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.delete(`http://localhost:5000/api/news/${id}`, {
+      const token = localStorage.getItem("auth_token");
+      await axios.delete(`https://mssn-abuad.onrender.com/api/news/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-
       });
       setNews(news.filter((blog) => blog.id !== id));
       toast.success("Deleted successfully");
@@ -78,7 +81,7 @@ const BlogAdmin = () => {
       console.error("Error deleting blog:", error);
       toast.error(`${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -86,7 +89,7 @@ const BlogAdmin = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading News...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -95,11 +98,11 @@ const BlogAdmin = () => {
         <h2 className="text-2xl font-bold text-primary">News Update</h2>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors">
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+        >
           Add Latest
         </button>
       </div>
-
 
       {news.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -209,12 +212,14 @@ const BlogAdmin = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg">
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
+                >
                   Add News
                 </button>
               </div>
@@ -223,7 +228,7 @@ const BlogAdmin = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BlogAdmin
+export default BlogAdmin;

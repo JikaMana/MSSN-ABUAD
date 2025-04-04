@@ -10,7 +10,9 @@ const News = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/news");
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/news"
+        );
         if (response.data.length > 0) {
           setNews(response.data);
           // Set first news item as featured

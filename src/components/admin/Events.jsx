@@ -1,89 +1,91 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Events = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
-    title: '',
-    summary: '',
-    content: '',
-    date: '',
-    time: '',
-    availability: 'All members',
-    image_url: '',
-  })
+    title: "",
+    summary: "",
+    content: "",
+    date: "",
+    time: "",
+    availability: "All members",
+    image_url: "",
+  });
 
   // Fetch events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/events')
-        setEvents(response.data)
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/events"
+        );
+        setEvents(response.data);
       } catch (error) {
-        console.error('Error fetching events:', error)
+        console.error("Error fetching events:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchEvents()
-  }, [])
+    };
+    fetchEvents();
+  }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.post('http://localhost:5000/api/events', formData, {
+      const token = localStorage.getItem("auth_token");
+      await axios.post("https://mssn-abuad.onrender.com/api/events", formData, {
         headers: { Authorization: `Bearer ${token}` },
-      })
+      });
       // Refresh events list
-      const response = await axios.get('http://localhost:5000/api/events')
-      setEvents(response.data)
-      setShowModal(false)
+      const response = await axios.get(
+        "https://mssn-abuad.onrender.com/api/events"
+      );
+      setEvents(response.data);
+      setShowModal(false);
       setFormData({
-        title: '',
-        summary: '',
-        content: '',
-        date: '',
-        time: '',
-        availability: 'All members',
-        image_url: '',
-      })
-      toast.success('Events added successfully!')
+        title: "",
+        summary: "",
+        content: "",
+        date: "",
+        time: "",
+        availability: "All members",
+        image_url: "",
+      });
+      toast.success("Events added successfully!");
     } catch (error) {
-
       console.error("Error adding event:", error);
       console.log(`Error: ${error.response?.data?.error || error.message}`);
       toast.error("Error adding event");
     }
-  }
+  };
 
   const deleteEvent = async (id) => {
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.delete(`http://localhost:5000/api/events/${id}`, {
+      const token = localStorage.getItem("auth_token");
+      await axios.delete(`https://mssn-abuad.onrender.com/api/events/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-
       });
       setEvents(events.filter((event) => event.id !== id));
       toast.success("Deleted successfully");
     } catch (error) {
-      console.error('Error deleting event:', error)
-      toast.error(`${error.response?.data?.error || error.message}`)
+      console.error("Error deleting event:", error);
+      toast.error(`${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -91,7 +93,7 @@ const Events = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading Events...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -100,7 +102,8 @@ const Events = () => {
         <h2 className="text-2xl font-bold text-primary">Events Management</h2>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors w-max">
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors w-max"
+        >
           Add New Event
         </button>
       </div>
@@ -179,7 +182,6 @@ const Events = () => {
                   className="w-full p-2 border rounded"
                   required
                 />
-              
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -221,7 +223,8 @@ const Events = () => {
                   value={formData.availability}
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded"
-                  required>
+                  required
+                >
                   <option value="All members">All members</option>
                   <option value="Male members only">Male members only</option>
                   <option value="Female members only">
@@ -247,12 +250,14 @@ const Events = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg">
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
+                >
                   Add Event
                 </button>
               </div>
@@ -261,7 +266,7 @@ const Events = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Events
+export default Events;

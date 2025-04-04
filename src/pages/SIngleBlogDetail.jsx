@@ -10,7 +10,9 @@ const SingleBlogDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/blogs`);
+        const response = await axios.get(
+          `https://mssn-abuad.onrender.com/api/blogs`
+        );
         const blogs = response.data;
 
         if (Array.isArray(blogs)) {

@@ -1,79 +1,82 @@
-import React, { useState, useEffect } from 'react'
-import { Calendar, User, Clock } from 'lucide-react'
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React, { useState, useEffect } from "react";
+import { Calendar, User, Clock } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BlogAdmin = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [blogs, setBlogs] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Individual state variables
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [content, setContent] = useState('')  // Changed from 'blog' to 'content'
-  const [summary, setSummary] = useState('')
-  const [read_time, setRead_time] = useState(0)
-  const [image_url, setImage_url] = useState('')
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [content, setContent] = useState(""); // Changed from 'blog' to 'content'
+  const [summary, setSummary] = useState("");
+  const [read_time, setRead_time] = useState(0);
+  const [image_url, setImage_url] = useState("");
 
   // Fetch blogs from backend
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/blogs')
-        setBlogs(response.data)
+        const response = await axios.get(
+          "https://mssn-abuad.onrender.com/api/blogs"
+        );
+        setBlogs(response.data);
       } catch (error) {
-        console.error('Error fetching blogs:', error)
+        console.error("Error fetching blogs:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchBlogs()
-  }, [])  // Removed 'blogs' from dependencies to prevent infinite re-fetching
+    };
+    fetchBlogs();
+  }, []); // Removed 'blogs' from dependencies to prevent infinite re-fetching
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem('auth_token')
+      const token = localStorage.getItem("auth_token");
       await axios.post(
-        'http://localhost:5000/api/blogs',
+        "https://mssn-abuad.onrender.com/api/blogs",
         {
           title,
           author,
-          content,  // Changed from 'blog' to 'content'
+          content, // Changed from 'blog' to 'content'
           summary,
-          image_url: image_url || null,  // Handle empty strings
-          read_time: Number(read_time),  // Convert to number
+          image_url: image_url || null, // Handle empty strings
+          read_time: Number(read_time), // Convert to number
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
-      )
+      );
       // Refresh blogs list
-      const response = await axios.get('http://localhost:5000/api/blogs')
-      setBlogs(response.data)
-      setShowModal(false)
+      const response = await axios.get(
+        "https://mssn-abuad.onrender.com/api/blogs"
+      );
+      setBlogs(response.data);
+      setShowModal(false);
       // Reset form fields
-      setTitle('')
-      setAuthor('')
-      setContent('')
-      setSummary('')
-      setRead_time(0)
-      setImage_url('')
-      toast.success('Blog post added successfully!')
+      setTitle("");
+      setAuthor("");
+      setContent("");
+      setSummary("");
+      setRead_time(0);
+      setImage_url("");
+      toast.success("Blog post added successfully!");
     } catch (error) {
-      toast.error('Failed to add blog post. Please try again.')
-      console.error('Error adding blog:', error)
+      toast.error("Failed to add blog post. Please try again.");
+      console.error("Error adding blog:", error);
     }
-  }
+  };
 
   const deleteBlog = async (id) => {
     try {
-      const token = localStorage.getItem('auth_token')
-      await axios.delete(`http://localhost:5000/api/blogs/${id}`, {
+      const token = localStorage.getItem("auth_token");
+      await axios.delete(`https://mssn-abuad.onrender.com/api/blogs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-
       });
       setBlogs(blogs.filter((blog) => blog.id !== id));
       toast.success("Deleted successfully");
@@ -81,7 +84,7 @@ const BlogAdmin = () => {
       console.error("Error deleting blog:", error);
       toast.error(`${error.response?.data?.error || error.message}`);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -89,7 +92,7 @@ const BlogAdmin = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading blog posts...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -98,7 +101,8 @@ const BlogAdmin = () => {
         <h2 className="text-2xl font-bold text-primary">Blogs</h2>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors">
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+        >
           Add Blog Post
         </button>
       </div>
@@ -107,13 +111,12 @@ const BlogAdmin = () => {
         {blogs.map((blog) => (
           <div
             key={blog.id}
-
             className="bg-white rounded-xl shadow-lg overflow-hidden max-h-[450px]"
           >
             <img
               src={
                 blog.image_url ||
-                'https://via.placeholder.com/500x300?text=Blog+Image'
+                "https://via.placeholder.com/500x300?text=Blog+Image"
               }
               alt={blog.title}
               className="w-full h-40 object-cover"
@@ -138,7 +141,8 @@ const BlogAdmin = () => {
               <div className="mt-4 flex justify-end">
                 <button
                   className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
-                  onClick={() => deleteBlog(blog.id)}>
+                  onClick={() => deleteBlog(blog.id)}
+                >
                   Delete
                 </button>
               </div>
@@ -176,7 +180,6 @@ const BlogAdmin = () => {
                 />
               </div>
 
-
               <div>
                 <label className="block text-gray-700 mb-1">
                   Summary (max 100 chars)*
@@ -196,7 +199,7 @@ const BlogAdmin = () => {
                   Blog Content*
                 </label>
                 <textarea
-                  name="content"  // Changed from 'blog' to 'content'
+                  name="content" // Changed from 'blog' to 'content'
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="w-full p-2 border rounded min-h-[200px]"
@@ -233,12 +236,14 @@ const BlogAdmin = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg">
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg"
+                >
                   Add Blog Post
                 </button>
               </div>
@@ -247,7 +252,7 @@ const BlogAdmin = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BlogAdmin
+export default BlogAdmin;
