@@ -13,7 +13,6 @@ const Navbar = () => {
     { name: "Forum", href: "/forum" },
     { name: "Events", href: "/events" },
     { name: "Store", href: "/store" },
-    { name: "Admin", href: "/admin" },
   ];
 
   const [activeLink, setActiveLink] = useState("");

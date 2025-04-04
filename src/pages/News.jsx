@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const News = () => {
-  const [news, setNews] = useState([])
-  const [featuredNews, setFeaturedNews] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [news, setNews] = useState([]);
+  const [featuredNews, setFeaturedNews] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch news from backend
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/news')
+        const response = await axios.get("http://localhost:5000/api/news");
         if (response.data.length > 0) {
-          setNews(response.data)
+          setNews(response.data);
           // Set first news item as featured
-          setFeaturedNews(response.data[0])
+          setFeaturedNews(response.data[0]);
         }
       } catch (error) {
-        console.error('Error fetching news:', error)
+        console.error("Error fetching news:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchNews()
-  }, [])
+    };
+    fetchNews();
+  }, []);
 
   if (loading) {
     return (
@@ -31,7 +31,7 @@ const News = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading News...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -39,7 +39,7 @@ const News = () => {
       <div className="container mx-auto px-4">
         {/* Header Section */}
         <header className="mb-10 text-center">
-          <h1 className="text-2xl md:text-4xl font-bold">Latest News</h1>
+          <h1 className="text-3xl md:text-4xl font-bold">Latest News</h1>
           <p className="text-lg text-gray-600 mt-2">
             Stay updated with the latest happenings at MSSN and around the
             school.
@@ -76,7 +76,8 @@ const News = () => {
           {news.slice(1).map((newsItem) => (
             <article
               key={newsItem.id}
-              className="bg-white shadow-lg rounded-lg overflow-hidden">
+              className="bg-white shadow-lg rounded-lg overflow-hidden"
+            >
               {newsItem.image_url && (
                 <img
                   src={newsItem.image_url}
@@ -99,7 +100,7 @@ const News = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default News
+export default News;

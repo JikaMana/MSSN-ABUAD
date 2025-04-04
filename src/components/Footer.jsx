@@ -1,5 +1,6 @@
 import React from "react";
 import { Instagram, Twitter, Youtube, Mail, Ghost } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -56,7 +57,12 @@ const Footer = () => {
             <span>mssnabuad21@gmail.com</span>
           </a>
         </div>
-
+        <Link
+          to="/admin"
+          className={`text-lg  hover:text-gray-100 font-medium text-center`}
+        >
+          Admin
+        </Link>
         <p className="text-sm text-gray-200">
           © {new Date().getFullYear()} MSSN ABUAD. All rights reserved.
         </p>

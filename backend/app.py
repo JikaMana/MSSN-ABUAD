@@ -16,8 +16,12 @@ app.debug = True
 app.static_folder = "../MSSN-ABUAD/backend/dist"  # Path to React build
 app.static_url_path = "/"
 # Configure SQLite DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///mssn.db')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///mssn.db')
+# configure postgreSQL DB 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace('postgres://', 'postgresql://')
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Replace your current SQLAlchemy configuration with:
 db = SQLAlchemy(app)
 
 # Configure JWT
