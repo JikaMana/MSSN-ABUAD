@@ -41,7 +41,7 @@ const News = () => {
       <div className="container mx-auto px-4">
         {/* Header Section */}
         <header className="mb-10 text-center">
-          <h1 className="text-4xl font-bold">Latest News</h1>
+          <h1 className="text-2xl md:text-4xl font-bold">Latest News</h1>
           <p className="text-lg text-gray-600 mt-2">
             Stay updated with the latest happenings at MSSN and around the
             school.

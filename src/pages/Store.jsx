@@ -38,7 +38,7 @@ const Store = () => {
     <div className="pt-32 pb-16">
       <div className="container">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">MSSN Store</h1>
+          <h1 className="text-2xl md:text-4xl font-bold">MSSN Store</h1>
           <div className="relative">
             <ShoppingCart className="text-primary" size={24} />
           </div>

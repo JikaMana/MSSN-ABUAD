@@ -26,7 +26,7 @@ const Blog = () => {
   return (
     <div className="pt-32 pb-16">
       <div className="container">
-        <h1 className="text-4xl font-bold mb-4">Blog</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">Blog</h1>
         <p className="text-lg text-gray-600 mb-8">
           We welcome your contributions! You can upload your blog post, subject
           to approval by the MSSN EXCO team. Please ensure that any quotations
