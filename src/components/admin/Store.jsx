@@ -1,87 +1,82 @@
-import React, { useState, useEffect } from "react";
-import { Trash } from "lucide-react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from 'react'
+import { Trash } from 'lucide-react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Store = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [image_url, setImageUrl] = useState("");
-  const [products, setProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState(0)
+  const [description, setDescription] = useState('')
+  const [image_url, setImageUrl] = useState('')
+  const [products, setProducts] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   // Fetch products on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token = localStorage.getItem("auth_token");
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setProducts(response.data);
+        const token = localStorage.getItem('auth_token')
+        const response = await axios.get('http://localhost:5000/api/products', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        setProducts(response.data)
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchProducts();
-  }, [products]);
+    }
+    fetchProducts()
+  }, [products])
   // console.log(products);
 
   // Add product
   const handleAddProduct = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const token = localStorage.getItem("auth_token");
+      const token = localStorage.getItem('auth_token')
       await axios.post(
-        "https://mssn-abuad.onrender.com/api/products",
+        'http://localhost:5000/api/products',
         { name, price, description, image_url },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
-      );
-      if ((!name == "", !price == 0, !image_url == "")) {
-        toast.success("Product added successfully!");
+      )
+      if ((!name == '', !price == 0, !image_url == '')) {
+        toast.success('Product added successfully!')
         // Clear form fields
-        setName("");
-        setPrice(0);
-        setDescription("");
-        setImageUrl("");
+        setName('')
+        setPrice(0)
+        setDescription('')
+        setImageUrl('')
         // Refetch products
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setProducts(response.data);
-        setShowModal(false);
+        const response = await axios.get('http://localhost:5000/api/products', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        setProducts(response.data)
+        setShowModal(false)
       }
     } catch (error) {
-      console.error("Error adding product:", error);
-      toast.error("An error occurred");
+      console.error('Error adding product:', error)
+      toast.error('An error occurred')
     }
-  };
+  }
 
+  console.log(products)
   const handleDeleteProduct = async (id) => {
     try {
-      const token = localStorage.getItem("auth_token");
-      await axios.delete(`https://mssn-abuad.onrender.com/api/products/${id}`, {
+      const token = localStorage.getItem('auth_token')
+      await axios.delete(`http://localhost:5000/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      });
-      toast.success("Product deleted successfully!");
+      })
+      toast.success('Product deleted successfully!')
     } catch (error) {
-      console.error("Error deleting product:", error);
-      toast.success("An error occurred while deleting the product");
+      console.error('Error deleting product:', error)
+      toast.success('An error occurred while deleting the product')
     }
-  };
+  }
 
   if (loading) {
     return (
@@ -89,7 +84,7 @@ const Store = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading store products...</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -100,8 +95,7 @@ const Store = () => {
         <button
           type="submit"
           className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-          onClick={() => setShowModal(true)}
-        >
+          onClick={() => setShowModal(true)}>
           Add New Product
         </button>
       </div>
@@ -132,7 +126,7 @@ const Store = () => {
               <tr key={product.id}>
                 <td className="px-4 py-3">
                   <img
-                    src={product.image_url || "https://via.placeholder.com/50"}
+                    src={product.image_url || 'https://via.placeholder.com/50'}
                     alt={product.name}
                     className="w-12 h-12 object-cover rounded"
                   />
@@ -146,8 +140,7 @@ const Store = () => {
                 <td className="px-4 py-3 text-center">
                   <button
                     className="text-white text-sm font-medium px-3 py-2 rounded"
-                    onClick={() => handleDeleteProduct(product.id)}
-                  >
+                    onClick={() => handleDeleteProduct(product.id)}>
                     <Trash color=" #dc2626" />
                   </button>
                 </td>
@@ -199,15 +192,13 @@ const Store = () => {
               <div className="flex justify-between mt-4">
                 <button
                   onClick={() => setShowModal(false)}
-                  className="bg-red-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
-                >
+                  className="bg-red-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
                   Cancel
                 </button>
 
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-                >
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors">
                   Add Product
                 </button>
               </div>
@@ -216,7 +207,7 @@ const Store = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Store;
+export default Store

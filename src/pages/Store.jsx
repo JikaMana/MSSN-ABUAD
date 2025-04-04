@@ -1,40 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { ShoppingCart, Package } from "lucide-react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+import { ShoppingCart, Package } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Store = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
   const thingsWeSell = [
     "Qur'an (Mushaf)",
-    "Islamic Books",
-    "Prayer Mats",
-    "Tasbih (Prayer Beads)",
-    "Hijabs & Islamic Clothing",
-    "Attar (Non-Alcoholic Perfumes)",
-    "Zamzam Water",
-    "Islamic Wall Art",
-    "Caps & Kufis",
-    "Halal Snacks & Dates",
-  ];
+    'Islamic Books',
+    'Prayer Mats',
+    'Tasbih (Prayer Beads)',
+    'Hijabs & Islamic Clothing',
+    'Attar (Non-Alcoholic Perfumes)',
+    'Zamzam Water',
+    'Islamic Wall Art',
+    'Caps & Kufis',
+    'Halal Snacks & Dates',
+  ]
 
   // Fetch products on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products"
-        );
-        setProducts(response.data);
+        const response = await axios.get('http://localhost:5000/api/products')
+        setProducts(response.data)
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchProducts();
-  }, [products]);
+    }
+    fetchProducts()
+  }, [products])
 
   // if (loading) {
   //   return (
@@ -54,15 +52,14 @@ const Store = () => {
             <ShoppingCart className="text-primary" size={24} />
           </div>
         </div>
-        {loading ? (
+        {!loading ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden"
-              >
+                className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <img
-                  src={product.image_url || "https://via.placeholder.com/50"}
+                  src={product.image_url || 'https://via.placeholder.com/50'}
                   alt={product.name}
                   className="w-full h-48 object-cover"
                 />
@@ -77,8 +74,7 @@ const Store = () => {
                     </span>
                     <Link
                       to="tel:+2349012345678"
-                      className="btn btn-primary py-2"
-                    >
+                      className="btn btn-primary py-2">
                       Contact Seller
                     </Link>
                   </div>
@@ -106,7 +102,7 @@ const Store = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Store;
+export default Store

@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Calendar, User, Clock } from "lucide-react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { Calendar, User, Clock } from 'lucide-react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Blog = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/blogs"
-        );
-        setPosts(response.data);
+        const response = await axios.get('http://localhost:5000/api/blogs')
+        setPosts(response.data)
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        console.error('Error fetching blogs:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchBlogs();
-  }, []);
-  console.log(posts);
+    }
+    fetchBlogs()
+  }, [])
+  console.log(posts)
 
   if (loading) {
     return (
@@ -30,7 +28,7 @@ const Blog = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading blog posts...</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -62,12 +60,11 @@ const Blog = () => {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
-            >
+              className="bg-white rounded-xl shadow-lg overflow-hidden">
               <img
                 src={
                   post.image_url ||
-                  "https://via.placeholder.com/500x300?text=Blog+Image"
+                  'https://via.placeholder.com/500x300?text=Blog+Image'
                 }
                 alt={post.title}
                 className="w-full h-48 object-cover"
@@ -86,15 +83,14 @@ const Blog = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     <Clock size={16} />
-                    {post.readTime || "5 min"} read
+                    {post.readTime || '5 min'} read
                   </div>
                 </div>
 
                 <div>
                   <Link
                     to={`/blog/${post.id}`}
-                    className="text-primary hover:text-primary-dark font-medium mt-2"
-                  >
+                    className="text-primary hover:text-primary-dark font-medium mt-2">
                     Read Now
                     <span className="text-xl">&rarr;</span>
                   </Link>
@@ -113,7 +109,7 @@ const Blog = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog

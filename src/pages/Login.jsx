@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const response = await axios.post(
-        "https://mssn-abuad.onrender.com/api/login",
-        { username, password }
-      );
+      const response = await axios.post('http://localhost:5000/api/login', {
+        username,
+        password,
+      })
 
       // Assuming the server responds with a status code in the 2xx range for successful logins
 
-      const { message, token } = response.data;
-      toast.success(message); // Displays "Login successful"
-      localStorage.setItem("auth_token", token);
-      navigate("/admin");
+      const { message, token } = response.data
+      toast.success(message) // Displays "Login successful"
+      localStorage.setItem('auth_token', token)
+      navigate('/admin')
     } catch (error) {
       // Handling errors
       if (error.response) {
         // The request was made, and the server responded with a status code outside the 2xx range
-        toast.error(error.response.data.message || "An error occurred");
+        toast.error(error.response.data.message || 'An error occurred')
       } else if (error.request) {
         // The request was made, but no response was received
-        toast.error("No response from server. Please try again later.");
+        toast.error('No response from server. Please try again later.')
       } else {
         // Something else happened while setting up the request
-        toast.error("An unexpected error occurred.");
+        toast.error('An unexpected error occurred.')
       }
-      console.error("Login error:", error);
+      console.error('Login error:', error)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex">
@@ -95,15 +95,14 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-700 text-white p-3 rounded-lg hover:bg-green-800 transition duration-300"
-          >
+            className="w-full bg-green-700 text-white p-3 rounded-lg hover:bg-green-800 transition duration-300">
             Login
           </button>
         </form>
       </div>
       <ToastContainer />
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

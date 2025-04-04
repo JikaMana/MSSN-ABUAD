@@ -1,39 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const SingleBlogDetail = () => {
-  const { id } = useParams();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams()
+  const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(
-          `https://mssn-abuad.onrender.com/api/blogs`
-        );
-        const blogs = response.data;
+        const response = await axios.get(`http://localhost:5000/api/blogs`)
+        const blogs = response.data
 
         if (Array.isArray(blogs)) {
-          const foundPost = blogs.find((blog) => blog.id === Number(id));
-          setPost(foundPost || null);
+          const foundPost = blogs.find((blog) => blog.id === Number(id))
+          setPost(foundPost || null)
         } else {
-          console.error("Unexpected response format:", blogs);
+          console.error('Unexpected response format:', blogs)
         }
       } catch (error) {
-        console.error("Error fetching the blog post:", error);
+        console.error('Error fetching the blog post:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchPost();
-  }, [id]);
-  console.log(post);
+    }
+    fetchPost()
+  }, [id])
+  console.log(post)
 
-  if (loading) return <p className="text-center text-green-600">Loading...</p>;
+  if (loading) return <p className="text-center text-green-600">Loading...</p>
   if (!post)
-    return <p className="text-center text-red-600">Blog post not found.</p>;
+    return <p className="text-center text-red-600">Blog post not found.</p>
 
   return (
     <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8 ">
@@ -70,7 +68,7 @@ const SingleBlogDetail = () => {
         </article>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SingleBlogDetail;
+export default SingleBlogDetail
