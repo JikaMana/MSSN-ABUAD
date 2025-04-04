@@ -22,7 +22,7 @@ db = SQLAlchemy(app)
 
 # Configure JWT
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'fallback-secret')
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
+# app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 
