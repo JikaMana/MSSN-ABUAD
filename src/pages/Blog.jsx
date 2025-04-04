@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Calendar, User, Clock } from "lucide-react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { Calendar, User, Clock } from 'lucide-react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Blog = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/blogs"
-        );
-        setPosts(response.data);
+        const response = await axios.get('http://localhost:5000/api/blogs')
+        setPosts(response.data)
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        console.error('Error fetching blogs:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
+
     };
     fetchBlogs();
   }, []);
@@ -47,6 +46,7 @@ const Blog = () => {
           <strong>Note: </strong> Should be written on paper and submitted to
           the appropriate EXCO
         </p>
+
         {!loading ? (
           <div className="grid md:grid-cols-2 gap-8">
             {posts.map((post) => (
@@ -108,7 +108,7 @@ const Blog = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog

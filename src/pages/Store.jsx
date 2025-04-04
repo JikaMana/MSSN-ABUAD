@@ -1,12 +1,14 @@
+
 import React, { useEffect, useState } from "react";
 import { ShoppingCart, Package, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Store = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
   const thingsWeSell = [
+
     "Caps",
     "Socks",
     "Jilbabs (Premium, Regular)",
@@ -21,18 +23,16 @@ const Store = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products"
-        );
-        setProducts(response.data);
+        const response = await axios.get('http://localhost:5000/api/products')
+        setProducts(response.data)
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchProducts();
-  }, [products]);
+    }
+    fetchProducts()
+  }, [products])
 
   return (
     <div className="pt-32 pb-16">
@@ -48,10 +48,9 @@ const Store = () => {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden"
-              >
+                className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <img
-                  src={product.image_url || "https://via.placeholder.com/50"}
+                  src={product.image_url || 'https://via.placeholder.com/50'}
                   alt={product.name}
                   className="w-full h-48 object-cover"
                 />
@@ -64,6 +63,7 @@ const Store = () => {
                     <span className="text-primary font-bold">
                       ₦{product.price}
                     </span>
+
 
                     <div className="flex gap-x-2">
                       <Link
@@ -110,7 +110,7 @@ const Store = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Store;
+export default Store

@@ -1,11 +1,12 @@
 from flask import Flask, jsonify, request, send_from_directory
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_sqlalchemy import SQLAlchemy
-from datetime import timedelta, datetime
+from datetime import timedelta
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import re
+from flask_migrate import Migrate
 
 # Load environment variables
 load_dotenv()
@@ -14,7 +15,6 @@ app = Flask(__name__)
 app.debug = True
 app.static_folder = "../MSSN-ABUAD/backend/dist"  # Path to React build
 app.static_url_path = "/"
-
 # Configure SQLite DB
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///mssn.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -27,6 +27,7 @@ app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 
 CORS(app, origins=["*"])
+migrate = Migrate(app, db)
 # Simulated admin users
 admins = {
     "admin1": {"password": "password123"},
@@ -261,6 +262,7 @@ class Blog(db.Model):
     author = db.Column(db.String(50), nullable=False)
     blog = db.Column(db.Text, nullable=False)  # Changed to Text for longer content
     summary = db.Column(db.String(500), nullable=False)
+    read_time = db.Column(db.Integer, nullable=False, default=5)
     image_url = db.Column(db.String(500), nullable=True)
 
 
@@ -274,7 +276,9 @@ def get_blogs():
         'author': b.author,
         'blog': b.blog,
         'summary': b.summary,
+        'read_time': b.read_time,
         'image_url': b.image_url
+
     } for b in blogs])
 
 
@@ -286,9 +290,10 @@ def add_blog():
         new_blog = Blog(
             title=data['title'],
             author=data['author'],
-            blog=data['blog'],
+            blog=data['content'],
             summary=data['summary'],
-            image_url=data.get('image_url')
+            read_time=int(data['read_time']),
+            image_url=data['image_url']
         )
         db.session.add(new_blog)
         db.session.commit()
@@ -308,6 +313,7 @@ def update_blog(id):
         blog.author = data.get('author', blog.author)
         blog.blog = data.get('blog', blog.blog)
         blog.summary = data.get('summary', blog.summary)
+        blog.read_time = data.get('read_time', blog.read_time)
         blog.image_url = data.get('image_url', blog.image_url)
         db.session.commit()
         return jsonify({"message": "Blog updated successfully"})
@@ -444,6 +450,7 @@ class News(db.Model):
     summary = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(500), nullable=True)
 
+
 # News Endpoints
 @app.route('/api/news', methods=['GET'])
 def get_news():
@@ -456,6 +463,7 @@ def get_news():
         'summary': n.summary,
         'image_url': n.image_url
     } for n in news])
+
 
 @app.route('/api/news', methods=['POST'])
 @jwt_required()
@@ -476,6 +484,7 @@ def add_news():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+
 @app.route('/api/news/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_news(id):
@@ -493,6 +502,7 @@ def update_news(id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+
 @app.route('/api/news/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_news(id):
@@ -505,6 +515,7 @@ def delete_news(id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+
 # Create the database tables
 with app.app_context():
     try:
@@ -512,7 +523,6 @@ with app.app_context():
         print("Database tables created successfully!")
     except Exception as e:
         print(f"Error creating database tables: {e}")
-
 
 if __name__ == '__main__':
     from waitress import serve
