@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { ShoppingCart, Package } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+
+import React, { useEffect, useState } from "react";
+import { ShoppingCart, Package, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Store = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const thingsWeSell = [
-    "Qur'an (Mushaf)",
-    'Islamic Books',
-    'Prayer Mats',
-    'Tasbih (Prayer Beads)',
-    'Hijabs & Islamic Clothing',
-    'Attar (Non-Alcoholic Perfumes)',
-    'Zamzam Water',
-    'Islamic Wall Art',
-    'Caps & Kufis',
-    'Halal Snacks & Dates',
-  ]
+
+    "Caps",
+    "Socks",
+    "Jilbabs (Premium, Regular)",
+    "Prayer Mat(Soft, Regular)",
+    "Kettles",
+    "Dates",
+    "Qur'an",
+    "Tasbeeh, Counters",
+  ];
 
   // Fetch products on component mount
   useEffect(() => {
@@ -33,15 +33,6 @@ const Store = () => {
     }
     fetchProducts()
   }, [products])
-
-  // if (loading) {
-  //   return (
-  //     <div className="pt-32 pb-16 container text-center">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
-  //       <p className="mt-4">Loading store products...</p>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="pt-32 pb-16">
@@ -68,15 +59,27 @@ const Store = () => {
                   <p className="text-gray-600 text-base mb-4 h-12">
                     {product.description}
                   </p>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center mt-8">
                     <span className="text-primary font-bold">
                       ₦{product.price}
                     </span>
-                    <Link
-                      to="tel:+2349012345678"
-                      className="btn btn-primary py-2">
-                      Contact Seller
-                    </Link>
+
+
+                    <div className="flex gap-x-2">
+                      <Link
+                        to="https://wa.me/2348108660433?text=Assalamu%20Alaikum,%20I%20would%20like%20to%20inquire%20about%20a%20product."
+                        className="btn btn-primary p-2"
+                      >
+                        WhatsApp
+                      </Link>
+
+                      <Link
+                        to="tel:+2348108660433"
+                        className="btn btn-primary p-2"
+                      >
+                        <Phone />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -87,6 +90,11 @@ const Store = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
             <p className="mt-4">Loading store products...</p>
           </div>
+        )}
+        {products == [] && loading === false ? (
+          <p className="mt-4">No available product</p>
+        ) : (
+          ""
         )}
         <div className="pt-16">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">

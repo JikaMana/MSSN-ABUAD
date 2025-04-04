@@ -17,12 +17,13 @@ const Login = () => {
         password,
       })
 
-      // Assuming the server responds with a status code in the 2xx range for successful logins
 
-      const { message, token } = response.data
-      toast.success(message) // Displays "Login successful"
-      localStorage.setItem('auth_token', token)
-      navigate('/admin')
+      if (response.status >= 200 && response.status < 300) {
+        const { token } = response.data;
+        toast.success("Access granted");
+        localStorage.setItem("auth_token", token);
+        navigate("/admin");
+      }
     } catch (error) {
       // Handling errors
       if (error.response) {
@@ -41,6 +42,8 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex">
+      <ToastContainer />
+
       <div className="hidden md:block w-1/2 bg-green-800 p-12 text-white">
         <div className="flex flex-col justify-center items-center h-full">
           <div className="max-w-32 mb-12">
@@ -100,7 +103,6 @@ const Login = () => {
           </button>
         </form>
       </div>
-      <ToastContainer />
     </div>
   )
 }

@@ -63,10 +63,10 @@ const Events = () => {
       })
       toast.success('Events added successfully!')
     } catch (error) {
-      console.error('Error adding event:', error)
-      toast.error('Error adding event')
 
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error adding event:", error);
+      console.log(`Error: ${error.response?.data?.error || error.message}`);
+      toast.error("Error adding event");
     }
   }
 
@@ -75,8 +75,10 @@ const Events = () => {
       const token = localStorage.getItem('auth_token')
       await axios.delete(`http://localhost:5000/api/events/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setEvents(events.filter((event) => event.id !== id))
+
+      });
+      setEvents(events.filter((event) => event.id !== id));
+      toast.success("Deleted successfully");
     } catch (error) {
       console.error('Error deleting event:', error)
       toast.error(`${error.response?.data?.error || error.message}`)
@@ -102,36 +104,40 @@ const Events = () => {
           Add New Event
         </button>
       </div>
-      <p className="text-gray-600 mb-4">
-        This section allows you to create, update, or delete events.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {events.map((event) => (
-          <div key={event.id} className="bg-white rounded-xl shadow-lg p-4">
-            {event.image_url && (
-              <img
-                src={event.image_url}
-                alt={event.title}
-                className="w-full h-40 object-cover rounded"
-              />
-            )}
-            <h3 className="text-xl font-semibold mt-4">{event.title}</h3>
-            <p className="text-gray-600 mt-2">{event.summary}</p>
-            <div className="mt-2 text-sm text-gray-500">
-              <p>Date: {event.date}</p>
-              <p>Time: {event.time}</p>
-              <p>Open to: {event.availability}</p>
+
+      {events.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events.map((event) => (
+            <div key={event.id} className="bg-white rounded-xl shadow-lg p-4">
+              {event.image_url && (
+                <img
+                  src={event.image_url}
+                  alt={event.title}
+                  className="w-full h-40 object-cover rounded"
+                />
+              )}
+              <h3 className="text-xl font-semibold mt-4">{event.title}</h3>
+              <p className="text-gray-600 mt-2">{event.summary}</p>
+              <div className="mt-2 text-sm text-gray-500">
+                <p>Date: {event.date}</p>
+                <p>Time: {event.time}</p>
+                <p>Open to: {event.availability}</p>
+              </div>
+              <div className="mt-4 flex justify-end gap-2">
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
+                  onClick={() => deleteEvent(event.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
-                onClick={() => deleteEvent(event.id)}>
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-600 mb-4"> No Upcoming event</p>
+      )}
+
       {showModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4 mt-20">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -151,29 +157,29 @@ const Events = () => {
 
               <div>
                 <label className="block text-gray-700 mb-1">
-                  Summary (max 100 chars)*
+                  Summary (max 250 chars)*
                 </label>
                 <textarea
                   name="summary"
                   value={formData.summary}
                   onChange={handleInputChange}
-                  maxLength={100}
+                  maxLength={250}
                   className="w-full p-2 border rounded"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-1">
-                  Event Content*
-                </label>
-                <textarea
+                <label className="block text-gray-700 mb-1">Location</label>
+                <input
+                  type="text"
                   name="content"
                   value={formData.content}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded min-h-[200px]"
+                  className="w-full p-2 border rounded"
                   required
                 />
+              
               </div>
 
               <div className="grid grid-cols-2 gap-4">

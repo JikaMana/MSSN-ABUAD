@@ -70,11 +70,13 @@ const BlogAdmin = () => {
       const token = localStorage.getItem('auth_token')
       await axios.delete(`http://localhost:5000/api/news/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setNews(news.filter((blog) => blog.id !== id))
+
+      });
+      setNews(news.filter((blog) => blog.id !== id));
+      toast.success("Deleted successfully");
     } catch (error) {
-      console.error('Error deleting blog:', error)
-      alert(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error deleting blog:", error);
+      toast.error(`${error.response?.data?.error || error.message}`);
     }
   }
 
@@ -98,34 +100,41 @@ const BlogAdmin = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((blog) => (
-          <div
-            key={blog.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img
-              src={
-                blog.image_url ||
-                'https://via.placeholder.com/500x300?text=Blog+Image'
-              }
-              alt={blog.title}
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-              <p className="text-gray-600 mb-2">{blog.summary}</p>
-              <p className="text-gray-500 text-sm">By {blog.author}</p>
-              <div className="mt-4 flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
-                  onClick={() => deleteBlog(blog.id)}>
-                  Delete
-                </button>
+
+      {news.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {news.map((blog) => (
+            <div
+              key={blog.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden"
+            >
+              <img
+                src={
+                  blog.image_url ||
+                  "https://via.placeholder.com/500x300?text=Blog+Image"
+                }
+                alt={blog.title}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
+                <p className="text-gray-600 mb-2">{blog.summary}</p>
+                <p className="text-gray-500 text-sm">By {blog.author}</p>
+                <div className="mt-4 flex justify-end">
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
+                    onClick={() => deleteBlog(blog.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-600 mb-4"> No latest News</p>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4 mt-20">
@@ -145,26 +154,14 @@ const BlogAdmin = () => {
               </div>
 
               <div>
-                <label className="block text-gray-700 mb-1">Author*</label>
-                <input
-                  type="text"
-                  name="author"
-                  value={formData.author}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                  required
-                />
-              </div>
-
-              <div>
                 <label className="block text-gray-700 mb-1">
-                  Summary (max 100 chars)*
+                  Summary (max 250 chars)*
                 </label>
                 <textarea
                   name="summary"
                   value={formData.summary}
                   onChange={handleInputChange}
-                  maxLength={100}
+                  maxLength={250}
                   className="w-full p-2 border rounded"
                   required
                 />
@@ -180,6 +177,19 @@ const BlogAdmin = () => {
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded min-h-[200px]"
                   required
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 mb-1">
+                  Source (not compulsory)
+                </label>
+                <input
+                  type="text"
+                  name="author"
+                  value={formData.author}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border rounded"
                 />
               </div>
 

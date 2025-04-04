@@ -73,12 +73,13 @@ const BlogAdmin = () => {
       const token = localStorage.getItem('auth_token')
       await axios.delete(`http://localhost:5000/api/blogs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
-      })
-      setBlogs(blogs.filter((blog) => blog.id !== id))
-      toast.success('Blog post deleted successfully!')
+
+      });
+      setBlogs(blogs.filter((blog) => blog.id !== id));
+      toast.success("Deleted successfully");
     } catch (error) {
-      console.error('Error deleting blog:', error)
-      toast.error(`Error: ${error.response?.data?.error || error.message}`)
+      console.error("Error deleting blog:", error);
+      toast.error(`${error.response?.data?.error || error.message}`);
     }
   }
 
@@ -106,7 +107,9 @@ const BlogAdmin = () => {
         {blogs.map((blog) => (
           <div
             key={blog.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden">
+
+            className="bg-white rounded-xl shadow-lg overflow-hidden max-h-[450px]"
+          >
             <img
               src={
                 blog.image_url ||
@@ -172,6 +175,7 @@ const BlogAdmin = () => {
                   required
                 />
               </div>
+
 
               <div>
                 <label className="block text-gray-700 mb-1">

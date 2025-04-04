@@ -17,19 +17,10 @@ const Blog = () => {
       } finally {
         setLoading(false)
       }
-    }
-    fetchBlogs()
-  }, [])
-  console.log(posts)
 
-  if (loading) {
-    return (
-      <div className="pt-32 pb-16 container text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
-        <p className="mt-4">Loading blog posts...</p>
-      </div>
-    )
-  }
+    };
+    fetchBlogs();
+  }, []);
 
   return (
     <div className="pt-32 pb-16">
@@ -56,50 +47,58 @@ const Blog = () => {
           the appropriate EXCO
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <img
-                src={
-                  post.image_url ||
-                  'https://via.placeholder.com/500x300?text=Blog+Image'
-                }
-                alt={post.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-3">{post.title}</h2>
-                <p className="text-gray-600 mb-4">{post.summary}</p>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <div className="flex items-center gap-1">
-                    <User size={16} />
-                    {post.author}
+        {!loading ? (
+          <div className="grid md:grid-cols-2 gap-8">
+            {posts.map((post) => (
+              <div
+                key={post.id}
+                className="bg-white rounded-xl shadow-lg overflow-hidden"
+              >
+                <img
+                  src={
+                    post.image_url ||
+                    "https://via.placeholder.com/500x300?text=Blog+Image"
+                  }
+                  alt={post.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h2 className="text-xl font-semibold mb-3">{post.title}</h2>
+                  <p className="text-gray-600 mb-4">{post.summary}</p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <div className="flex items-center gap-1">
+                      <User size={16} />
+                      {post.author}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Calendar size={16} />
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock size={16} />
+                      {post.readTime || "5 min"} read
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Calendar size={16} />
-                    {new Date(post.createdAt).toLocaleDateString()}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock size={16} />
-                    {post.readTime || '5 min'} read
-                  </div>
-                </div>
 
-                <div>
-                  <Link
-                    to={`/blog/${post.id}`}
-                    className="text-primary hover:text-primary-dark font-medium mt-2">
-                    Read Now
-                    <span className="text-xl">&rarr;</span>
-                  </Link>
+                  <div>
+                    <Link
+                      to={`/blog/${post.id}`}
+                      className="text-primary hover:text-primary-dark font-medium mt-2"
+                    >
+                      Read Now
+                      <span className="text-xl">&rarr;</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
+            ))}
+          </div>
+        ) : (
+          <div className="pt-32 pb-16 container text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4">Loading blog posts...</p>
+          </div>
+        )}
         {posts.length === 0 && (
           <div className="text-center py-12">
             <p className="text-lg text-gray-600">
