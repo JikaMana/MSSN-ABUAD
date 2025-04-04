@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Dashboard = () => {
-  const [events, setEvents] = useState([]);
-  const [numberOfEvents, setNumberOfEvents] = useState(null);
+  const [events, setEvents] = useState([])
+  const [numberOfEvents, setNumberOfEvents] = useState(null)
 
   // Fetch events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/events"
-        );
-        setEvents(response.data);
+        const response = await axios.get('http://localhost:5000/api/events')
+        setEvents(response.data)
       } catch (error) {
-        console.error("Error fetching events:", error);
+        console.error('Error fetching events:', error)
       } finally {
-        setNumberOfEvents(events.length);
+        setNumberOfEvents(events.length)
       }
-    };
-    fetchEvents();
-  }, [events]);
+    }
+    fetchEvents()
+  }, [events])
 
   return (
     <div className="grid md:grid-cols-3 gap-6">
@@ -37,7 +35,7 @@ const Dashboard = () => {
         <p className="text-3xl font-bold">{numberOfEvents}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

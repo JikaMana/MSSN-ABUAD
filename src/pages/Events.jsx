@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Calendar, MapPin, Clock, Users } from "lucide-react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+import { Calendar, MapPin, Clock, Users } from 'lucide-react'
+import axios from 'axios'
 
 const Events = () => {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/events"
-        );
-        setEvents(response.data);
+        const response = await axios.get('http://localhost:5000/api/events')
+        setEvents(response.data)
       } catch (error) {
-        console.error("Error fetching events:", error);
+        console.error('Error fetching events:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchEvents();
-  }, []);
+    }
+    fetchEvents()
+  }, [])
 
   if (loading) {
     return (
@@ -28,7 +26,7 @@ const Events = () => {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
         <p className="mt-4">Loading Events...</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -40,8 +38,7 @@ const Events = () => {
           {events.map((event) => (
             <div
               key={event.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden"
-            >
+              className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="md:flex">
                 {event.image_url && (
                   <div className="md:w-1/3 max-h-72">
@@ -59,10 +56,10 @@ const Events = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2 text-gray-600">
                       <Calendar size={20} className="text-primary" />
-                      {new Date(event.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
+                      {new Date(event.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
                       })}
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
@@ -96,7 +93,7 @@ const Events = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Events;
+export default Events
