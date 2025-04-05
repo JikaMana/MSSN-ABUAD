@@ -66,7 +66,7 @@ const SingleBlogDetail = () => {
 
         {/* Content Section */}
         <article className="prose prose-lg max-w-none text-green-900">
-          <p className="mb-6">{post.blog}</p>
+          <p className="mb-6 whitespace-pre-line">{post.blog}</p>
         </article>
       </div>
     </div>

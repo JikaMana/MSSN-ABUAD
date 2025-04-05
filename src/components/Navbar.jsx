@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   let mobileRef = useRef();
+  let mobileNavRef = useRef();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -33,6 +34,17 @@ const Navbar = () => {
     };
   }, [window.innerWidth]);
 
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (mobileNavRef.current.contains(e.target)) setIsOpen(false);
+  //   };
+
+  //   document.addEventListener("mousedown", handler);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // }, [window.innerWidth]);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 1024) {
@@ -45,6 +57,7 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   useEffect(() => {}, [activeLink]);
 
   return (
@@ -109,7 +122,7 @@ const Navbar = () => {
           <div ref={mobileRef}>
             {isOpen && (
               <div className="transform transition-all">
-                <div className="px-2 pt-2 pb-6 space-y-1">
+                <div className="px-2 pt-2 pb-6 space-y-1" ref={mobileNavRef}>
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
