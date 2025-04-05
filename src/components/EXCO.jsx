@@ -323,7 +323,7 @@ const ExecutivesTable = () => {
                   Department/Faculty
                 </th>
                 <th className="py-3 px-4 border text-left">Level</th>
-                <th className="py-3 px-4 border text-left">Contact</th>
+                {/* <th className="py-3 px-4 border text-left">Contact</th> */}
               </tr>
             </thead>
             <tbody>
@@ -336,7 +336,7 @@ const ExecutivesTable = () => {
                   <td className="py-3 px-4 border">{exec.name}</td>
                   <td className="py-3 px-4 border">{exec.department}</td>
                   <td className="py-3 px-4 border">{exec.level}</td>
-                  <td className="py-3 px-4 border">{exec.phone}</td>
+                  {/* <td className="py-3 px-4 border">{exec.phone}</td> */}
                 </tr>
               ))}
             </tbody>
@@ -359,7 +359,7 @@ const ExecutivesTable = () => {
                   Department/Faculty
                 </th>
                 <th className="py-3 px-4 border text-left">Level</th>
-                <th className="py-3 px-4 border text-left">Contact</th>
+                {/* <th className="py-3 px-4 border text-left">Contact</th> */}
               </tr>
             </thead>
             <tbody>
@@ -372,7 +372,7 @@ const ExecutivesTable = () => {
                   <td className="py-3 px-4 border">{exec.name}</td>
                   <td className="py-3 px-4 border">{exec.department}</td>
                   <td className="py-3 px-4 border">{exec.level}</td>
-                  <td className="py-3 px-4 border">{exec.phone}</td>
+                  {/* <td className="py-3 px-4 border">{exec.phone}</td> */}
                 </tr>
               ))}
             </tbody>
