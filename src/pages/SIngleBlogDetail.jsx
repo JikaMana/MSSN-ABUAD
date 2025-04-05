@@ -44,8 +44,8 @@ const SingleBlogDetail = () => {
             {post.title}
           </h1>
           <p className="text-lg text-green-700 mb-6">{post.summary}</p>
-          <div className="w-full h-">
-            <img src={post.image_url} alt={post.title} />
+          <div className="w-full h-max">
+            <img src={post.image_url} alt={post.title} className="w-full" />
           </div>
           <hr className="border-t-2 border-green-200 mb-6" />
 
