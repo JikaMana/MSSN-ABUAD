@@ -16,6 +16,7 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./components/NotFound";
 import SingleBlogDetail from "./pages/SIngleBlogDetail";
+import Lectures from "./pages/Lectures";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/forum" element={<QandA />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<SingleBlogDetail />} />
+          <Route path="/lectures" element={<Lectures />} />
           <Route path="/events" element={<Events />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/news" element={<News />} />

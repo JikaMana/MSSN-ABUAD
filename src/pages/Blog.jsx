@@ -37,11 +37,9 @@ const Blog = () => {
         </p>
         <ul className="list-decimal ml-6 text-lg text-gray-600 mb-2">
           <li>Your name</li>
-          <li>Approximate time to read</li>
           <li>The content of the post</li>
           <li>Topic of the post</li>
           <li>Summary of the post (few words)</li>
-          <li>Date</li>
         </ul>
         <p className="mb-8 text-xl">
           <strong>Note: </strong> Should be written on paper and submitted to

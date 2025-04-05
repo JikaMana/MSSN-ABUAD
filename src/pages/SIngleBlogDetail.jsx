@@ -52,11 +52,11 @@ const SingleBlogDetail = () => {
           {/* Author Info */}
           <div className="flex justify-between items-center text-green-700">
             <div className="space-y-1">
-              <p className="font-medium">{post.author}</p>
+              <p className="font-medium">Author</p>
               <p className="text-sm text-green-600">MSSN 2024/25</p>
             </div>
             <div className="text-right">
-              <p className="font-medium">Alec Whitten</p>
+              <p className="font-medium"> {post.author}</p>
               <p className="text-sm text-green-600">
                 {new Date().toLocaleDateString()}
               </p>

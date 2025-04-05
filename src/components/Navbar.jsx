@@ -10,8 +10,9 @@ const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
     { name: "News", href: "/news" },
-    { name: "Forum", href: "/forum" },
+    { name: "Lectures", href: "/lectures" },
     { name: "Events", href: "/events" },
+    { name: "Forum", href: "/forum" },
     { name: "Store", href: "/store" },
   ];
 
@@ -72,8 +73,8 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex gap-x-12">
-              <div className="ml-10 flex items-center space-x-8">
+            <div className="hidden lg:flex gap-x-8">
+              <div className="ml-10 flex items-center space-x-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
@@ -117,6 +118,12 @@ const Navbar = () => {
                       {link.name}
                     </Link>
                   ))}
+                  <Link
+                    to="/donate"
+                    className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer transform"
+                  >
+                    Donate
+                  </Link>
                 </div>
               </div>
             )}
