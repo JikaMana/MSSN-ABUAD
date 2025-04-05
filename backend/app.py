@@ -30,7 +30,7 @@ app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'fallback-secret')
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
 
-CORS(app, origins=["*"])
+CORS(app, origins=["*", "postgresql://mssn_db_user:VxuAPAHBph6yo2W18UITp3gl6GVLOu6e@dpg-cvo4b0p5pdvs739nesd0-a.oregon-postgres.render.com/mssn_db"])
 migrate = Migrate(app, db)
 # Simulated admin users
 admins = {
