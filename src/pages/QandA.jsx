@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MessageSquare, Send } from "lucide-react";
+import { toast } from "react-toastify";
 
 const QandA = () => {
   const [question, setQuestion] = useState("");
@@ -65,6 +66,9 @@ const QandA = () => {
             <button
               type="submit"
               className="btn btn-primary flex items-center gap-2"
+              onClick={() =>
+                toast.warn("Forum question and answer coming soon")
+              }
             >
               <Send size={20} />
               Submit Question

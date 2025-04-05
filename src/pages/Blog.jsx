@@ -45,7 +45,6 @@ const Blog = () => {
           <strong>Note: </strong> Should be written on paper and submitted to
           the appropriate EXCO
         </p>
-
         {!loading ? (
           <div className="grid md:grid-cols-2 gap-8">
             {posts.map((post) => (
@@ -75,7 +74,7 @@ const Blog = () => {
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock size={16} />
-                      {post.readTime || "5 min"} read
+                      {post.read_time} min read
                     </div>
                   </div>
 

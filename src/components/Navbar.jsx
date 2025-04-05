@@ -31,7 +31,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  }, [activeLink, window.innerWidth]);
+  }, [window.innerWidth]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,6 +45,7 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(() => {}, [activeLink]);
 
   return (
     <div>

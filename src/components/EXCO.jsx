@@ -3,7 +3,6 @@ import React from "react";
 const ExecutivesTable = () => {
   // Executives data array
   const executives = [
-    // Male Excos
     {
       id: 1,
       name: "ABDALLAH MUHAMMAD",
@@ -29,6 +28,30 @@ const ExecutivesTable = () => {
       phone: "08149198889",
     },
     {
+      id: 19,
+      name: "RAPHAT ATOYEBI",
+      position: "AMIRA",
+      department: "PHARMACY",
+      level: "500",
+      phone: "09162093785",
+    },
+    {
+      id: 20,
+      name: "MISTURAH SADIQ",
+      position: "NAIBATUL AMIRA ADMIN",
+      department: "NURSING",
+      level: "400",
+      phone: "08176269358",
+    },
+    {
+      id: 21,
+      name: "SALMA IDRIS",
+      position: "NAIBATUL AMIRA DA'AWAH",
+      department: "NURSING",
+      level: "400",
+      phone: "08078203019",
+    },
+    {
       id: 4,
       name: "ABDUR-RAHMAN AWOJOBI",
       position: "GENERAL SECETARY",
@@ -45,12 +68,36 @@ const ExecutivesTable = () => {
       phone: "09038322195",
     },
     {
+      id: 22,
+      name: "AISHA OROPO",
+      position: "GENERAL SECETARY",
+      department: "MBBS",
+      level: "400",
+      phone: "07089235228",
+    },
+    {
       id: 6,
       name: "ALIYU IBRAHIM",
       position: "PUBLIC RELATION OFFICER",
       department: "COMPUTER ENGINEERING",
       level: "400",
       phone: "08038169434",
+    },
+    {
+      id: 23,
+      name: "MURDHIYYA ADEYINKA",
+      position: "PUBLIC RELATION OFFICER",
+      department: "BIOCHEMISTRY",
+      level: "300",
+      phone: "07034508777",
+    },
+    {
+      id: 24,
+      name: "HIQMA YEKEEN",
+      position: "FINANCIAL SECETARY",
+      department: "MBBS",
+      level: "400",
+      phone: "07069976630",
     },
     {
       id: 7,
@@ -109,6 +156,22 @@ const ExecutivesTable = () => {
       phone: "09023556328",
     },
     {
+      id: 17,
+      name: "NAZIR MUHAMMAD",
+      position: "DAAWAH COORDINATOR I",
+      department: "MBBS",
+      level: "200",
+      phone: "08068334529",
+    },
+    {
+      id: 18,
+      name: "ABDULHALIM MUSTAPHA",
+      position: "DAAWAH COORDINATOR II",
+      department: "ENGINEERING",
+      level: "200",
+      phone: "07048779936",
+    },
+    {
       id: 14,
       name: "ABUBAKAR BABABE",
       position: "MUADHIN",
@@ -117,7 +180,7 @@ const ExecutivesTable = () => {
       phone: "09168836940",
     },
     {
-      id: 14,
+      id: 33,
       name: "YAHAYA ABDULLAHI",
       position: "MUADHIN II",
       department: "COMPUTER SCIENCE",
@@ -140,72 +203,7 @@ const ExecutivesTable = () => {
       level: "400",
       phone: "09078452773",
     },
-    {
-      id: 17,
-      name: "NAZIR MUHAMMAD",
-      position: "DAAWAH COORDINATOR I",
-      department: "MBBS",
-      level: "200",
-      phone: "08068334529",
-    },
-    {
-      id: 18,
-      name: "ABDULHALIM MUSTAPHA",
-      position: "DAAWAH COORDINATOR II",
-      department: "ENGINEERING",
-      level: "200",
-      phone: "07048779936",
-    },
 
-    // Female Excos
-    {
-      id: 19,
-      name: "RAPHAT ATOYEBI",
-      position: "AMIRA",
-      department: "PHARMACY",
-      level: "500",
-      phone: "09162093785",
-    },
-    {
-      id: 20,
-      name: "MISTURAH SADIQ",
-      position: "NAIBATUL AMIRA ADMIN",
-      department: "NURSING",
-      level: "400",
-      phone: "08176269358",
-    },
-    {
-      id: 21,
-      name: "SALMA IDRIS",
-      position: "NAIBATUL AMIRA DA'AWAH",
-      department: "NURSING",
-      level: "400",
-      phone: "08078203019",
-    },
-    {
-      id: 22,
-      name: "AISHA OROPO",
-      position: "GENERAL SECETARY",
-      department: "MBBS",
-      level: "400",
-      phone: "07089235228",
-    },
-    {
-      id: 23,
-      name: "MURDHIYYA ADEYINKA",
-      position: "PUBLIC RELATION OFFICER",
-      department: "BIOCHEMISTRY",
-      level: "300",
-      phone: "07034508777",
-    },
-    {
-      id: 24,
-      name: "HIQMA YEKEEN",
-      position: "FINANCIAL SECETARY",
-      department: "MBBS",
-      level: "400",
-      phone: "07069976630",
-    },
     {
       id: 25,
       name: "AZEEZAT SAIDU",
@@ -271,43 +269,116 @@ const ExecutivesTable = () => {
       phone: "09162920252",
     },
   ];
+  const exOfficials = [
+    {
+      id: 1,
+      name: "MUSTAPHA LAWAL OLAMIDE",
+      position: "ADVISOR",
+      department: "MECHATRONICS ENGINEERING",
+      level: "400",
+      phone: "08039887921",
+    },
+    {
+      id: 2,
+      name: "ABDULRAUF HANEEF",
+      position: "ADVISOR",
+      department: "PHARMACY",
+      level: "400",
+      phone: "08119647230",
+    },
+    {
+      id: 3,
+      name: "SODIQ OJO",
+      position: "ADVISOR",
+      department: "COMPUTER SCIENCE",
+      level: "400",
+      phone: "08143775140",
+    },
+    {
+      id: 4,
+      name: "ABIDEEN YASMIN",
+      position: "ADVISOR",
+      department: "PHARMACY",
+      level: "400",
+      phone: "09065445497",
+    },
+  ];
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center mb-6">
-        Meet the Executives of{" "}
-        <span className="text-primary-dark underline">2025/2026</span>
-      </h1>
+      <div>
+        <h1 className="text-2xl font-bold text-center mb-6">
+          Meet the Executives of{" "}
+          <span className="text-primary-dark underline">2025/2026</span>
+        </h1>
 
-      <div className="overflow-x-auto rounded-xl">
-        <table className="min-w-full border-collapse">
-          <thead>
-            <tr className="bg-primary text-gray-100">
-              <th className="py-3 px-4 border text-left">S/N</th>
-              <th className="py-3 px-4 border text-left whitespace-nowrap">
-                Portfolio
-              </th>
-              <th className="py-3 px-4 border text-left">Executive's name</th>
-              <th className="py-3 px-4 border text-left">Department/Faculty</th>
-              <th className="py-3 px-4 border text-left">Level</th>
-              <th className="py-3 px-4 border text-left">Contact</th>
-            </tr>
-          </thead>
-          <tbody>
-            {executives.map((exec) => (
-              <tr key={exec.id} className="hover:bg-gray-50">
-                <td className="py-3 px-4 border">{exec.id}</td>
-                <td className="py-3 px-4 border">{exec.position}</td>
-                <td className="py-3 px-4 border">{exec.name}</td>
-                <td className="py-3 px-4 border">{exec.department}</td>
-                <td className="py-3 px-4 border">{exec.level}</td>
-                <td className="py-3 px-4 border">{exec.phone}</td>
+        <div className="overflow-x-auto rounded-xl">
+          <table className="min-w-full border-collapse">
+            <thead>
+              <tr className="bg-primary text-gray-100">
+                <th className="py-3 px-4 border text-left">S/N</th>
+                <th className="py-3 px-4 border text-left">Portfolio</th>
+                <th className="py-3 px-4 border text-left">Executive's name</th>
+                <th className="py-3 px-4 border text-left">
+                  Department/Faculty
+                </th>
+                <th className="py-3 px-4 border text-left">Level</th>
+                <th className="py-3 px-4 border text-left">Contact</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {executives.map((exec, index) => (
+                <tr key={exec.id} className="hover:bg-gray-50">
+                  <td className="py-3 px-4 border">{index + 1}</td>
+                  <td className="py-3 px-4 border  whitespace-nowrap">
+                    {exec.position}
+                  </td>
+                  <td className="py-3 px-4 border">{exec.name}</td>
+                  <td className="py-3 px-4 border">{exec.department}</td>
+                  <td className="py-3 px-4 border">{exec.level}</td>
+                  <td className="py-3 px-4 border">{exec.phone}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
+      <div className="mt-8">
+        <h1 className="text-2xl font-bold text-center mb-6">
+          Meet the Ex-Officials
+        </h1>
 
+        <div className="overflow-x-auto rounded-xl">
+          <table className="min-w-full border-collapse">
+            <thead>
+              <tr className="bg-primary text-gray-100">
+                <th className="py-3 px-4 border text-left">S/N</th>
+                <th className="py-3 px-4 border text-left">Portfolio</th>
+                <th className="py-3 px-4 border text-left">Executive's name</th>
+                <th className="py-3 px-4 border text-left">
+                  Department/Faculty
+                </th>
+                <th className="py-3 px-4 border text-left">Level</th>
+                <th className="py-3 px-4 border text-left">Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exOfficials.map((exec, index) => (
+                <tr key={exec.id} className="hover:bg-gray-50">
+                  <td className="py-3 px-4 border">{index + 1}</td>
+                  <td className="py-3 px-4 border  whitespace-nowrap">
+                    {exec.position}
+                  </td>
+                  <td className="py-3 px-4 border">{exec.name}</td>
+                  <td className="py-3 px-4 border">{exec.department}</td>
+                  <td className="py-3 px-4 border">{exec.level}</td>
+                  <td className="py-3 px-4 border">{exec.phone}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
       {/* <div className="mt-4 text-sm text-gray-600">
         Showing 1 to 10 of {executives.length} executives
       </div> */}
