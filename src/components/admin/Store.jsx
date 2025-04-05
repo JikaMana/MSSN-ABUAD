@@ -70,7 +70,6 @@ const Store = () => {
     }
   };
 
-  console.log(products);
   const handleDeleteProduct = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
