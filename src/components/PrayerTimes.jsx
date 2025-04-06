@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
+import { Clock, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
 import prayerIcon from "../assets/images/prayer.webp";
 import adhanIcon from "../assets/images/adhan.webp";
@@ -10,24 +10,17 @@ import afternoonIcon from "../assets/images/afternoon.png";
 import sunsetIcon from "../assets/images/sunset.png";
 import nightIcon from "../assets/images/night.png";
 import jumuahIcon from "../assets/images/jumuah.png";
+import axios from "axios";
 
 const PrayerTimes = () => {
-  const [prayerTimes, setPrayerTimes] = useState(null);
+  const [prayerData, setPrayerData] = useState(null);
+  const [mosqueTimes, setMosqueTimes] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const salahTime = [
-    { name: "Fajr", icon: dawnIcon, adhan: "5:45", iqama: "5:55" },
-    { name: "Dhuhr", icon: noonIcon, adhan: "12:55", iqama: "13:05" },
-    { name: "Asr", icon: afternoonIcon, adhan: "16:15", iqama: "16:25" },
-    { name: "Maghrib", icon: sunsetIcon, adhan: "18:52", iqama: "18:57" },
-    { name: "Isha", icon: nightIcon, adhan: "19:55", iqama: "20:05" },
-    { name: "Jumu'ah", icon: jumuahIcon, adhan: "13:00", iqama: "13:30" },
-  ];
-
+  // Fetch prayer times from API using coordinate
   useEffect(() => {
     const fetchPrayerTimes = async () => {
       try {
-        // actual coordinates for ABUAD MOSQUE
         const latitude = 7.6057065;
         const longitude = 5.3091123;
 
@@ -37,7 +30,7 @@ const PrayerTimes = () => {
           }?latitude=${latitude}&longitude=${longitude}&method=1`
         );
         const data = await response.json();
-        setPrayerTimes(data.data.timings);
+        setPrayerData(data.data.timings);
       } catch (error) {
         console.error("Error fetching prayer times:", error);
       } finally {
@@ -46,20 +39,97 @@ const PrayerTimes = () => {
     };
 
     fetchPrayerTimes();
+    const interval = setInterval(fetchPrayerTimes, 300000);
+    return () => clearInterval(interval);
   }, []);
+
+  // Fetch prayer times from your backend
+  useEffect(() => {
+    const fetchMosqueTimes = async () => {
+      try {
+        // Add timestamp to URL to prevent caching
+        const response = await axios.get(
+          `https://mssn-abuad.onrender.com/api/prayer-times?t=${Date.now()}`
+        );
+        setMosqueTimes(response.data);
+      } catch (error) {
+        console.error("Error getting mosque prayer times:", error);
+      }
+    };
+    fetchMosqueTimes();
+  }, []); // Keep empty dependency array for initial load
+
+  // Add manual refresh function
+  const handleRefresh = () => {
+    window.location.reload(); // Full page reload to ensure fresh data
+  };
+
+  // Format time display
+  const formatTime = (timeStr) => {
+    if (!timeStr) return "-";
+    return format(new Date(`2024-01-01T${timeStr}`), "HH:mm");
+  };
+
+  // Create prayer time cards
+  const prayerCards = [
+    {
+      name: "Fajr",
+      icon: dawnIcon,
+      adhan: mosqueTimes?.fajr?.adhan,
+      iqama: mosqueTimes?.fajr?.iqama,
+    },
+    {
+      name: "Dhuhr",
+      icon: noonIcon,
+      adhan: mosqueTimes?.dhuhr?.adhan,
+      iqama: mosqueTimes?.dhuhr?.iqama,
+    },
+    {
+      name: "Asr",
+      icon: afternoonIcon,
+      adhan: mosqueTimes?.asr?.adhan,
+      iqama: mosqueTimes?.asr?.iqama,
+    },
+    {
+      name: "Maghrib",
+      icon: sunsetIcon,
+      adhan: mosqueTimes?.maghrib?.adhan,
+      iqama: mosqueTimes?.maghrib?.iqama,
+    },
+    {
+      name: "Isha",
+      icon: nightIcon,
+      adhan: mosqueTimes?.isha?.adhan,
+      iqama: mosqueTimes?.isha?.iqama,
+    },
+    {
+      name: "Jumu'ah",
+      icon: jumuahIcon,
+      adhan: mosqueTimes?.jumuah?.adhan,
+      iqama: mosqueTimes?.jumuah?.iqama,
+    },
+  ];
+
   return (
     <section>
       <div className="flex items-center gap-3 mb-6">
         <Clock className="text-primary" size={24} />
         <h2 className="text-2xl md:text-3xl font-bold">Prayer Times</h2>
       </div>
-      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
+      <button
+        onClick={handleRefresh}
+        className="ml-auto flex items-center gap-2 text-primary hover:text-primary-dark"
+      >
+        <RefreshCw size={20} />
+        <span>Refresh</span>
+      </button>
+      <div className="hidden md:block bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-4">
         <h2 className="text-xl font-medium mb-4 text-center">
-          Prayer Time by Coordinates
+          Prayer Time by Coordinates of ABUAD mosque
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {prayerTimes &&
-            Object.entries(prayerTimes)
+          {prayerData &&
+            Object.entries(prayerData)
               .filter(([name]) =>
                 ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].includes(name)
               )
@@ -82,14 +152,15 @@ const PrayerTimes = () => {
               ))}
         </div>
       </div>
+
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="lg:flex flex-row-reverse gap-x-8">
           <div className="flex-[0.45] overflow-x-scroll scrollbar-hidden">
-            <h2 className="text-2xl font-medium mb-4 text-center ">
-              Time we pray in Mosque
+            <h2 className="text-2xl font-medium mb-4 text-center">
+              Mosque Prayer Schedule
             </h2>
-            <table className="min-w-full bg-white border-separate border-spacing-y-4 overflow-x-scroll">
-              <thead className="">
+            <table className="min-w-full bg-white border-separate border-spacing-y-4">
+              <thead>
                 <tr>
                   <th className="px-4">
                     <img
@@ -97,9 +168,7 @@ const PrayerTimes = () => {
                       alt="Prayer Icon"
                       className="w-16 mx-auto mb-2"
                     />
-                    <p className="whitespace-nowrap text-lg font-black">
-                      Name of Prayer
-                    </p>
+                    <p className="text-lg font-bold">Prayer</p>
                   </th>
                   <th className="px-4">
                     <img
@@ -107,9 +176,7 @@ const PrayerTimes = () => {
                       alt="Adhan Icon"
                       className="w-16 mx-auto mb-2"
                     />
-                    <p className="whitespace-nowrap text-lg font-black">
-                      Adhan Time
-                    </p>
+                    <p className="text-lg font-bold">Adhan</p>
                   </th>
                   <th className="px-4">
                     <img
@@ -117,30 +184,28 @@ const PrayerTimes = () => {
                       alt="Iqama Icon"
                       className="w-16 mx-auto mb-2"
                     />
-                    <p className="whitespace-nowrap text-lg font-black">
-                      Iqama Time
-                    </p>
+                    <p className="text-lg font-bold">Iqama</p>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {salahTime.map((time, index) => (
+                {prayerCards.map((prayer, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-2 whitespace-nowrap text-lg text-center font-medium border-2 shadow-md rounded-md">
-                      <div className="flex items-center ml-4 gap-4">
+                    <td className="px-4 py-2 text-center font-medium border-2 rounded-md">
+                      <div className="flex items-center gap-2 justify-center">
                         <img
-                          src={time.icon}
-                          alt={time.name + "icon"}
+                          src={prayer.icon}
+                          alt={`${prayer.name} icon`}
                           className="w-6 h-6"
                         />
-                        <p>{time.name}</p>
+                        {prayer.name}
                       </div>
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap text-lg text-center font-medium border-2 shadow-md rounded-md">
-                      {time.adhan}
+                    <td className="px-4 py-2 text-center font-medium border-2 rounded-md">
+                      {formatTime(prayer.adhan)}
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap text-lg text-center font-medium border-2 shadow-md rounded-md">
-                      {time.iqama}
+                    <td className="px-4 py-2 text-center font-medium border-2 rounded-md">
+                      {formatTime(prayer.iqama)}
                     </td>
                   </tr>
                 ))}
@@ -166,18 +231,11 @@ const PrayerTimes = () => {
               </h3>
               <article className="text-lg">
                 Abu Hurairah (May Allah be pleased with him) reported: The
-                Messenger of Allah ﷺ said, “A man’s Salat in congregation is
+                Messenger of Allah ﷺ said, "A man's Salat in congregation is
                 twenty-five times more rewarding than his Salat at home or in
-                his shop, and that is because when he performs his Wudu’
-                properly and proceeds towards the mosque with the purpose of
-                performing Salat in congregation, he does not take a step
-                without being raised a degree (in rank) for it and having a sin
-                remitted for it, till he enters the mosque. When he is
-                performing Salat, the angels continue to invoke Blessings of
-                Allah on him as long as he is in his place of worship in a state
-                of Wudu’. They say: `O Allah! Have mercy on him! O Allah!
-                Forgive him.’ He is deemed to be engaged in Salat as long as he
-                waits for it.” <br /> [Al-Bukhari and Muslim].
+                his shop..."
+                <br />
+                [Al-Bukhari and Muslim].
               </article>
             </div>
           </div>

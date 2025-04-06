@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 const QnA = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [questions] = useState([
     {
       id: 1,
@@ -24,16 +27,30 @@ const QnA = () => {
       status: "Pending",
     },
   ]);
+  const [formData, setFormData] = useState({
+    question: "",
+    answer: "",
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-  const [searchTerm, setSearchTerm] = useState("");
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const filteredQuestions = questions.filter((q) =>
     q.text.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleAnswerQuestion = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-y-4">
         <h2 className="text-2xl font-bold text-primary">Q&A Moderation</h2>
         <input
           type="text"
@@ -93,6 +110,7 @@ const QnA = () => {
                         : "bg-green-500 hover:bg-green-600"
                     }`}
                     disabled={q.status === "Answered"}
+                    onClick={() => setShowModal(true)}
                   >
                     Answer
                   </button>
@@ -102,6 +120,50 @@ const QnA = () => {
           </tbody>
         </table>
       </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-xl font-semibold">Add New Product</h3>
+            <h2 className="mb-4">You mst fill all fields to add a product</h2>
+
+            <form onSubmit={handleAnswerQuestion} className="space-y-4">
+              <input
+                type="text"
+                placeholder="Question"
+                value={formData.question}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded mb-2"
+                required
+              />
+
+              <textarea
+                name="answer"
+                value={formData.answer}
+                onChange={handleInputChange}
+                placeholder="Answer"
+                className="w-full p-2 border rounded mb-2"
+              />
+
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="bg-red-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  onClick={() => setShowModal(true)}
+                  className="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                >
+                  Submit Answer
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

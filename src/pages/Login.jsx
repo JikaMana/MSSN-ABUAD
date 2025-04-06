@@ -1,34 +1,51 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      console.log("Sending login request:", { username, password });
-      const response = await axios.post("http://127.0.0.1:5000/api/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "https://mssn-abuad.onrender.com/api/login",
+        {
+          username,
+          password,
+        }
+      );
 
-      // Store the token in local storage
-      const token = response.data.token;
-      localStorage.setItem("auth_token", token);
-      console.log("Login response:", response.data);
-      alert(response.data.message);
-      navigate("/admin");
+      if (response.status >= 200 && response.status < 300) {
+        const { token } = response.data;
+        toast.success("Access granted");
+        localStorage.setItem("auth_token", token);
+        navigate("/admin");
+      }
     } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "An error occurred");
+      // Handling errors
+      if (error.response) {
+        // The request was made, and the server responded with a status code outside the 2xx range
+        toast.error(error.response.data.message || "An error occurred");
+      } else if (error.request) {
+        // The request was made, but no response was received
+        toast.error("No response from server. Please try again later.");
+      } else {
+        // Something else happened while setting up the request
+        toast.error("An unexpected error occurred.");
+      }
+      console.error("Login error:", error);
     }
   };
 
   return (
     <div className="min-h-screen flex">
+      <ToastContainer />
+
       <div className="hidden md:block w-1/2 bg-green-800 p-12 text-white">
         <div className="flex flex-col justify-center items-center h-full">
           <div className="max-w-32 mb-12">
@@ -47,7 +64,7 @@ const Login = () => {
       </div>
 
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <form id="loginForm" className="w-full max-w-md">
+        <form id="loginForm" className="w-full max-w-md" onSubmit={handleLogin}>
           <h2 className="text-3xl font-bold text-green-800 mb-8">
             Welcome Admin
           </h2>
@@ -57,7 +74,8 @@ const Login = () => {
               Email
             </label>
             <input
-              type="email"
+              // type="email"
+              type="text"
               placeholder="Email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -82,7 +100,6 @@ const Login = () => {
 
           <button
             type="submit"
-            onClick={handleLogin}
             className="w-full bg-green-700 text-white p-3 rounded-lg hover:bg-green-800 transition duration-300"
           >
             Login
