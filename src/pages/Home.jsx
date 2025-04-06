@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import Hero from "../components/Hero";
 import PrayerTimes from "../components/PrayerTimes";
 import WeeklyReminder from "../components/WeeklyReminder";

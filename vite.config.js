@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
 import prerender from "vite-plugin-prerender";
-import { sitemap } from "vite-plugin-sitemap";
+import Sitemap from "vite-plugin-sitemap"; // Note: Default import now
 import path from "path";
 
 export default defineConfig({
@@ -32,7 +32,7 @@ export default defineConfig({
         "/donate",
       ],
     }),
-    sitemap({
+    Sitemap({
       hostname: "https://mssnabuad.org",
       routes: [
         "/",
@@ -50,9 +50,6 @@ export default defineConfig({
   ],
   build: {
     outDir: "dist",
-    rollupOptions: {
-      external: ["vite-plugin-sitemap"], // Add problematic packages here
-    },
   },
   optimizeDeps: {
     exclude: ["lucide-react"],
