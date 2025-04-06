@@ -42,8 +42,8 @@ const Blog = () => {
           <li>Summary of the post (few words)</li>
         </ul>
         <p className="mb-8 text-xl">
-          <strong>Note: </strong> Should be written on paper and submitted to
-          the appropriate EXCO
+          <strong>Note: </strong> Either Hard or Soft copy could be
+          submitted/sent to the appropriate EXCO
         </p>
         {!loading ? (
           <div className="grid md:grid-cols-2 gap-8">
