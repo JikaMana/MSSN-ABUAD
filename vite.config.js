@@ -1,8 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
-import prerender from "vite-plugin-prerender";
-import Sitemap from "vite-plugin-sitemap"; // Note: Default import now
+import Sitemap from "vite-plugin-sitemap"; // sitemap still works fine
 import path from "path";
 
 export default defineConfig({
@@ -16,21 +15,6 @@ export default defineConfig({
           description: "Muslim Students Society of Afe Babalola University",
         },
       },
-    }),
-    prerender({
-      staticDir: path.join(__dirname, "dist"),
-      routes: [
-        "/",
-        "/blog",
-        "/news",
-        "/lectures",
-        "/events",
-        "/forum",
-        "/store",
-        "/mssn-history",
-        "/mssn-abuad-history",
-        "/donate",
-      ],
     }),
     Sitemap({
       hostname: "https://mssnabuad.org",
@@ -50,6 +34,7 @@ export default defineConfig({
   ],
   build: {
     outDir: "dist",
+    emptyOutDir: true,
   },
   optimizeDeps: {
     exclude: ["lucide-react"],
