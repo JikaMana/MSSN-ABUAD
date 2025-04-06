@@ -1,6 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { createHtmlPlugin } from "vite-plugin-html";
 import prerender from "vite-plugin-prerender";
+import { sitemap } from "vite-plugin-sitemap";
+import path from "path";
 
 export default defineConfig({
   plugins: [
@@ -24,8 +27,8 @@ export default defineConfig({
         "/events",
         "/forum",
         "/store",
-        "mssn-history",
-        "mssn-abuad-history",
+        "/mssn-history",
+        "/mssn-abuad-history",
         "/donate",
       ],
     }),
@@ -39,14 +42,14 @@ export default defineConfig({
         "/events",
         "/forum",
         "/store",
-        "mssn-history",
-        "mssn-abuad-history",
+        "/mssn-history",
+        "/mssn-abuad-history",
         "/donate",
       ],
     }),
   ],
   build: {
-    outDir: "dist", // Netlify looks here by default
+    outDir: "dist",
   },
   optimizeDeps: {
     exclude: ["lucide-react"],
