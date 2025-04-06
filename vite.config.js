@@ -50,6 +50,9 @@ export default defineConfig({
   ],
   build: {
     outDir: "dist",
+    rollupOptions: {
+      external: ["vite-plugin-sitemap"], // Add problematic packages here
+    },
   },
   optimizeDeps: {
     exclude: ["lucide-react"],
