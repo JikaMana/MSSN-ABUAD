@@ -1,0 +1,38 @@
+# mssnabuad.org
+
+**mssnabuad.org** is the official website for the **Muslim Students Society of Nigeria (MSSN)**, Afe Babalola University branch. This platform is designed to provide Muslim students at ABUAD with essential resources, information about upcoming events, religious lectures, and updates on the society's activities. The website aims to foster community engagement and spiritual growth for students on campus.
+
+### 🚀 Features
+
+- **Responsive Design**: A mobile-friendly and user-centric interface for seamless access across devices.
+- **Event Calendar**: Displays upcoming events, religious activities, and key dates for the society.
+- **Lectures & Resources**: Provides access to Islamic lectures, study materials, and spiritual growth resources.
+- **News & Announcements**: Keeps the community updated with the latest news, events, and announcements from the society.
+- **Membership Portal**: Allows members to sign up, view their status, and engage in society activities.
+
+### 🛠 Technologies Used
+
+- **Frontend**: React.js, Tailwind CSS, HTML5, CSS3
+- **Backend**: Python(flask)
+- **Database**: PostgreSQL
+- **Hosting**: Netlify(Front-End), Render(Backend, Database)
+- **Version Control**: Git, GitHub
+
+### 💡 Goals for the Project
+
+- Continuously update the platform with relevant resources to meet the needs of the ABUAD Muslim student community.
+
+🤝 **Contributing**  
+Contributions are welcome! If you'd like to help with new features, bug fixes, or enhancements, please fork the repository, create your own branch, and submit a pull request. You can also open issues for any bugs or new feature suggestions.
+
+📄 **License**  
+This project is open-source and available under the [MIT License](LICENSE).
+
+💬 **Contact**  
+For inquiries or feedback about this project, reach out directly:
+
+- **Email**: [yahayaabdullahimana@gmail.com](mailto:yahayaabdullahimana@gmail.com)
+- **LinkedIn**: [Abdullahi Mana Yahaya](https://www.linkedin.com/in/abdullahi-mana-yahaya-29a87a281/)
+
+👨‍💻 **Developer**  
+Yahaya Abdullahi Mana - A passionate Software Developer with a focus on Web Development using React.js, Mobile App Development with React Native, and Backend Development.
