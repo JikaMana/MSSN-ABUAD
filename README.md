@@ -28,14 +28,14 @@ Contributions are welcome! If you'd like to help with new features, bug fixes, o
 📄 **License**  
 This project is open-source and available under the [MIT License](LICENSE).
 
-💬 **Contact**  
-For inquiries or feedback about this project, reach out directly:
+👨‍💻 **Developers** && 💬 **Contact**
+
+- _Yahaya Abdullahi Mana_ - A passionate Software Developer with a focus on Web Development using React.js, Mobile App Development with React Native, and Backend Development using Firebase.
 
 - **Email**: [yahayaabdullahimana@gmail.com](mailto:yahayaabdullahimana@gmail.com)
 - **LinkedIn**: [Abdullahi Mana Yahaya](https://www.linkedin.com/in/abdullahi-mana-yahaya-29a87a281/)
 
-👨‍💻 **Developers**
-
-- _Yahaya Abdullahi Mana_ - A passionate Software Developer with a focus on Web Development using React.js, Mobile App Development with React Native, and Backend Development using Firebase.
-
 - _Jamiu Abdulazeez Oladidupo_ - A passionate about using AI and technology to revolutionize Africa by building powerful, affordable digital solutions that empower businesses and inspire the next generation.
+
+- **Email**: [jamiuabdulazeez689@gmail.com](mailto:jamiuabdulazeez689@gmail.com)
+- **X(Twitter)**: [JimX_ai (@JamiuOladi55000)](https://x.com/JamiuOladi55000?t=Orv9gS1A9YoGmGRb6Dh_gA&s=08)
