@@ -34,5 +34,8 @@ For inquiries or feedback about this project, reach out directly:
 - **Email**: [yahayaabdullahimana@gmail.com](mailto:yahayaabdullahimana@gmail.com)
 - **LinkedIn**: [Abdullahi Mana Yahaya](https://www.linkedin.com/in/abdullahi-mana-yahaya-29a87a281/)
 
-👨‍💻 **Developer**  
-Yahaya Abdullahi Mana - A passionate Software Developer with a focus on Web Development using React.js, Mobile App Development with React Native, and Backend Development.
+👨‍💻 **Developers**
+
+- _Yahaya Abdullahi Mana_ - A passionate Software Developer with a focus on Web Development using React.js, Mobile App Development with React Native, and Backend Development using Firebase.
+
+- _Jamiu Abdulazeez Oladidupo_ - A passionate about using AI and technology to revolutionize Africa by building powerful, affordable digital solutions that empower businesses and inspire the next generation.
