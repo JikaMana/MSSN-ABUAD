@@ -19,6 +19,7 @@ import Members from "../components/admin/Members";
 import News from "../components/admin/News";
 import Lectures from "../components/admin/Lectures";
 import Navbar from "../components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -76,6 +77,7 @@ const Admin = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -48,12 +48,12 @@ const Store = () => {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden"
+                className="bg-white rounded-xl shadow-lg overflow-hidden max-h-max"
               >
                 <img
                   src={product.image_url || "https://via.placeholder.com/50"}
                   alt={product.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover hover:h-max hover:z-50"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold mb-2">{product.name}</h3>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Trash } from "lucide-react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Store = () => {
@@ -47,8 +47,9 @@ const Store = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      toast.success("Product added successfully!");
+
       if ((!name == "", !price == 0, !image_url == "")) {
-        toast.success("Product added successfully!");
         // Clear form fields
         setName("");
         setPrice(0);
@@ -215,6 +216,7 @@ const Store = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

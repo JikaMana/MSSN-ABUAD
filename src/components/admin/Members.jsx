@@ -29,7 +29,7 @@ const Members = () => {
         }
       );
       if ((!name == "", !price == 0, !image_url == "")) {
-        toast.success("Product added successfully!");
+        toast.success("EXCO added");
         // Clear form fields
         setName("");
         setPrice(0);
