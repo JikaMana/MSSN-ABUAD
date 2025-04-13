@@ -20,6 +20,7 @@ import News from "../components/admin/News";
 import Lectures from "../components/admin/Lectures";
 import Navbar from "../components/Navbar";
 import { ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
