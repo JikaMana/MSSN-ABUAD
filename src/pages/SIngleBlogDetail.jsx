@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const SingleBlogDetail = () => {
-  const { id } = useParams();
+  const { title } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +16,7 @@ const SingleBlogDetail = () => {
         const blogs = response.data;
 
         if (Array.isArray(blogs)) {
-          const foundPost = blogs.find((blog) => blog.id === Number(id));
+          const foundPost = blogs.find((blog) => blog.title === title);
           setPost(foundPost || null);
         } else {
           console.error("Unexpected response format:", blogs);

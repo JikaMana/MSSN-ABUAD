@@ -80,7 +80,7 @@ const Blog = () => {
 
                   <div>
                     <Link
-                      to={`/blog/${post.id}`}
+                      to={`/blog/${post.title}`}
                       className="text-primary hover:text-primary-dark font-medium mt-2"
                     >
                       Read Now
