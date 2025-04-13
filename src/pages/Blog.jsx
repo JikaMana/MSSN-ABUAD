@@ -3,7 +3,7 @@ import { Calendar, User, Clock } from "lucide-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Blog = () => {
+const Blog = ({ slugify }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -80,7 +80,7 @@ const Blog = () => {
 
                   <div>
                     <Link
-                      to={`/blog/${post.title}`}
+                      to={`/blog/${slugify(post.title)}`}
                       className="text-primary hover:text-primary-dark font-medium mt-2"
                     >
                       Read Now

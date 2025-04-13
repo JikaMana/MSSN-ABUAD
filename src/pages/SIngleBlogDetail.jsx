@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const SingleBlogDetail = () => {
-  const { title } = useParams();
+const SingleBlogDetail = ({ slugify }) => {
+  const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +16,7 @@ const SingleBlogDetail = () => {
         const blogs = response.data;
 
         if (Array.isArray(blogs)) {
-          const foundPost = blogs.find((blog) => blog.title === title);
+          const foundPost = blogs.find((blog) => slugify(blog.title) === id);
           setPost(foundPost || null);
         } else {
           console.error("Unexpected response format:", blogs);
@@ -29,7 +29,6 @@ const SingleBlogDetail = () => {
     };
     fetchPost();
   }, [id]);
-  console.log(post);
 
   if (loading) return <p className="text-center text-green-600">Loading...</p>;
   if (!post)

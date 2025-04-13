@@ -19,6 +19,12 @@ import SingleBlogDetail from "./pages/SIngleBlogDetail";
 import Lectures from "./pages/Lectures";
 
 function App() {
+  const slugify = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
   return (
     <Router>
       <Routes>
@@ -29,8 +35,11 @@ function App() {
           <Route path="/programs" element={<Programs />} />
           <Route path="/store" element={<Store />} />
           <Route path="/forum" element={<QandA />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<SingleBlogDetail />} />
+          <Route path="/blog" element={<Blog slugify={slugify} />} />
+          <Route
+            path="/blog/:id"
+            element={<SingleBlogDetail slugify={slugify} />}
+          />
           <Route path="/lectures" element={<Lectures />} />
           <Route path="/events" element={<Events />} />
           <Route path="/donate" element={<Donate />} />
