@@ -63,15 +63,15 @@ const Blog = ({ slugify }) => {
                 <div className="p-6">
                   <h2 className="text-xl font-semibold mb-3">{post.title}</h2>
                   <p className="text-gray-600 mb-4">{post.summary}</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <div className="flex items-center justify-between gap-4 text-sm text-gray-500 mb-2">
                     <div className="flex items-center gap-1">
                       <User size={16} />
                       {post.author}
                     </div>
-                    <div className="flex items-center gap-1">
+                    {/* <div className="flex items-center gap-1">
                       <Calendar size={16} />
                       {new Date(post.createdAt).toLocaleDateString()}
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-1">
                       <Clock size={16} />
                       {post.read_time} min read

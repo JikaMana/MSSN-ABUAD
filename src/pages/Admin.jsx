@@ -8,8 +8,10 @@ import {
   Users,
   Newspaper,
   Video,
+  Route,
 } from "lucide-react";
-import Dashboard from "../components/admin/Dashboard";
+// import Dashboard from "../components/admin/Dashboard";
+import AdminDashboardFetch from "../context/AdminDashboardFetch";
 import Store from "../components/admin/Store";
 import PrayerTimes from "../components/admin/PrayerTimes";
 import QnA from "../components/admin/QnA";
@@ -67,7 +69,8 @@ const Admin = () => {
             </div>
 
             <div className="p-6">
-              {activeTab === "dashboard" && <Dashboard />}
+              {/* {activeTab === "dashboard" && <Dashboard />} */}
+              {activeTab === "dashboard" && <AdminDashboardFetch />}
               {activeTab === "prayer" && <PrayerTimes />}
               {activeTab === "store" && <Store />}
               {activeTab === "qanda" && <QnA />}
