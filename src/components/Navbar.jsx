@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,33 +17,17 @@ const Navbar = () => {
     { name: "Store", href: "/store" },
   ];
 
-  const [activeLink, setActiveLink] = useState("");
-
-  const handleActiveNav = (nav) => {
-    setActiveLink(nav);
-  };
-
   useEffect(() => {
     let handler = (e) => {
-      if (!mobileRef.current.contains(e.target)) setIsOpen(false);
+      if (!mobileRef.current.contains(e.target) && mobileRef.current)
+        setIsOpen(false);
     };
 
     document.addEventListener("mousedown", handler);
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  }, [window.innerWidth]);
-
-  // useEffect(() => {
-  //   let handler = (e) => {
-  //     if (mobileNavRef.current.contains(e.target)) setIsOpen(false);
-  //   };
-
-  //   document.addEventListener("mousedown", handler);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handler);
-  //   };
-  // }, [window.innerWidth]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,13 +42,12 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {}, [activeLink]);
-
   return (
     <div>
       <nav className="bg-white shadow-md fixed w-full z-50">
         <div className="container">
           <div className="flex justify-between items-center h-20">
+            {/* Logo */}
             <Link
               to="/"
               className="flex-shrink-0 flex items-center gap-x-0 sm:gap-x-4"
@@ -90,16 +73,17 @@ const Navbar = () => {
             <div className="hidden lg:flex gap-x-8">
               <div className="ml-10 flex items-center space-x-6">
                 {navLinks.map((link) => (
-                  <Link
+                  <NavLink
                     key={link.name}
                     to={link.href}
-                    className={`text-gray-700 text-lg  hover:text-primary font-medium ${
-                      activeLink === link.name ? "text-primary" : ""
-                    }`}
-                    onClick={() => handleActiveNav(link.name)}
+                    className={({ isActive }) =>
+                      `text-gray-700 text-lg font-medium hover:text-primary ${
+                        isActive ? "text-primary" : ""
+                      }`
+                    }
                   >
                     {link.name}
-                  </Link>
+                  </NavLink>
                 ))}
               </div>
               <Link to="/donate" className="btn btn-primary rounded-full">
@@ -124,17 +108,25 @@ const Navbar = () => {
               <div className="transform transition-all">
                 <div className="px-2 pt-2 pb-6 space-y-1" ref={mobileNavRef}>
                   {navLinks.map((link) => (
-                    <Link
+                    <NavLink
                       key={link.name}
                       to={link.href}
-                      className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer transform"
+                      className={({ isActive }) =>
+                        `block px-3 py-2 text-lg font-medium transform ${
+                          isActive
+                            ? "text-primary"
+                            : "text-gray-700 hover:text-primary"
+                        }`
+                      }
+                      onClick={() => setIsOpen(false)} // Close mobile menu on click
                     >
                       {link.name}
-                    </Link>
+                    </NavLink>
                   ))}
                   <Link
                     to="/donate"
-                    className="block px-3 py-2 text-gray-700 hover:text-primary font-medium cursor-pointer transform"
+                    className="block px-3 py-2 text-lg font-medium text-gray-700 hover:text-primary transform"
+                    onClick={() => setIsOpen(false)} // Close mobile menu on click
                   >
                     Donate
                   </Link>

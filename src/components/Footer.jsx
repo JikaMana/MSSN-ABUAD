@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
         <Link
           to="/admin"
-          className={`text-lg  hover:text-gray-100 font-medium text-center`}
+          className={`text-sm  hover:text-gray-100 font-medium text-center`}
         >
           Admin
         </Link>

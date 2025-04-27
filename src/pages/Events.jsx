@@ -44,11 +44,11 @@ const Events = () => {
             >
               <div className="md:flex">
                 {event.image_url && (
-                  <div className="md:w-1/3 max-h-72">
+                  <div className="md:w-1/3 h-72 overflow-hidden rounded-lg">
                     <img
                       src={event.image_url}
                       alt={event.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full"
                     />
                   </div>
                 )}
@@ -79,11 +79,6 @@ const Events = () => {
                       {event.availability}
                     </div>
                   </div>
-
-                  {/* <div className="mt-6">
-                    <h3 className="font-semibold mb-2">Event Details:</h3>
-                    <p className="text-gray-600">{event.content}</p>
-                  </div> */}
                 </div>
               </div>
             </div>

@@ -9,12 +9,6 @@ const Members = () => {
       email: "mssnabuad21@gmail.com",
       role: "Admin",
     },
-    {
-      id: 2,
-      name: "Ameer Abuad",
-      email: "ameer@example.com",
-      role: "Ameer",
-    },
   ]);
 
   const handleAddEXCO = async (e) => {
