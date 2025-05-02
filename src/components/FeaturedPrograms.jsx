@@ -54,7 +54,7 @@ const FeaturedPrograms = () => {
       title: "Sports week",
       description: "Football Training(Male)",
       icon: Trophy,
-      time: "Sceduled by MSSN brothers agreement",
+      time: "Scheduled by MSSN brothers agreement",
     },
   ];
 
