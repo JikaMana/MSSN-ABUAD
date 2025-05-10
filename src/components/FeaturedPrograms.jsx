@@ -13,7 +13,7 @@ const FeaturedPrograms = () => {
 
     {
       title: "Qur'an Teaching",
-      description: "Learn the Holy either by Heart by Recitation",
+      description: "Learn the Holy Qur'an either by Heart or  Recitation",
       icon: BookOpen,
       time: "Weekdays (Maghrib to Isha)",
     },
@@ -54,7 +54,7 @@ const FeaturedPrograms = () => {
       title: "Sports week",
       description: "Football Training(Male)",
       icon: Trophy,
-      time: "Sceduled by MSSN brothers agreement",
+      time: "Scheduled by MSSN brothers agreement",
     },
   ];
 

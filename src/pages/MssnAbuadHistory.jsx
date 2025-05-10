@@ -1,9 +1,10 @@
 import React from "react";
+import ExecutivesTable from "../components/EXCO";
 
 const MssnAbuadHistory = () => {
   return (
-    <div className="bg-gray-100 min-h-screen py-10 px-4 sm:pt-24">
-      <div className="max-w-4xl mx-auto bg-white p-6 shadow-lg rounded-lg">
+    <div className=" min-h-screen py-10 px-4 sm:pt-24">
+      <div className="max-w-4xl mx-auto bg-white p-6">
         <h1 className="text-3xl font-bold text-center text-green-600 mb-6">
           History of MSSN ABUAD
         </h1>
@@ -76,6 +77,7 @@ const MssnAbuadHistory = () => {
           </p>
         </section>
       </div>
+      <ExecutivesTable />
     </div>
   );
 };
