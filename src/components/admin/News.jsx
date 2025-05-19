@@ -21,7 +21,7 @@ const BlogAdmin = () => {
     const fetchNews = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/news"
+          "https://mssn.pythonanywhere.com/api/news"
         );
 
         setNews(response.data);
@@ -46,12 +46,12 @@ const BlogAdmin = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.post("https://mssn-abuad.onrender.com/api/news", formData, {
+      await axios.post("https://mssn.pythonanywhere.com/api/news", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Refresh news list
       const response = await axios.get(
-        "https://mssn-abuad.onrender.com/api/news"
+        "https://mssn.pythonanywhere.com/api/news"
       );
       setNews(response.data);
       setShowModal(false);
@@ -72,7 +72,7 @@ const BlogAdmin = () => {
   const deleteBlog = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`https://mssn-abuad.onrender.com/api/news/${id}`, {
+      await axios.delete(`https://mssn.pythonanywhere.com/api/news/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNews(news.filter((blog) => blog.id !== id));

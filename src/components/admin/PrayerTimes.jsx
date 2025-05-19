@@ -24,7 +24,7 @@ const PrayerTimesAdmin = () => {
       try {
         const token = localStorage.getItem("auth_token");
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/prayer-times",
+          "https://mssn.pythonanywhere.com/api/prayer-times",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -80,7 +80,7 @@ const PrayerTimesAdmin = () => {
       console.log("Submitting:", payload); // Debug log
 
       const response = await axios.post(
-        "https://mssn-abuad.onrender.com/api/prayer-times",
+        "https://mssn.pythonanywhere.com/api/prayer-times",
         payload,
         {
           headers: {

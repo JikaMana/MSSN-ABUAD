@@ -11,7 +11,7 @@ const News = () => {
     const fetchNews = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/news"
+          "https://mssn.pythonanywhere.com/api/news"
         );
         if (response.data.length > 0) {
           setNews(response.data);

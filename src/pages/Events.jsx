@@ -10,7 +10,7 @@ const Events = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/events"
+          "https://mssn.pythonanywhere.com/api/events"
         );
         setEvents(response.data);
       } catch (error) {

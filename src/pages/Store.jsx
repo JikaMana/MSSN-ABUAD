@@ -22,7 +22,7 @@ const Store = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products"
+          "https://mssn.pythonanywhere.com/api/products"
         );
         setProducts(response.data);
       } catch (error) {

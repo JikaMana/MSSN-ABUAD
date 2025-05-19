@@ -23,7 +23,7 @@ const Events = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/events"
+          "https://mssn.pythonanywhere.com/api/events"
         );
         setEvents(response.data);
       } catch (error) {
@@ -47,12 +47,12 @@ const Events = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.post("https://mssn-abuad.onrender.com/api/events", formData, {
+      await axios.post("https://mssn.pythonanywhere.com/api/events", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Refresh events list
       const response = await axios.get(
-        "https://mssn-abuad.onrender.com/api/events"
+        "https://mssn.pythonanywhere.com/api/events"
       );
       setEvents(response.data);
       setShowModal(false);
@@ -76,7 +76,7 @@ const Events = () => {
   const deleteEvent = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`https://mssn-abuad.onrender.com/api/events/${id}`, {
+      await axios.delete(`https://mssn.pythonanywhere.com/api/events/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEvents(events.filter((event) => event.id !== id));

@@ -16,7 +16,7 @@ const Members = () => {
     try {
       const token = localStorage.getItem("auth_token");
       await axios.post(
-        "https://mssn-abuad.onrender.com/api/exco",
+        "https://mssn.pythonanywhere.com/api/exco",
         { name, price, description, image_url },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -31,7 +31,7 @@ const Members = () => {
         setImageUrl("");
         // Refetch products
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/exco",
+          "https://mssn.pythonanywhere.com/api/exco",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -49,7 +49,7 @@ const Members = () => {
   //   try {
   //     const token = localStorage.getItem("auth_token");
   //     await axios.delete(
-  //       `https://mssn-abuad.onrender.com/api/products/${id}`,
+  //       `https://mssn.pythonanywhere.com/api/products/${id}`,
   //       {
   //         headers: { Authorization: `Bearer ${token}` },
   //       }

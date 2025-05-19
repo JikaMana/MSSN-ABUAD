@@ -17,7 +17,7 @@ const PrivateRoute = ({ children }) => {
 
         // Send the token in the Authorization header
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/check-auth",
+          "https://mssn.pythonanywhere.com/api/check-auth",
           {
             headers: {
               Authorization: `Bearer ${token}`,

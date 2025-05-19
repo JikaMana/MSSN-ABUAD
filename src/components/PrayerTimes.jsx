@@ -49,7 +49,7 @@ const PrayerTimes = () => {
       try {
         // Add timestamp to URL to prevent caching
         const response = await axios.get(
-          `https://mssn-abuad.onrender.com/api/prayer-times?t=${Date.now()}`
+          `https://mssn.pythonanywhere.com/api/prayer-times?t=${Date.now()}`
         );
         setMosqueTimes(response.data);
       } catch (error) {

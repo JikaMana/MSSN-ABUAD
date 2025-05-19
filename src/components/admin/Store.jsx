@@ -19,7 +19,7 @@ const Store = () => {
       try {
         const token = localStorage.getItem("auth_token");
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products",
+          "https://mssn.pythonanywhere.com/api/products",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -41,7 +41,7 @@ const Store = () => {
     try {
       const token = localStorage.getItem("auth_token");
       await axios.post(
-        "https://mssn-abuad.onrender.com/api/products",
+        "https://mssn.pythonanywhere.com/api/products",
         { name, price, description, image_url },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -57,7 +57,7 @@ const Store = () => {
         setImageUrl("");
         // Refetch products
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/products",
+          "https://mssn.pythonanywhere.com/api/products",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -74,7 +74,7 @@ const Store = () => {
   const handleDeleteProduct = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`https://mssn-abuad.onrender.com/api/products/${id}`, {
+      await axios.delete(`https://mssn.pythonanywhere.com/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Product deleted successfully!");

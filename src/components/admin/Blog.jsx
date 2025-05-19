@@ -22,7 +22,7 @@ const BlogAdmin = () => {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/blogs"
+          "https://mssn.pythonanywhere.com/api/blogs"
         );
         setBlogs(response.data);
       } catch (error) {
@@ -39,7 +39,7 @@ const BlogAdmin = () => {
     try {
       const token = localStorage.getItem("auth_token");
       await axios.post(
-        "https://mssn-abuad.onrender.com/api/blogs",
+        "https://mssn.pythonanywhere.com/api/blogs",
         {
           title,
           author,
@@ -54,7 +54,7 @@ const BlogAdmin = () => {
       );
       // Refresh blogs list
       const response = await axios.get(
-        "https://mssn-abuad.onrender.com/api/blogs"
+        "https://mssn.pythonanywhere.com/api/blogs"
       );
       setBlogs(response.data);
       setShowModal(false);
@@ -75,7 +75,7 @@ const BlogAdmin = () => {
   const deleteBlog = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      await axios.delete(`https://mssn-abuad.onrender.com/api/blogs/${id}`, {
+      await axios.delete(`https://mssn.pythonanywhere.com/api/blogs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBlogs(blogs.filter((blog) => blog.id !== id));

@@ -16,10 +16,10 @@ const AdminDashboardContext = () => {
     const fetchAllAPI = async () => {
       try {
         const [eventsRes, blogsRes, productsRes, newsRes] = await Promise.all([
-          axios.get("https://mssn-abuad.onrender.com/api/events"),
-          axios.get("https://mssn-abuad.onrender.com/api/blogs"),
-          axios.get("https://mssn-abuad.onrender.com/api/products"),
-          axios.get("https://mssn-abuad.onrender.com/api/news"),
+          axios.get("https://mssn.pythonanywhere.com/api/events"),
+          axios.get("https://mssn.pythonanywhere.com/api/blogs"),
+          axios.get("https://mssn.pythonanywhere.com/api/products"),
+          axios.get("https://mssn.pythonanywhere.com/api/news"),
         ]);
 
         setNumberOfEvents(eventsRes.data?.length);

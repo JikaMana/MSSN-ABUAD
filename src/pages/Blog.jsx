@@ -11,7 +11,7 @@ const Blog = ({ slugify }) => {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          "https://mssn-abuad.onrender.com/api/blogs"
+          "https://mssn.pythonanywhere.com/api/blogs"
         );
         setPosts(response.data);
       } catch (error) {
